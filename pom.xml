@@ -9,12 +9,12 @@
     <packaging>jar</packaging>
 
     <name>XSD Model</name>
-    <description>Java object model of a XSD.</description>
+    <description>Java object model of the XSD.</description>
     <url>https://github.com/elomagic/xsd-model</url>  
     
     <licenses>
         <license>
-            <name>Apache 2.0</name>
+            <name>Apache License, Version 2.0</name>
             <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
@@ -79,7 +79,7 @@
         
         <!-- gpg signing -->
         <gpg.skip>true</gpg.skip>
-        <gpg.server.id>gpg.elomagic</gpg.server.id>
+        <gpg.passphraseServerId>gpg.elomagic</gpg.passphraseServerId>
     </properties>
     
     <scm>                
@@ -237,7 +237,6 @@
                         </goals>
                         <configuration>                            
                             <!--<skip>${gpg.skip}</skip>-->
-                            <passphraseServerId>${gpg.server.id}</passphraseServerId>
                         </configuration>
                     </execution>
                 </executions>
