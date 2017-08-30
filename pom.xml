@@ -5,7 +5,7 @@
 
     <groupId>de.elomagic</groupId>
     <artifactId>xsd-model</artifactId>
-    <version>1.0.1-BETA</version>
+    <version>1.0.2-BETA-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>XSD Model</name>
@@ -86,7 +86,7 @@
         <url>https://github.com/elomagic/xsd-model</url>
         <connection>scm:git:https://elomagic@github.com/elomagic/xsd-model.git</connection>
         <developerConnection>scm:git:https://elomagic@github.com/elomagic/xsd-model.git</developerConnection>       
-        <tag>v1.0.1-BETA</tag>
+        <tag>HEAD</tag>
     </scm>        
     
     <build>
