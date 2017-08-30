@@ -1,0 +1,169 @@
+<?xml version="1.0"?>
+<!--
+Some XML comment text
+-->
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           elementFormDefault="qualified">
+    <xs:annotation>
+        <xs:documentation>Documentation of the schema annotation.</xs:documentation>
+    </xs:annotation>
+
+    <xs:element name="sample-xsd">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="complex1" type="complex1"/>
+                <xs:element name="complex3" type="localSettings" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="complex4" type="remotes" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="complex5" type="interfaces" minOccurs="0" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="complex1">
+        <xs:all>
+            <xs:element name="inbound" type="inbound" minOccurs="1"/>
+            <xs:element name="outbound" type="outbound" minOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="inbound">
+        <xs:all>
+            <xs:element name="localInterface" type="address" minOccurs="1"/>
+            <xs:element name="charEncoding" type="xs:string" default="UTF-8"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="outbound">
+        <xs:all>
+            <xs:element name="delay" type="xs:int" default="250"/>
+            <xs:element name="multiplier" type="xs:float" default="2.0"/>
+            <xs:element name="max" type="xs:int" default="5"/>
+            <xs:element name="charEncoding" type="xs:string" default="UTF-8"/>
+        </xs:all>
+    </xs:complexType>
+    
+
+    <xs:complexType name="in">
+        <xs:all>
+            <xs:element name="localInterface" type="address" minOccurs="1"/>
+            <xs:element name="path" type="xs:string" minOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="out">
+        <xs:all>
+            <xs:element name="remoteInterface" type="address" minOccurs="1"/>
+            <xs:element name="path" type="xs:string" minOccurs="1"/>
+        </xs:all>
+    </xs:complexType>
+    
+    <xs:complexType name="interfaces">
+        <xs:annotation>
+            <xs:documentation>Contains all remote interfaces</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="interface" type="interface" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="interface">
+        <xs:annotation>
+            <xs:documentation>Interface configuration like host name, security or what ever</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="remoteInterface" type="address"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Unique id of all interface configurations</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="address">
+        <xs:annotation>
+            <xs:documentation>Name and port of a host</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="hostname">
+                <xs:annotation>
+                    <xs:documentation>Name or IP address of a host</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:minLength value="1"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="port">
+                <xs:annotation>
+                    <xs:documentation>IP port of a host</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+                    <xs:restriction base="xs:int">
+                        <xs:minInclusive value="0"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="localSettings">
+        <xs:all>
+            <xs:element name="a" type="ad" minOccurs="0"/>
+            <xs:element name="b" type="ad" minOccurs="0"/>
+        </xs:all>
+    </xs:complexType>
+
+    <xs:complexType name="remotes">
+        <xs:annotation>
+            <xs:documentation>Contains all remote interfaces</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="setting" type="remote" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="remote">
+        <xs:all>
+            <xs:element name="type">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:pattern value="A|B|C"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element name="description" type="ad" minOccurs="1" />
+            <xs:element name="id" type="xs:string" minOccurs="1"/>
+        </xs:all>
+        <xs:attribute name="id" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Some description of the &gt;id&lt;</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+        <xs:attribute name="domain" type="xs:string" use="required">
+            <xs:annotation>
+                <xs:documentation>Some description of the domain.</xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
+    </xs:complexType>
+
+    <xs:complexType name="ad">
+        <xs:annotation>
+            <xs:documentation>Defines description details</xs:documentation>
+        </xs:annotation>
+        <xs:all>
+            <xs:element name="a" type="xs:string" default="defaultValue" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>tbd.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element name="b" type="xs:string" minOccurs="1">
+                <xs:annotation>
+                    <xs:documentation>tbd.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+        </xs:all>
+    </xs:complexType>
+</xs:schema>
