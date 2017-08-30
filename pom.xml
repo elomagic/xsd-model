@@ -79,7 +79,7 @@
         
         <!-- gpg signing -->
         <gpg.skip>true</gpg.skip>
-        <gpg.server.id>elomagic</gpg.server.id>
+        <gpg.server.id>gpg.elomagic</gpg.server.id>
     </properties>
     
     <scm>                
@@ -236,7 +236,7 @@
                             <goal>sign</goal>
                         </goals>
                         <configuration>                            
-                            <skip>${gpg.skip}</skip>
+                            <!--<skip>${gpg.skip}</skip>-->
                             <passphraseServerId>${gpg.server.id}</passphraseServerId>
                         </configuration>
                     </execution>
