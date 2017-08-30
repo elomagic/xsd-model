@@ -82,15 +82,13 @@
         <gpg.server.id>elomagic</gpg.server.id>
     </properties>
     
-    <!--
     <scm>                
         <url>https://github.com/elomagic/xsd-model</url>
         <connection>scm:git:https://elomagic@github.com/elomagic/xsd-model.git</connection>
         <developerConnection>scm:git:https://elomagic@github.com/elomagic/xsd-model.git</developerConnection>       
         <tag>HEAD</tag>
     </scm>        
-    -->
-
+    
     <build>
         <plugins>
             <plugin>
