@@ -118,7 +118,10 @@
                         <include>src/*/js/de/**/*.js</include>
                         <include>src/*/css/de/**/*.css</include>
                         <include>src/*/less/de/**/*.less</include>
-                    </includes>               
+                    </includes>  
+                    <excludes>
+                        <exclude>src/*/java/de/**/package-info.java</exclude>                        
+                    </excludes>             
                 </configuration>
                 <executions>
                     <execution>
