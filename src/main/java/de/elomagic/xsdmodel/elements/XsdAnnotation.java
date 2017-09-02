@@ -24,7 +24,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdAnnotation extends ElementGetParent, AttributeId {
+public interface XsdAnnotation extends ElementChild, AttributeId {
 
     XsdDocumentation getDocumentation();
 

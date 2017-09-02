@@ -21,7 +21,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdComplexContent extends ElementGetParent, AttributeId {
+public interface XsdComplexContent extends ElementChild, AttributeId {
 
     /**
      * Specifies whether character data is allowed to appear between the child elements of this complexType element.

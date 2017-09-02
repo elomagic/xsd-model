@@ -33,7 +33,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdKeyref extends ElementGetParent, AttributeId, AttributeName {
+public interface XsdKeyref extends ElementChild, AttributeId, AttributeName {
 
     /**
      * Specifies the name of a key or unique element defined in this or another schema.

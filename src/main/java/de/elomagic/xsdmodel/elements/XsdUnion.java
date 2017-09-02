@@ -22,7 +22,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdUnion extends ElementGetParent, AttributeId {
+public interface XsdUnion extends ElementChild, AttributeId {
 
     /**
      * Specifies a list of built-in data types or simpleType elements defined in a schema.

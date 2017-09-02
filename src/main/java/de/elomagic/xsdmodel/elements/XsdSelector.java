@@ -23,7 +23,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdSelector extends ElementGetParent, AttributeId {
+public interface XsdSelector extends ElementChild, AttributeId {
 
     /**
      * Specifies an XPath expression, relative to the element being declared, that

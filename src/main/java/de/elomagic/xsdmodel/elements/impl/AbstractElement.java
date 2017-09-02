@@ -22,7 +22,7 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
-import de.elomagic.xsdmodel.elements.ElementGetParent;
+import de.elomagic.xsdmodel.elements.ElementChild;
 
 /**
  * Each XSD element must be extended from this class.
@@ -30,7 +30,7 @@ import de.elomagic.xsdmodel.elements.ElementGetParent;
  * @author Carsten Rambow
  */
 @XmlAccessorType(XmlAccessType.NONE)
-public abstract class AbstractElement implements ElementGetParent, ElementSetParent {
+public abstract class AbstractElement implements ElementChild, ElementSetParent {
 
     private AbstractElement parent;
 

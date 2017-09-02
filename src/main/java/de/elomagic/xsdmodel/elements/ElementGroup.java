@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface ElementGroup extends ElementGetParent, AttributeId, AttributeMinMaxOccurs {
+public interface ElementGroup extends ElementChild, AttributeId, AttributeMinMaxOccurs {
 
     List<? extends XsdElement> getElements();
 

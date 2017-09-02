@@ -24,7 +24,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdNodeInfo extends ElementGetParent {
+public interface XsdNodeInfo extends ElementChild {
 
     String getMessage();
 

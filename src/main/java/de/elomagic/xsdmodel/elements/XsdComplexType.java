@@ -24,7 +24,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdComplexType extends ElementGetParent, AttributeId, AttributeName {
+public interface XsdComplexType extends ElementChild, AttributeId, AttributeName {
 
     /**
      * Specifies whether the complex type can be used in an instance document.

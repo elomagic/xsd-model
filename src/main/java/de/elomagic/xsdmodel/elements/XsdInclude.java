@@ -22,7 +22,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdInclude extends ElementGetParent, AttributeId {
+public interface XsdInclude extends ElementChild, AttributeId {
 
     /**
      * Specifies the URI to the schema to include in the target namespace of the containing schema.

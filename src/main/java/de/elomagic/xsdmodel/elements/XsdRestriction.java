@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdRestriction extends ElementGetParent {
+public interface XsdRestriction extends ElementChild {
 
     /**
      * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema

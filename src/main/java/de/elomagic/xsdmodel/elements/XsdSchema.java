@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementGetParent {
+public interface XsdSchema extends ElementChild {
 
     /**
      * Returns a the value of the attribute <code>version</code> of this <code>schema</code> element.

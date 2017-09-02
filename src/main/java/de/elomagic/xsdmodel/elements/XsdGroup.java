@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdGroup extends ElementGetParent, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
+public interface XsdGroup extends ElementChild, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
 
 }

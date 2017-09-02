@@ -21,6 +21,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdSimpleContent extends ElementGetParent, AttributeId {
+public interface XsdSimpleContent extends ElementChild, AttributeId {
 
 }

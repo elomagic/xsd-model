@@ -22,7 +22,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdAttribute extends ElementGetParent, AttributeId, AttributeName, AttributeRef {
+public interface XsdAttribute extends ElementChild, AttributeId, AttributeName, AttributeRef {
 
     /**
      * Specifies a default value for the attribute.

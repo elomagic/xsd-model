@@ -21,7 +21,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdField extends ElementGetParent, AttributeId {
+public interface XsdField extends ElementChild, AttributeId {
 
     /**
      * Identifies a single element or attribute whose content or value is used for the constraint.

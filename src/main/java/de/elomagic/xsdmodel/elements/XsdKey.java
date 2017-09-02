@@ -32,7 +32,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdKey extends ElementGetParent, AttributeId, AttributeName {
+public interface XsdKey extends ElementChild, AttributeId, AttributeName {
 
     XsdSelector getSelector();
 

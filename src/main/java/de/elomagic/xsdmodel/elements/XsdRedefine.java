@@ -22,7 +22,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdRedefine extends ElementGetParent, AttributeId {
+public interface XsdRedefine extends ElementChild, AttributeId {
 
     /**
      * A URI to the location of a schema document.

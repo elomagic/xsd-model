@@ -22,7 +22,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdImport extends ElementGetParent, AttributeId {
+public interface XsdImport extends ElementChild, AttributeId {
 
     /**
      * Specifies the URI of the namespace to import.

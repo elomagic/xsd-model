@@ -18,16 +18,17 @@
 package de.elomagic.xsdmodel.elements;
 
 /**
+ * Interface of a XSD element child.
  *
  * @author Carsten Rambow
  */
-public interface ElementGetParent {
+public interface ElementChild {
 
     /**
      * Returns parent element of this element.
      *
      * @return The parent element or null when this element is root or complex type of root.
      */
-    public ElementGetParent getParent();
+    public ElementChild getParent();
 
 }

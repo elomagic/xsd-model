@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdElement extends ElementGetParent, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
+public interface XsdElement extends ElementChild, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
 
     /**
      * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.

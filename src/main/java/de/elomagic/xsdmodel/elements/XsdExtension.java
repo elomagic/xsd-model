@@ -21,7 +21,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdExtension extends ElementGetParent, AttributeId {
+public interface XsdExtension extends ElementChild, AttributeId {
 
     /**
      * Specifies the name of a built-in data type, a simpleType element, or a complexType element.

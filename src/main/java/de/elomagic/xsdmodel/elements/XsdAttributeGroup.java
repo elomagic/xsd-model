@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdAttributeGroup extends ElementGetParent, AttributeId, AttributeName, AttributeRef {
+public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeName, AttributeRef {
 
     List<? extends XsdAttributeGroup> getAttributeGroups();
 

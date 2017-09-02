@@ -24,7 +24,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdDocumentation extends ElementGetParent {
+public interface XsdDocumentation extends ElementChild {
 
     /**
      * Specifies the source of the application information.
