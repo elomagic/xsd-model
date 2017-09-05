@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-sign</actionName>
+            <displayName>sign</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+                <goal>package</goal>
+                <goal>gpg:sign</goal>
+            </goals>
+            <properties>
+                <gpg.skip>false</gpg.skip>
+                
+            </properties>
+        </action>
+    </actions>
