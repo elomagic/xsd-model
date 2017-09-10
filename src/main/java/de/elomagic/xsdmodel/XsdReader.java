@@ -33,7 +33,7 @@ import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.elements.impl.XsdSchemaImpl;
 
 /**
- * Tooling class to read XSD's from different sources.
+ * Helper class to read XSD's from different sources.
  *
  * @author Carsten Rambow
  */
