@@ -45,7 +45,7 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD file into a XSD object model including validating against the XSD.
+     * Read a XSD file into a XSD object model.
      *
      * @param filename Name of the XSD file source.
      * @return Returns a {@link XsdSchema}
@@ -59,7 +59,7 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD from a {@link InputStream} into a XSD object model including validating against the XSD.
+     * Read a XSD from a {@link InputStream} into a XSD object model.
      *
      * @param in {@link InputStream} source of the XSD
      * @return Returns a {@link XsdSchema}
@@ -73,7 +73,7 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD from a {@link Reader} into a XSD object model including validating against the XSD.
+     * Read a XSD from a {@link Reader} into a XSD object model.
      *
      * @param reader {@link Reader} of the XSD source.
      * @return Returns a {@link XsdSchema}
