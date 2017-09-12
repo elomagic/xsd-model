@@ -18,9 +18,11 @@
 package de.elomagic.xsdmodel.elements;
 
 /**
- * The <code>node-info</code> element is a child element of the {@link XsdAppInfo} element.
+ * The <code>node-info</code> element is a customized child element of the {@link XsdAppInfo} element.
  * <p>
  * Will be used by the XmlEditor
+ *
+ * TODO Move into extention package because it isn't a XSD standard element
  *
  * @author Carsten Rambow
  */
