@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -45,7 +46,9 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD file into a XSD object model including validating against the XSD.
+     * Read the XSD file into a XSD object model including validating against the XSD.
+     * <p>
+     * XSD must be UTF-8 encoded.
      *
      * @param filename Name of the XSD file source.
      * @return Returns a {@link XsdSchema}
@@ -59,7 +62,9 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD from a {@link InputStream} into a XSD object model including validating against the XSD.
+     * Read the XSD from the {@link InputStream} into a XSD object model including validating against the XSD.
+     * <p>
+     * XSD must be UTF-8 encoded.
      *
      * @param in {@link InputStream} source of the XSD
      * @return Returns a {@link XsdSchema}
@@ -73,7 +78,9 @@ public final class XsdReader {
     }
 
     /**
-     * Read a XSD from a {@link Reader} into a XSD object model including validating against the XSD.
+     * Read the XSD from the {@link Reader} into a XSD object model including validating against the XSD.
+     * <p>
+     * XSD must be UTF-8 encoded.
      *
      * @param reader {@link Reader} of the XSD source.
      * @return Returns a {@link XsdSchema}
@@ -84,6 +91,20 @@ public final class XsdReader {
         Unmarshaller u = context.createUnmarshaller();
 
         return (XsdSchema)u.unmarshal(reader);
+    }
+
+    /**
+     * Read the XSD from the {@link File} into a XSD object model including validating against the XSD.
+     * <p>
+     * XSD must be UTF-8 encoded.
+     *
+     * @param file {@link File} of the XSD source.
+     * @return Returns a {@link XsdSchema}
+     * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
+     * @throws java.io.IOException Thrown when unable to read from the source.
+     * ö */
+    public static XsdSchema read(File file) throws JAXBException, IOException {
+        return read(file.toPath());
     }
 
 }
