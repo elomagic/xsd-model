@@ -39,6 +39,13 @@ public interface XsdRestriction extends ElementChild {
 
     XsdFractionDigits getFractionDigits();
 
+    /**
+     * Specifies the exact number of characters or list items allowed.
+     * <p>
+     * Must be equal to or greater than zero.
+     *
+     * @return Exact number of characters or list items allowed.
+     */
     XsdLength getLength();
 
     XsdMaxExclusive getMaxExclusive();
@@ -49,6 +56,13 @@ public interface XsdRestriction extends ElementChild {
 
     XsdMinExclusive getMinExclusive();
 
+    /**
+     * Specifies the maximum number of characters or list items allowed.
+     * <p>
+     * Must be equal to or greater than zero
+     *
+     * @return Maximum number of characters or list items allowed.
+     */
     XsdMaxLength getMaxLength();
 
     XsdMaxInclusive getMaxInclusive();
