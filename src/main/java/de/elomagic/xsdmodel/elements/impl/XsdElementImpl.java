@@ -40,6 +40,20 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @XmlAttribute
     private String type;
     @XmlAttribute
+    private String substitutionGroup;
+    @XmlAttribute
+    private String fixed;
+    @XmlAttribute
+    private String form;
+    @XmlAttribute
+    private String nillable;
+    @XmlAttribute(name = "abstract")
+    private String abstractValue;
+    @XmlAttribute
+    private String block;
+    @XmlAttribute(name = "final")
+    private String finalValue;
+    @XmlAttribute
     private String minOccurs;
     @XmlAttribute
     private String maxOccurs;
@@ -94,6 +108,41 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @Override
     public String getRef() {
         return ref;
+    }
+
+    @Override
+    public String getSubstitutionGroup() {
+        return substitutionGroup;
+    }
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
+
+    @Override
+    public String getForm() {
+        return form;
+    }
+
+    @Override
+    public String getNillable() {
+        return nillable;
+    }
+
+    @Override
+    public String getAbstract() {
+        return abstractValue;
+    }
+
+    @Override
+    public String getBlock() {
+        return block;
+    }
+
+    @Override
+    public String getFinal() {
+        return finalValue;
     }
 
     @Override

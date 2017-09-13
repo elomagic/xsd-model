@@ -38,13 +38,97 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
     String getType();
 
     /**
-     * Specifies a default value for the element (can only be used if the element's content is a simple type or text only)
+     * Specifies the name of an element that can be substituted with this element. This attribute cannot be used if the parent element is not the schema element
+     * <p>
+     * Optional.
+     *
+     * @return
+     */
+    String getSubstitutionGroup();
+
+    /**
+     * Specifies a default value for the element (can only be used if the element's content is a simple type or text only).
      * <p>
      * Optional.
      *
      * @return String value of attribute <code>default</code>.
      */
     String getDefault();
+
+    /**
+     * Specifies a fixed value for the element (can only be used if the element's content is a simple type or text only).
+     * <p>
+     * Optional.
+     *
+     * @return
+     */
+    String getFixed();
+
+    /**
+     * Specifies the form for the element. "unqualified" indicates that this element is not required to be qualified with
+     * the namespace prefix. "qualified" indicates that this element must be qualified with the namespace prefix. The
+     * default value is the value of the elementFormDefault attribute of the schema element. This attribute cannot be
+     * used if the parent element is the schema element.
+     * <p>
+     * Optional.
+     *
+     * @return
+     */
+    String getForm();
+
+    /**
+     * Specifies whether an explicit null value can be assigned to the element. True enables an instance of the element
+     * to have the null attribute set to true. The null attribute is defined as part of the XML Schema namespace for
+     * instances. Default is false.
+     * <p>
+     * Optional
+     *
+     * @return
+     */
+    String getNillable();
+
+    /**
+     * Specifies whether the element can be used in an instance document. True indicates that the element cannot appear
+     * in the instance document. Instead, another element whose substitutionGroup attribute contains the qualified
+     * name (QName) of this element must appear in this element's place. Default is false.
+     * <p>
+     * Optional
+     *
+     * @return
+     */
+    String getAbstract();
+
+    /**
+     * Prevents an element with a specified type of derivation from being used in place of this element. This value can
+     * contain #all or a list that is a subset of extension, restriction, or equivClass:
+     * <ul>
+     * <li>extension - prevents elements derived by extension</li>
+     * <li>restriction - prevents elements derived by restriction</li>
+     * <li>substitution - prevents elements derived by substitution</li>
+     * <li>#all - prevents all derived elements</li>
+     * </ul>
+     * <p>
+     * Optional
+     *
+     * @return
+     */
+    String getBlock();
+
+    /**
+     * Sets the default value of the final attribute on the element element. This attribute cannot be used if the
+     * parent element is not the schema element. This value can contain #all or a list that is a subset of extension
+     * or restriction:
+     * <ul>
+     * <li>extension - prevents elements derived by extension</li>
+     * <li>restriction - prevents elements derived by restriction</li>
+     * <li>#all - prevents all derived elements</li>
+     * </ul>
+     * <p>
+     * Optional
+     *
+     * @return
+     */
+    String getFinal();
 
     XsdAnnotation getAnnotation();
 
