@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
 
@@ -26,4 +27,11 @@ import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
  */
 public class XsdMaxExclusiveImpl extends AbstractValueElement implements XsdMaxExclusive {
 
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 }

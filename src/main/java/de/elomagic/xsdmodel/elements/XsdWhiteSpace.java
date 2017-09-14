@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdWhiteSpace extends ValueElement {
+public interface XsdWhiteSpace extends AttributeValue, AttributeFixed {
 
 }

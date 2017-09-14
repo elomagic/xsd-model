@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdLength;
 
@@ -26,4 +27,11 @@ import de.elomagic.xsdmodel.elements.XsdLength;
  */
 public class XsdLengthImpl extends AbstractValueElement implements XsdLength {
 
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 }

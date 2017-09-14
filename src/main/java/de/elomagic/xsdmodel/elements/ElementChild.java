@@ -26,6 +26,8 @@ public interface ElementChild {
 
     /**
      * Returns parent element of this element.
+     * <p>
+     * This method doesn't represent an element of the XSD!
      *
      * @return The parent element or null when this element is root or complex type of root.
      */

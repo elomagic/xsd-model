@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdPattern extends ValueElement {
+public interface XsdPattern extends AttributeValue {
 
 }

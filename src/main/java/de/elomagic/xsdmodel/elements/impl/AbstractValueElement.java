@@ -19,13 +19,13 @@ package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import de.elomagic.xsdmodel.elements.ValueElement;
+import de.elomagic.xsdmodel.elements.AttributeValue;
 
 /**
  *
  * @author Carsten Rambow
  */
-public abstract class AbstractValueElement extends AbstractElement implements ValueElement {
+public abstract class AbstractValueElement extends AbstractElement implements AttributeValue {
 
     @XmlAttribute
     private String value;

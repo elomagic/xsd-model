@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdFractionDigits;
 
@@ -25,5 +26,13 @@ import de.elomagic.xsdmodel.elements.XsdFractionDigits;
  * @author Carsten Rambow
  */
 public class XsdFractionDigitsImpl extends AbstractValueElement implements XsdFractionDigits {
+
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 
 }

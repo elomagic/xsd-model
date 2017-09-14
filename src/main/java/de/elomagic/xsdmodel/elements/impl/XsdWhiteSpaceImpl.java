@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdWhiteSpace;
 
@@ -25,5 +26,13 @@ import de.elomagic.xsdmodel.elements.XsdWhiteSpace;
  * @author Carsten Rambow
  */
 public class XsdWhiteSpaceImpl extends AbstractValueElement implements XsdWhiteSpace {
+
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 
 }

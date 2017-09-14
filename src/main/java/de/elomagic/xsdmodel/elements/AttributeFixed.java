@@ -18,12 +18,11 @@
 package de.elomagic.xsdmodel.elements;
 
 /**
- * Specifies the exact number of characters or list items allowed.
- * <p>
- * Must be equal to or greater than zero.
  *
  * @author Carsten Rambow
  */
-public interface XsdLength extends AttributeValue, AttributeFixed {
+public interface AttributeFixed {
+
+    String getFixed();
 
 }

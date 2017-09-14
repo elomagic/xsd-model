@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdMinLength extends ValueElement {
+public interface XsdMinLength extends AttributeValue, AttributeFixed {
 
 }

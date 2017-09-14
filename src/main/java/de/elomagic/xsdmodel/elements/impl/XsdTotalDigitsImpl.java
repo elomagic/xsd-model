@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdTotalDigits;
 
@@ -25,5 +26,13 @@ import de.elomagic.xsdmodel.elements.XsdTotalDigits;
  * @author Carsten Rambow
  */
 public class XsdTotalDigitsImpl extends AbstractValueElement implements XsdTotalDigits {
+
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 
 }

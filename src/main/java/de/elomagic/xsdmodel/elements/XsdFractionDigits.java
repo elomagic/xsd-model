@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdFractionDigits extends ValueElement {
+public interface XsdFractionDigits extends AttributeValue, AttributeFixed {
 
 }

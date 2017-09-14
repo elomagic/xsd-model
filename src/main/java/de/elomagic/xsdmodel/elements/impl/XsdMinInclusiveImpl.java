@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdMinInclusive;
 
@@ -26,4 +27,11 @@ import de.elomagic.xsdmodel.elements.XsdMinInclusive;
  */
 public class XsdMinInclusiveImpl extends AbstractValueElement implements XsdMinInclusive {
 
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 }

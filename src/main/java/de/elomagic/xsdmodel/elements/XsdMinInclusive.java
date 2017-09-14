@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdMinInclusive extends ValueElement {
+public interface XsdMinInclusive extends AttributeValue, AttributeFixed {
 
 }

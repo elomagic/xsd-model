@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlAttribute;
+
 import de.elomagic.xsdmodel.elements.XsdMaxLength;
 
 /**
@@ -25,4 +27,11 @@ import de.elomagic.xsdmodel.elements.XsdMaxLength;
  */
 public class XsdMaxLengthImpl extends AbstractValueElement implements XsdMaxLength {
 
+    @XmlAttribute
+    private String fixed;
+
+    @Override
+    public String getFixed() {
+        return fixed;
+    }
 }
