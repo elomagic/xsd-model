@@ -18,7 +18,9 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
 
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdEnumeration;
 
 /**
@@ -31,9 +33,17 @@ public class XsdEnumerationImpl extends AbstractElement implements XsdEnumeratio
     @XmlAttribute
     private String value;
 
+    @XmlElement
+    private XsdAnnotationImpl annotation;
+
     @Override
     public String getValue() {
         return value;
+    }
+
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
     }
 
 }

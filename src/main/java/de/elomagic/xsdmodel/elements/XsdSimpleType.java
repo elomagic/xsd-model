@@ -23,7 +23,9 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdSimpleType extends ElementChild, AttributeId, AttributeName {
+public interface XsdSimpleType extends ElementAnnotation, AttributeId, AttributeName {
+
+    String getFinal();
 
     XsdRestriction getRestriction();
 

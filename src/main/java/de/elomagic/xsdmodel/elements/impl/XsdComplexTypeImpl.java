@@ -19,10 +19,16 @@ package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdSimpleContent;
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
 
 /**
  *
@@ -33,15 +39,19 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     @XmlAttribute
     private String id;
     @XmlAttribute(name = "abstract")
-    private String abstractValue;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean abstractValue;
     @XmlAttribute
     private String name;
     @XmlAttribute
-    private String mixed;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean mixed;
     @XmlAttribute
-    private String block;
+    @XmlJavaTypeAdapter(BlockValueAdapter.class)
+    private Block block;
     @XmlAttribute(name = "final")
-    private String finalValue;
+    @XmlJavaTypeAdapter(FinalValueAdapter.class)
+    private Final finalValue;
 
     @XmlElement
     private XsdSimpleContentImpl simpleContent;
@@ -65,22 +75,22 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
-    public String getAbstract() {
+    public Boolean getAbstract() {
         return abstractValue;
     }
 
     @Override
-    public String getMixed() {
+    public Boolean getMixed() {
         return mixed;
     }
 
     @Override
-    public String getBlock() {
+    public Block getBlock() {
         return block;
     }
 
     @Override
-    public String getFinal() {
+    public Final getFinal() {
         return finalValue;
     }
 

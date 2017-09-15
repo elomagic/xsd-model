@@ -23,6 +23,6 @@ package de.elomagic.xsdmodel.elements;
  */
 public interface AttributeFixed {
 
-    String getFixed();
+    Boolean getFixed();
 
 }

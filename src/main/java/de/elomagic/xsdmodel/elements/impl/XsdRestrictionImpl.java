@@ -22,6 +22,8 @@ import java.util.List;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
+import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
 import de.elomagic.xsdmodel.elements.XsdRestriction;
 
 /**
@@ -32,6 +34,8 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
 
     @XmlAttribute
     private String base;
+    @XmlAttribute
+    private String id;
 
     @XmlElement(name = "enumeration")
     private List<XsdEnumerationImpl> enumerations;
@@ -57,10 +61,17 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     private XsdTotalDigitsImpl totalDigits;
     @XmlElement
     private XsdWhiteSpaceImpl whiteSpace;
+    @XmlElement
+    private XsdAnnotationImpl annotation;
 
     @Override
     public String getBase() {
         return base;
+    }
+
+    @Override
+    public String getId() {
+        return id;
     }
 
     @Override
@@ -82,7 +93,7 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
-    public XsdMaxExclusiveImpl getMaxExclusive() {
+    public XsdMaxExclusive getMaxExclusive() {
         setParentInProperty(maxExclusive);
         return maxExclusive;
     }
@@ -135,4 +146,8 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
         return whiteSpace;
     }
 
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
+    }
 }

@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementChild {
+public interface XsdSchema extends ElementAnnotation {
 
     /**
      * Returns a the value of the attribute <code>version</code> of this <code>schema</code> element.
@@ -68,13 +68,6 @@ public interface XsdSchema extends ElementChild {
      * @return List of elements <code>redefine</code>.
      */
     List<? extends XsdRedefine> getRedefines();
-
-    /**
-     * Returns root {@link XsdAnnotation} represented in the XSD by the element <code>annotation</code>.
-     *
-     * @return Element <code>annotation</code>.
-     */
-    XsdAnnotation getAnnotation();
 
     /**
      * Returns root {@link XsdElement} represented in the XSD by the element <code>element</code>.

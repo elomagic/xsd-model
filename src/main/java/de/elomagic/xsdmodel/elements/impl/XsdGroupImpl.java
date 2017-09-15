@@ -18,7 +18,10 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
+import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdGroup;
 
 /**
@@ -32,9 +35,11 @@ public class XsdGroupImpl extends AbstractElement implements XsdGroup {
     @XmlAttribute
     private String name;
     @XmlAttribute
-    private String minOccurs;
+    @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
+    private Integer minOccurs;
     @XmlAttribute
-    private String maxOccurs;
+    @XmlJavaTypeAdapter(MaxOccursAttributeAdapter.class)
+    private Integer maxOccurs;
     @XmlAttribute
     private String ref;
 
@@ -49,12 +54,12 @@ public class XsdGroupImpl extends AbstractElement implements XsdGroup {
     }
 
     @Override
-    public String getMaxOccurs() {
+    public Integer getMaxOccurs() {
         return maxOccurs;
     }
 
     @Override
-    public String getMinOccurs() {
+    public Integer getMinOccurs() {
         return minOccurs;
     }
 

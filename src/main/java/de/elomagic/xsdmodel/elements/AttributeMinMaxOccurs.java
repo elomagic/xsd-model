@@ -32,7 +32,7 @@ public interface AttributeMinMaxOccurs {
      *
      * @return String value of attribute <code>max</code>.
      */
-    String getMaxOccurs();
+    Integer getMaxOccurs();
 
     /**
      * Specifies the minimum number of times the choice element can occur in the parent the element.
@@ -42,6 +42,6 @@ public interface AttributeMinMaxOccurs {
      *
      * @return String value of attribute <code>min</code>.
      */
-    String getMinOccurs();
+    Integer getMinOccurs();
 
 }

@@ -15,23 +15,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.elomagic.xsdmodel.elements;
+package de.elomagic.xsdmodel.enumerations;
+
+import java.util.Arrays;
 
 /**
- * The <code>node-info</code> element is a customized child element of the {@link XsdAppInfo} element.
- * <p>
- * Will be used by the XmlEditor
- *
- * TODO Move into extention package because it isn't a XSD standard element
  *
  * @author Carsten Rambow
  */
-public interface XsdNodeInfo extends ElementChild {
+public enum Form {
 
-    String getMessage();
+    qualified("qualified"),
+    unqualified("unqualified");
 
-    String getEditorClass();
+    private final String value;
 
-    String getEditorId();
+    private Form(String value) {
+        this.value = value;
+    }
 
+    public String getValue() {
+        return value;
+    }
+
+    public static Form parseValue(String value) {
+        for(Form item : values()) {
+            if(item.getValue().equals(value)) {
+                return item;
+            }
+        }
+
+        throw new IllegalArgumentException("Invalid value \"" + value + "\". Supported values are: " + Arrays.toString(values()));
+    }
 }

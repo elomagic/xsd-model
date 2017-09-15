@@ -17,6 +17,9 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import javax.xml.bind.annotation.XmlElement;
+
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdPattern;
 
 /**
@@ -24,5 +27,13 @@ import de.elomagic.xsdmodel.elements.XsdPattern;
  * @author Carsten Rambow
  */
 public class XsdPatternImpl extends AbstractValueElement implements XsdPattern {
+
+    @XmlElement
+    private XsdAnnotationImpl annotation;
+
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
+    }
 
 }

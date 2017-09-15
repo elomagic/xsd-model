@@ -25,7 +25,7 @@ import de.elomagic.xsdmodel.elements.AttributeValue;
  *
  * @author Carsten Rambow
  */
-public abstract class AbstractValueElement extends AbstractElement implements AttributeValue {
+public abstract class AbstractValueElement extends AbstractElement implements AttributeValue<String> {
 
     @XmlAttribute
     private String value;

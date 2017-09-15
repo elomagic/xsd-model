@@ -17,10 +17,13 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import java.net.URI;
+
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdImport;
-
 
 /**
  *
@@ -33,7 +36,8 @@ public class XsdImportImpl extends AbstractElement implements XsdImport {
     @XmlAttribute
     private String namespace;
     @XmlAttribute
-    private String schemaLocation;
+    @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
+    private URI schemaLocation;
 
     @Override
     public String getId() {
@@ -46,7 +50,7 @@ public class XsdImportImpl extends AbstractElement implements XsdImport {
     }
 
     @Override
-    public String getSchemaLocation() {
+    public URI getSchemaLocation() {
         return schemaLocation;
     }
 

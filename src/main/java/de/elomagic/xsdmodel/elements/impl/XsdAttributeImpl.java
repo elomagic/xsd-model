@@ -19,8 +19,13 @@ package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
+import de.elomagic.xsdmodel.adapter.UseValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdAttribute;
+import de.elomagic.xsdmodel.enumerations.Form;
+import de.elomagic.xsdmodel.enumerations.Use;
 
 /**
  *
@@ -35,11 +40,13 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     @XmlAttribute
     private String fixed;
     @XmlAttribute
-    private String form;
+    @XmlJavaTypeAdapter(FormAttributeAdapter.class)
+    private Form form;
     @XmlAttribute
     private String type;
     @XmlAttribute
-    private String use;
+    @XmlJavaTypeAdapter(UseValueAdapter.class)
+    private Use use;
     @XmlAttribute(name = "default")
     private String defaultValue;
     @XmlAttribute
@@ -64,7 +71,7 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
-    public String getUse() {
+    public Use getUse() {
         return use;
     }
 
@@ -90,7 +97,7 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
-    public String getForm() {
+    public Form getForm() {
         return form;
     }
 

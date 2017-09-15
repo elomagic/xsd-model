@@ -19,6 +19,10 @@ package de.elomagic.xsdmodel.elements;
 
 import java.util.List;
 
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
+import de.elomagic.xsdmodel.enumerations.Form;
+
 /**
  * The <code>element</code> element defines an element.
  * <p>
@@ -26,7 +30,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdElement extends ElementChild, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
+public interface XsdElement extends ElementAnnotation, AttributeId, AttributeName, AttributeMinMaxOccurs, AttributeRef {
 
     /**
      * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.
@@ -42,7 +46,7 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional.
      *
-     * @return
+     * @return The substitution group
      */
     String getSubstitutionGroup();
 
@@ -60,7 +64,7 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional.
      *
-     * @return
+     * @return The fixed value
      */
     String getFixed();
 
@@ -72,9 +76,9 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional.
      *
-     * @return
+     * @return The form value
      */
-    String getForm();
+    Form getForm();
 
     /**
      * Specifies whether an explicit null value can be assigned to the element. True enables an instance of the element
@@ -83,9 +87,9 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional
      *
-     * @return
+     * @return The nillable value
      */
-    String getNillable();
+    Boolean getNillable();
 
     /**
      * Specifies whether the element can be used in an instance document. True indicates that the element cannot appear
@@ -94,9 +98,9 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional
      *
-     * @return
+     * @return The abstract value.
      */
-    String getAbstract();
+    Boolean getAbstract();
 
     /**
      * Prevents an element with a specified type of derivation from being used in place of this element. This value can
@@ -110,9 +114,9 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional
      *
-     * @return
+     * @return The block value
      */
-    String getBlock();
+    Block getBlock();
 
     /**
      * Sets the default value of the final attribute on the element element. This attribute cannot be used if the
@@ -126,11 +130,9 @@ public interface XsdElement extends ElementChild, AttributeId, AttributeName, At
      * <p>
      * Optional
      *
-     * @return
+     * @return The final value
      */
-    String getFinal();
-
-    XsdAnnotation getAnnotation();
+    Final getFinal();
 
     XsdSimpleType getSimpleType();
 

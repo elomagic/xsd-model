@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
+
 /**
  * The <code>import</code> element is used to add multiple schemas with different target namespace to a document.
  *
@@ -40,6 +42,6 @@ public interface XsdImport extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>schemaLocation</code>.
      */
-    String getSchemaLocation();
+    URI getSchemaLocation();
 
 }

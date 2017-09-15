@@ -18,7 +18,11 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdMinInclusive;
 
 /**
@@ -28,10 +32,19 @@ import de.elomagic.xsdmodel.elements.XsdMinInclusive;
 public class XsdMinInclusiveImpl extends AbstractValueElement implements XsdMinInclusive {
 
     @XmlAttribute
-    private String fixed;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean fixed;
+
+    @XmlElement
+    private XsdAnnotationImpl annotation;
 
     @Override
-    public String getFixed() {
+    public Boolean getFixed() {
         return fixed;
+    }
+
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
     }
 }

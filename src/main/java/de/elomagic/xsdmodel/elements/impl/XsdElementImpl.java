@@ -21,11 +21,21 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
+import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
+import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
+import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdKey;
 import de.elomagic.xsdmodel.elements.XsdKeyref;
 import de.elomagic.xsdmodel.elements.XsdUnique;
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
+import de.elomagic.xsdmodel.enumerations.Form;
 
 /**
  *
@@ -44,19 +54,26 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @XmlAttribute
     private String fixed;
     @XmlAttribute
-    private String form;
+    @XmlJavaTypeAdapter(FormAttributeAdapter.class)
+    private Form form;
     @XmlAttribute
-    private String nillable;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean nillable;
     @XmlAttribute(name = "abstract")
-    private String abstractValue;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean abstractValue;
     @XmlAttribute
-    private String block;
+    @XmlJavaTypeAdapter(BlockValueAdapter.class)
+    private Block block;
     @XmlAttribute(name = "final")
-    private String finalValue;
+    @XmlJavaTypeAdapter(FinalValueAdapter.class)
+    private Final finalValue;
     @XmlAttribute
-    private String minOccurs;
+    @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
+    private Integer minOccurs;
     @XmlAttribute
-    private String maxOccurs;
+    @XmlJavaTypeAdapter(MaxOccursAttributeAdapter.class)
+    private Integer maxOccurs;
     @XmlAttribute(name = "default")
     private String defaultValue;
     @XmlAttribute
@@ -91,12 +108,12 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public String getMinOccurs() {
+    public Integer getMinOccurs() {
         return minOccurs;
     }
 
     @Override
-    public String getMaxOccurs() {
+    public Integer getMaxOccurs() {
         return maxOccurs;
     }
 
@@ -121,27 +138,27 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public String getForm() {
+    public Form getForm() {
         return form;
     }
 
     @Override
-    public String getNillable() {
+    public Boolean getNillable() {
         return nillable;
     }
 
     @Override
-    public String getAbstract() {
+    public Boolean getAbstract() {
         return abstractValue;
     }
 
     @Override
-    public String getBlock() {
+    public Block getBlock() {
         return block;
     }
 
     @Override
-    public String getFinal() {
+    public Final getFinal() {
         return finalValue;
     }
 

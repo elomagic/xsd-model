@@ -30,6 +30,6 @@ public interface XsdComplexContent extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>mixed</code>.
      */
-    String getMixed();
+    Boolean getMixed();
 
 }

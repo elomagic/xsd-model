@@ -17,6 +17,10 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
+
+import de.elomagic.xsdmodel.elements.extention.XsdNodeInfo;
+
 /**
  * The <code>appinfo</code> element specifies information to be used by the application.
  * <p>
@@ -33,7 +37,7 @@ public interface XsdAppInfo extends ElementChild {
      *
      * @return String value of attribute <code>source</code>.
      */
-    String getSource();
+    URI getSource();
 
     XsdNodeInfo getNodeInfo();
 

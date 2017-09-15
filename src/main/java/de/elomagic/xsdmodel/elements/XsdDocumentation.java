@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
+
 /**
  * The documentation element is used to enter text comments in a schema.
  * <p>
@@ -33,7 +35,7 @@ public interface XsdDocumentation extends ElementChild {
      *
      * @return String value of attribute <code>source</code>.
      */
-    String getSource();
+    URI getSource();
 
     /**
      * Specifies the language used in the contents.

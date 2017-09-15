@@ -24,7 +24,7 @@ import java.util.List;
  *
  * @author Carsten Rambow
  */
-public interface XsdRestriction extends ElementChild {
+public interface XsdRestriction extends ElementAnnotation, AttributeId {
 
     /**
      * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema

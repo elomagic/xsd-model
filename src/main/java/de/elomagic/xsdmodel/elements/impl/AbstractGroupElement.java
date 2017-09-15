@@ -21,7 +21,10 @@ import java.util.List;
 
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
+import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 
 /**
@@ -33,9 +36,11 @@ public abstract class AbstractGroupElement extends AbstractElement implements El
     @XmlAttribute
     private String id;
     @XmlAttribute
-    private String maxOccurs;
+    @XmlJavaTypeAdapter(MaxOccursAttributeAdapter.class)
+    private Integer maxOccurs;
     @XmlAttribute
-    private String minOccurs;
+    @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
+    private Integer minOccurs;
 
     @XmlElement(name = "element")
     private List<XsdElementImpl> elements;
@@ -46,12 +51,12 @@ public abstract class AbstractGroupElement extends AbstractElement implements El
     }
 
     @Override
-    public String getMaxOccurs() {
+    public Integer getMaxOccurs() {
         return maxOccurs;
     }
 
     @Override
-    public String getMinOccurs() {
+    public Integer getMinOccurs() {
         return minOccurs;
     }
 

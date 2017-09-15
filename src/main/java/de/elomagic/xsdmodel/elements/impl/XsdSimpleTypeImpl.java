@@ -20,6 +20,7 @@ package de.elomagic.xsdmodel.elements.impl;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdList;
 import de.elomagic.xsdmodel.elements.XsdSimpleType;
 import de.elomagic.xsdmodel.elements.XsdUnion;
@@ -30,6 +31,8 @@ import de.elomagic.xsdmodel.elements.XsdUnion;
  */
 public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType {
 
+    @XmlAttribute(name = "final")
+    private String finalValue;
     @XmlAttribute
     private String id;
     @XmlAttribute
@@ -41,6 +44,13 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     private XsdListImpl list;
     @XmlElement
     private XsdUnionImpl union;
+    @XmlElement
+    private XsdAnnotationImpl annotation;
+
+    @Override
+    public String getFinal() {
+        return finalValue;
+    }
 
     @Override
     public String getId() {
@@ -70,4 +80,8 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
         return union;
     }
 
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
+    }
 }

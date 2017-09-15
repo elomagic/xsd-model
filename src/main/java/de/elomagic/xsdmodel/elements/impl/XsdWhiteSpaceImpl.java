@@ -18,20 +18,33 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.WhiteSpaceValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdWhiteSpace;
+import de.elomagic.xsdmodel.enumerations.WhiteSpace;
 
 /**
  *
  * @author Carsten Rambow
  */
-public class XsdWhiteSpaceImpl extends AbstractValueElement implements XsdWhiteSpace {
+public class XsdWhiteSpaceImpl extends AbstractElement implements XsdWhiteSpace {
 
     @XmlAttribute
-    private String fixed;
+    @XmlJavaTypeAdapter(WhiteSpaceValueAdapter.class)
+    private WhiteSpace value;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean fixed;
 
     @Override
-    public String getFixed() {
+    public WhiteSpace getValue() {
+        return value;
+    }
+
+    @Override
+    public Boolean getFixed() {
         return fixed;
     }
 

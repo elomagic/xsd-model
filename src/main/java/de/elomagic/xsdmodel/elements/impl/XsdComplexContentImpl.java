@@ -18,7 +18,9 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 
 /**
@@ -30,7 +32,8 @@ public class XsdComplexContentImpl extends AbstractElement implements XsdComplex
     @XmlAttribute
     private String id;
     @XmlAttribute
-    private String mixed;
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean mixed;
 
     @Override
     public String getId() {
@@ -38,7 +41,7 @@ public class XsdComplexContentImpl extends AbstractElement implements XsdComplex
     }
 
     @Override
-    public String getMixed() {
+    public Boolean getMixed() {
         return mixed;
     }
 

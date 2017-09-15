@@ -17,6 +17,9 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
+
 /**
  * The <code>complexType</code> element defines a complex type.
  * <p>
@@ -34,7 +37,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      *
      * @return String value of attribute <code>abstract</code>.
      */
-    String getAbstract();
+    Boolean getAbstract();
 
     /**
      * Specifies whether character data is allowed to appear between the child elements of this complexType element.
@@ -43,7 +46,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      *
      * @return String value of attribute <code>mixed</code>.
      */
-    String getMixed();
+    Boolean getMixed();
 
     /**
      * Prevents a complex type that has a specified type of derivation from being used in place of this complex type.
@@ -57,7 +60,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      *
      * @return String value of attribute <code>block</code>.
      */
-    String getBlock();
+    Block getBlock();
 
     /**
      * Prevents a specified type of derivation of this complex type element.
@@ -71,7 +74,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      *
      * @return String value of attribute <code>final</code>.
      */
-    String getFinal();
+    Final getFinal();
 
     XsdAll getAll();
 

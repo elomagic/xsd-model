@@ -18,21 +18,43 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.PositiveIntegerAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdTotalDigits;
 
 /**
  *
  * @author Carsten Rambow
  */
-public class XsdTotalDigitsImpl extends AbstractValueElement implements XsdTotalDigits {
+public class XsdTotalDigitsImpl extends AbstractElement implements XsdTotalDigits {
 
     @XmlAttribute
-    private String fixed;
+    @XmlJavaTypeAdapter(PositiveIntegerAdapter.class)
+    private Integer value;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean fixed;
+
+    @XmlElement
+    private XsdAnnotationImpl annotation;
 
     @Override
-    public String getFixed() {
+    public Boolean getFixed() {
         return fixed;
+    }
+
+    @Override
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
     }
 
 }

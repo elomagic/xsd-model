@@ -17,12 +17,15 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import de.elomagic.xsdmodel.enumerations.Form;
+import de.elomagic.xsdmodel.enumerations.Use;
+
 /**
  * The <code>attribute</code> element defines an attribute.
  *
  * @author Carsten Rambow
  */
-public interface XsdAttribute extends ElementChild, AttributeId, AttributeName, AttributeRef {
+public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeName, AttributeRef {
 
     /**
      * Specifies a default value for the attribute.
@@ -56,7 +59,7 @@ public interface XsdAttribute extends ElementChild, AttributeId, AttributeName, 
      *
      * @return String value of attribute <code>form</code>.
      */
-    String getForm();
+    Form getForm();
 
     /**
      * Specifies a built-in data type or a simple type.
@@ -79,7 +82,6 @@ public interface XsdAttribute extends ElementChild, AttributeId, AttributeName, 
      *
      * @return String value of attribute <code>use</code>.
      */
-    String getUse();
+    Use getUse();
 
-    XsdAnnotation getAnnotation();
 }

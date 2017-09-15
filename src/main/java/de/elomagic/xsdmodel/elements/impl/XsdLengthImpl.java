@@ -18,20 +18,43 @@
 package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdLength;
 
 /**
  *
  * @author Carsten Rambow
  */
-public class XsdLengthImpl extends AbstractValueElement implements XsdLength {
+public class XsdLengthImpl extends AbstractElement implements XsdLength {
 
     @XmlAttribute
-    private String fixed;
+    @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
+    private Integer value;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)
+    private Boolean fixed;
+
+    @XmlElement
+    private XsdAnnotationImpl annotation;
 
     @Override
-    public String getFixed() {
+    public Boolean getFixed() {
         return fixed;
     }
+
+    @Override
+    public Integer getValue() {
+        return value;
+    }
+
+    @Override
+    public XsdAnnotation getAnnotation() {
+        return annotation;
+    }
+
 }

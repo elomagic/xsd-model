@@ -17,11 +17,15 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import java.net.URI;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlValue;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdDocumentation;
 
 /**
@@ -34,7 +38,8 @@ public final class XsdDocumentationImpl implements XsdDocumentation, ElementSetP
     private AbstractElement parent;
 
     @XmlAttribute
-    private String source;
+    @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
+    private URI source;
     @XmlAttribute(name = "lang", namespace = "http://www.w3.org/XML/1998/namespace")
     private String language;
 
@@ -42,7 +47,7 @@ public final class XsdDocumentationImpl implements XsdDocumentation, ElementSetP
     private String value;
 
     @Override
-    public String getSource() {
+    public URI getSource() {
         return source;
     }
 

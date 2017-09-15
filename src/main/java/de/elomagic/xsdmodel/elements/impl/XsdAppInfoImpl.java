@@ -17,9 +17,13 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import java.net.URI;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdAppInfo;
 
 /**
@@ -29,12 +33,13 @@ import de.elomagic.xsdmodel.elements.XsdAppInfo;
 public class XsdAppInfoImpl extends AbstractElement implements XsdAppInfo {
 
     @XmlAttribute
-    private String source;
+    @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
+    private URI source;
     @XmlElement(name = "node-info")
     private XsdNodeInfoImpl nodeInfo;
 
     @Override
-    public String getSource() {
+    public URI getSource() {
         return source;
     }
 

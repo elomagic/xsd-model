@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
+
 /**
  * The <code>include</code> element is used to add multiple schemas with the same target namespace to a document.
  *
@@ -31,6 +33,6 @@ public interface XsdInclude extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>schemaLocation</code>.
      */
-    String getSchemaLocation();
+    URI getSchemaLocation();
 
 }

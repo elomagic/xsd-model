@@ -17,11 +17,13 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import de.elomagic.xsdmodel.enumerations.WhiteSpace;
+
 /**
  * Specifies how white space (line feeds, tabs, spaces, and carriage returns) is handled.
  *
  * @author Carsten Rambow
  */
-public interface XsdWhiteSpace extends AttributeValue, AttributeFixed {
+public interface XsdWhiteSpace extends AttributeValue<WhiteSpace>, AttributeFixed {
 
 }

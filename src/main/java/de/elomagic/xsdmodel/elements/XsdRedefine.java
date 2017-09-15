@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
+
 /**
  * The redefine element redefines simple and complex types, groups, and attribute groups from an external schema.
  *
@@ -31,6 +33,6 @@ public interface XsdRedefine extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>schemaLocation</code>.
      */
-    String getSchemaLocation();
+    URI getSchemaLocation();
 
 }

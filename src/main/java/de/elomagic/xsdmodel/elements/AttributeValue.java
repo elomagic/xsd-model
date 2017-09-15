@@ -21,8 +21,8 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface AttributeValue {
+public interface AttributeValue<T> {
 
-    String getValue();
+    T getValue();
 
 }

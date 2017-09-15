@@ -19,7 +19,7 @@ package de.elomagic.xsdmodel.elements.impl;
 
 import javax.xml.bind.annotation.XmlAttribute;
 
-import de.elomagic.xsdmodel.elements.XsdNodeInfo;
+import de.elomagic.xsdmodel.elements.extention.XsdNodeInfo;
 
 /**
  *
