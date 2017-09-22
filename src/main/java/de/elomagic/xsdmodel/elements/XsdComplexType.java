@@ -76,14 +76,57 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      */
     Final getFinal();
 
+    /**
+     * Returns the <code>all</code> element if exists.
+     * <p>
+     * The <code>all</code> element specifies that the child elements can appear in any order and that each child element can occur zero or one time (Default is one time).
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_all.asp">W3Schools</a>
+     *
+     * @return Returns the element of null
+     */
     XsdAll getAll();
 
+    /**
+     * Returns the <code>simpleContent</code> element if exists.
+     * <p>
+     * The <code>simpleContent</code> element contains extensions or restrictions on a text-only complex type or on a simple type as content and contains no elements.
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_simpleContent.asp">W3Schools</a>
+     *
+     * @return Returns the element of null
+     */
     XsdSimpleContent getSimpleContent();
 
+    /**
+     * Returns the <code>complexContent</code> element if exists.
+     * <p>
+     * The <code>complexContent</code> element defines extensions or restrictions on a complex type that contains mixed content or elements only.
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_complexcontent.asp">W3Schools</a>
+     *
+     * @return Returns the element of null
+     */
     XsdComplexContent getComplexContent();
 
+    /**
+     * Returns the <code>sequence</code> element if exists.
+     * <p>
+     * The <code>sequence</code> element specifies that the child elements must appear in a sequence. Each child element can occur from 0 to any number of times (Default is one time).
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_sequence.asp">W3Schools</a>
+     *
+     * @return Returns the element of null
+     */
     XsdSequence getSequence();
 
+    /**
+     * Returns the <code>choice</code> element if exists.
+     * <p>
+     * XML Schema <code>choice</code> element allows only one of the elements contained in the &lt;choice&gt; declaration to be present within the containing element (Default is one time).
+     *
+     * @return Returns the element of null
+     */
     XsdChoice getChoice();
 
 }
