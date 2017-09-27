@@ -30,6 +30,8 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 
+import org.xml.sax.SAXException;
+
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.elements.impl.XsdSchemaImpl;
 
@@ -54,8 +56,9 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
+     * @throws org.xml.sax.SAXException
      */
-    public static XsdSchema read(Path filename) throws JAXBException, IOException {
+    public static XsdSchema read(Path filename) throws JAXBException, IOException, SAXException {
         try (Reader reader = Files.newBufferedReader(filename, StandardCharsets.UTF_8)) {
             return read(reader);
         }
@@ -71,7 +74,7 @@ public final class XsdReader {
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
      */
-    public static XsdSchema read(InputStream in) throws JAXBException, IOException {
+    public static XsdSchema read(InputStream in) throws JAXBException, IOException, SAXException {
         try (Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
             return read(reader);
         }
@@ -85,10 +88,17 @@ public final class XsdReader {
      * @param reader {@link Reader} of the XSD source.
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
+     * @throws org.xml.sax.SAXException
      */
-    public static XsdSchema read(Reader reader) throws JAXBException {
+    public static XsdSchema read(Reader reader) throws JAXBException, SAXException {
+        //SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        //Schema schema = sf.newSchema();
+        // https://www.w3.org/2001/XMLSchema.dtd
+        // https://www.w3.org/2001/datatypes.dtd
+
         JAXBContext context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
         Unmarshaller u = context.createUnmarshaller();
+        //u.setSchema(schema);
 
         return (XsdSchema)u.unmarshal(reader);
     }
@@ -102,8 +112,9 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * ö */
-    public static XsdSchema read(File file) throws JAXBException, IOException {
+     * ö
+     * @throws org.xml.sax.SAXException */
+    public static XsdSchema read(File file) throws JAXBException, IOException, SAXException {
         return read(file.toPath());
     }
 
