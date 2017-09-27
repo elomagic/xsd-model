@@ -22,13 +22,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
@@ -56,7 +61,7 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * @throws org.xml.sax.SAXException
+     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
      */
     public static XsdSchema read(Path filename) throws JAXBException, IOException, SAXException {
         try (Reader reader = Files.newBufferedReader(filename, StandardCharsets.UTF_8)) {
@@ -73,6 +78,7 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
+     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
      */
     public static XsdSchema read(InputStream in) throws JAXBException, IOException, SAXException {
         try (Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
@@ -88,17 +94,17 @@ public final class XsdReader {
      * @param reader {@link Reader} of the XSD source.
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
-     * @throws org.xml.sax.SAXException
+     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
+     * @throws java.net.MalformedURLException Thrown when unable to read the one of the XSD which required to validate the to be read XSD.
      */
-    public static XsdSchema read(Reader reader) throws JAXBException, SAXException {
-        //SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        //Schema schema = sf.newSchema();
-        // https://www.w3.org/2001/XMLSchema.dtd
-        // https://www.w3.org/2001/datatypes.dtd
+    public static XsdSchema read(Reader reader) throws JAXBException, SAXException, MalformedURLException {
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        sf.setResourceResolver(XsdInput::new);
+        Schema schema = sf.newSchema(new URL(XsdInput.URL_XMLSCHEMA_XSD));
 
         JAXBContext context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
         Unmarshaller u = context.createUnmarshaller();
-        //u.setSchema(schema);
+        u.setSchema(schema);
 
         return (XsdSchema)u.unmarshal(reader);
     }
