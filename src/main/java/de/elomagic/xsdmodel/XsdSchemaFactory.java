@@ -17,23 +17,25 @@
  */
 package de.elomagic.xsdmodel;
 
-import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
+import javax.xml.validation.Schema;
 
-import org.junit.Assert;
-import org.junit.Test;
+/**
+ *
+ * @author Carsten Rambow
+ */
+public interface XsdSchemaFactory {
 
-import de.elomagic.xsdmodel.elements.XsdSchema;
+    /**
+     * System property key to set an alternative factory class provider.
+     */
+    final String XSD_SCHEMA_FACTORY_CLASS = "de.elomagic.xsdmodel.xsd_factory_class";
 
-public class XsdReaderTest {
-
-    @Test
-    public void testRead() throws Exception {
-        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
-
-        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
-
-        Assert.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
-        Assert.assertEquals(12, schema.getComplexTypes().size());
-    }
+    /**
+     * Method to create a {@link Schema} for validation.
+     *
+     * @return The {@link Schema} or null to disable schema validation
+     * @throws Exception Thrown when unable to create a {@link Schema}
+     */
+    Schema createSchema() throws Exception;
 
 }
