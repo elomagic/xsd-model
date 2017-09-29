@@ -15,25 +15,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.elomagic.xsdmodel;
+package de.elomagic.xsdmodel.mocks;
 
-import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
+import de.elomagic.xsdmodel.XsdSchemaFactory;
 
-import org.junit.Assert;
-import org.junit.Test;
+import javax.xml.XMLConstants;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
 
-import de.elomagic.xsdmodel.elements.XsdSchema;
+public class XsdSchemaFactoryMock implements XsdSchemaFactory {
 
-public class XsdReaderTest {
+    @Override
+    public Schema createSchema() throws Exception {
+        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        sf.setResourceResolver(XsdInputMock::new);
+        Schema schema = sf.newSchema(XsdSchemaFactoryMock.class.getResource("/XMLSchema.xsd"));
 
-    @Test
-    public void testRead() throws Exception {
-        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
-
-        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
-
-        Assert.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
-        Assert.assertEquals(12, schema.getComplexTypes().size());
+        return schema;
     }
 
 }

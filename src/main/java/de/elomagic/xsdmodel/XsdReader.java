@@ -23,17 +23,14 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
 
 import org.xml.sax.SAXException;
 
@@ -98,9 +95,7 @@ public final class XsdReader {
      * @throws java.net.MalformedURLException Thrown when unable to read the one of the XSD which required to validate the to be read XSD.
      */
     public static XsdSchema read(Reader reader) throws JAXBException, SAXException, MalformedURLException {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        sf.setResourceResolver(XsdInput::new);
-        Schema schema = sf.newSchema(new URL(XsdInput.URL_XMLSCHEMA_XSD));
+        Schema schema = createSchema();
 
         JAXBContext context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
         Unmarshaller u = context.createUnmarshaller();
@@ -122,6 +117,26 @@ public final class XsdReader {
      * @throws org.xml.sax.SAXException */
     public static XsdSchema read(File file) throws JAXBException, IOException, SAXException {
         return read(file.toPath());
+    }
+
+    private static Schema createSchema() throws SAXException, MalformedURLException {
+
+        String className = System.getProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, DefaultSchemaFactory.class.getName());
+
+        if(className == null || className.isEmpty()) {
+            return null;
+        }
+
+        Schema schema;
+        try {
+            Class<? extends XsdSchemaFactory> clazz = (Class<? extends XsdSchemaFactory>)Class.forName(className);
+            XsdSchemaFactory factory = clazz.newInstance();
+            schema = factory.createSchema();
+        } catch(Exception ex) {
+            throw new RuntimeException(ex.getMessage(), ex);
+        }
+
+        return schema;
     }
 
 }

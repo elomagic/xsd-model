@@ -15,7 +15,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.elomagic.xsdmodel;
+package de.elomagic.xsdmodel.mocks;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,22 +25,13 @@ import java.net.URLConnection;
 
 import org.w3c.dom.ls.LSInput;
 
-/**
- * Input source for W3C schema files.
- *
- * @author Carsten Rambow
- */
-public class XsdInput implements LSInput {
-
-    private static final String URL_XMLSCHEMA_DTD = "https://www.w3.org/2001/XMLSchema.dtd";
-    private static final String URL_DATATYPES_DTD = "https://www.w3.org/2001/datatypes.dtd";
-    public static final String URL_XMLSCHEMA_XSD = "https://www.w3.org/2001/XMLSchema.xsd";
+public class XsdInputMock implements LSInput {
 
     private final String publicId;
     private final String systemId;
     private final String baseURI;
 
-    public XsdInput(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
+    public XsdInputMock(String type, String namespaceURI, String publicId, String systemId, String baseURI) {
         this.publicId = publicId;
         this.systemId = systemId;
         this.baseURI = baseURI;
@@ -62,10 +53,10 @@ public class XsdInput implements LSInput {
             URL url;
             switch(systemId) {
                 case "XMLSchema.dtd":
-                    url = new URL(URL_XMLSCHEMA_DTD);
+                    url = XsdInputMock.class.getResource("/XMLSchema.dtd");
                     break;
                 case "datatypes.dtd":
-                    url = new URL(URL_DATATYPES_DTD);
+                    url = XsdInputMock.class.getResource("/datatypes.dtd");
                     break;
                 case "http://www.w3.org/2001/xml.xsd":
                     return null;
