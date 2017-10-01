@@ -59,7 +59,8 @@ public class XsdInputMock implements LSInput {
                     url = XsdInputMock.class.getResource("/datatypes.dtd");
                     break;
                 case "http://www.w3.org/2001/xml.xsd":
-                    return null;
+                    url = XsdInputMock.class.getResource("/xml.xsd");
+                    break;
 
                 default:
                     throw new IOException("Unsupported system ID resource \"" + systemId + "\".");
