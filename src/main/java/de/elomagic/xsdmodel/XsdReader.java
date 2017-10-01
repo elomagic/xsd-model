@@ -113,8 +113,8 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * ö
-     * @throws org.xml.sax.SAXException */
+     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
+     */
     public static XsdSchema read(File file) throws JAXBException, IOException, SAXException {
         return read(file.toPath());
     }
