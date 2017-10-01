@@ -29,7 +29,7 @@ public enum Use {
      * The attribute is optional (this is default).
      */
     optional("optional"),
-    /*
+    /**
      * The attribute cannot be used.
      */
     prohibited("prohibited"),

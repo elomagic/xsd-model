@@ -29,7 +29,7 @@ public enum Block {
      * Prevents complex types derived by extension.
      */
     extension("extension"),
-    /*
+    /**
      * Prevents complex types derived by restriction.
      */
     restriction("restriction"),

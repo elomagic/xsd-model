@@ -29,7 +29,7 @@ public enum Final {
      * Prevents derivation by extension.
      */
     extension("extension"),
-    /*
+    /**
      * Prevents derivation by restriction.
      */
     restriction("restriction"),
