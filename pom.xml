@@ -224,7 +224,11 @@
                 <version>${maven.release.plugin.version}</version>
                 <configuration>
                     <tagNameFormat>v@{project.version}</tagNameFormat>
-                    <!--<releaseProfiles>releases</releaseProfiles>-->
+                    
+                    <autoVersionSubmodules>true</autoVersionSubmodules>
+                    <useReleaseProfile>false</useReleaseProfile>
+                    <releaseProfiles>releases</releaseProfiles>
+                    <goals>deploy</goals>
                 </configuration>                
             </plugin>   
             
