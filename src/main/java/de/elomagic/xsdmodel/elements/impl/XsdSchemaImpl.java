@@ -75,6 +75,8 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     private XsdAnnotationImpl annotation;
     @XmlElement
     private XsdElementImpl element;
+    @XmlElement(name = "simpleType")
+    private List<XsdSimpleTypeImpl> simpleTypes;
     @XmlElement(name = "complexType")
     private List<XsdComplexTypeImpl> complexTypes;
     @XmlElement(name = "redefine")
@@ -133,6 +135,12 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
+    public List<? extends XsdRedefineImpl> getRedefines() {
+        setParentInList(redefines);
+        return redefines;
+    }
+
+    @Override
     public XsdAnnotationImpl getAnnotation() {
         setParentInProperty(annotation);
         return annotation;
@@ -145,15 +153,15 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
-    public List<? extends XsdComplexTypeImpl> getComplexTypes() {
-        setParentInList(complexTypes);
-        return complexTypes;
+    public List<? extends XsdSimpleTypeImpl> getSimpleTypes() {
+        setParentInList(simpleTypes);
+        return simpleTypes;
     }
 
     @Override
-    public List<? extends XsdRedefineImpl> getRedefines() {
-        setParentInList(redefines);
-        return redefines;
+    public List<? extends XsdComplexTypeImpl> getComplexTypes() {
+        setParentInList(complexTypes);
+        return complexTypes;
     }
 
 }

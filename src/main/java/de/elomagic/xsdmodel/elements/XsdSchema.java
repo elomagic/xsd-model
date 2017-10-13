@@ -152,6 +152,13 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     XsdElement getElement();
 
     /**
+     * Returns a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
+     *
+     * @return List of elements <code>simpleType</code>.
+     */
+    List<? extends XsdSimpleType> getSimpleTypes();
+
+    /**
      * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
      *
      * @return List of elements <code>complexType</code>.
