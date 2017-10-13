@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import java.net.URI;
 import java.util.List;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -24,8 +25,16 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
+import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
+import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
+import de.elomagic.xsdmodel.adapter.NMTokenValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdSchema;
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
+import de.elomagic.xsdmodel.enumerations.NMToken;
 
 /**
  *
@@ -36,9 +45,27 @@ import de.elomagic.xsdmodel.elements.XsdSchema;
 public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
 
     @XmlAttribute
+    private String id;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(NMTokenValueAdapter.class)
+    private NMToken attributeFormDefault;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(NMTokenValueAdapter.class)
+    private NMToken elementFormDefault;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(BlockValueAdapter.class)
+    private Block blockDefault;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(FinalValueAdapter.class)
+    private Final finalDefault;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
+    private URI targetNamespace;
+    @XmlAttribute
     private String version;
-    @XmlAttribute(name = "elementFormDefault")
-    private String elementFormDefault;
+    @XmlAttribute
+    @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
+    private URI xmlns;
 
     @XmlElement(name = "include")
     private List<XsdIncludeImpl> includes;
@@ -54,13 +81,43 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     private List<XsdRedefineImpl> redefines;
 
     @Override
+    public String getId() {
+        return id;
+    }
+
+    @Override
+    public NMToken getAttributeFormDefault() {
+        return attributeFormDefault;
+    }
+
+    @Override
+    public NMToken getElementFormDefault() {
+        return elementFormDefault;
+    }
+
+    @Override
+    public Block getBlockDefault() {
+        return blockDefault;
+    }
+
+    @Override
+    public Final getFinalDefault() {
+        return finalDefault;
+    }
+
+    @Override
+    public URI getTargetNamespace() {
+        return targetNamespace;
+    }
+
+    @Override
     public String getVersion() {
         return version;
     }
 
     @Override
-    public String getElementFormDefault() {
-        return elementFormDefault;
+    public URI getXmlns() {
+        return xmlns;
     }
 
     @Override

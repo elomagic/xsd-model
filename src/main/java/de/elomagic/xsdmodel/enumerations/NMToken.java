@@ -23,31 +23,14 @@ import java.util.Arrays;
  *
  * @author Carsten Rambow
  */
-public enum Final {
-    /**
-     * Prevents derivation by extension.
-     */
-    extension("extension"),
-    /**
-     * Prevents derivation by restriction.
-     */
-    restriction("restriction"),
-    /**
-     * Prevents list by restriction.
-     */
-    list("list"),
-    /**
-     * Prevents union by restriction.
-     */
-    union("union"),
-    /**
-     * Prevents all derivation.
-     */
-    all("#all");
+public enum NMToken {
+
+    qualified("qualified"),
+    unqualified("unqualified");
 
     private final String value;
 
-    private Final(String value) {
+    private NMToken(String value) {
         this.value = value;
     }
 
@@ -55,8 +38,8 @@ public enum Final {
         return value;
     }
 
-    public static Final parseValue(String value) {
-        for(Final item : values()) {
+    public static NMToken parseValue(String value) {
+        for(NMToken item : values()) {
             if(item.getValue().equals(value)) {
                 return item;
             }

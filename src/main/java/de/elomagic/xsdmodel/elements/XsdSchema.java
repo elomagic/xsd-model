@@ -17,14 +17,93 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import java.net.URI;
 import java.util.List;
+
+import de.elomagic.xsdmodel.enumerations.Block;
+import de.elomagic.xsdmodel.enumerations.Final;
+import de.elomagic.xsdmodel.enumerations.NMToken;
 
 /**
  * The <code>schema</code> element defines the root element of a schema.
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementAnnotation {
+public interface XsdSchema extends ElementAnnotation, AttributeId {
+
+    /**
+     * The form for attributes declared in the target namespace of this schema.
+     * <p>
+     * Optional.
+     * <p>
+     * The value must be "qualified" or "unqualified". Default is "unqualified". "unqualified" indicates that
+     * attributes from the target namespace are not required to be qualified with the namespace prefix.
+     * "qualified" indicates that attributes from the target namespace must be qualified with the namespace prefix
+     *
+     * @return {@link NMToken} value
+     */
+    NMToken getAttributeFormDefault();
+
+    /**
+     * Returns a the value of the attribute <code>elementFormDefault</code> of this <code>schema</code> element.
+     * <p>
+     * Optional. The form for elements declared in the target namespace of this schema.
+     * The value must be "qualified" or "unqualified". Default is "unqualified".
+     * "unqualified" indicates that elements from the target namespace are not required
+     * to be qualified with the namespace prefix. "qualified" indicates that elements
+     * from the target namespace must be qualified with the namespace prefix
+     *
+     * @return {@link NMToken} value
+     */
+    NMToken getElementFormDefault();
+
+    /**
+     * Specifies the default value of the block attribute on element and complexType elements in the target namespace.
+     * <p>
+     * Optional.
+     * <p>
+     * The block attribute prevents a complex type (or element) that has a specified type of derivation from being used
+     * in place of this complex type. This value can contain #all or a list that is a subset of extension, restriction,
+     * or substitution:
+     * <ul>
+     * <li>extension - prevents complex types derived by extension</li>
+     * <li>restriction - prevents complex types derived by restriction</li>
+     * <li>substitution - prevents substitution of elements</li>
+     * <li>#all - prevents all derived complex types</li>
+     * </ul>
+     *
+     * @return {@link Block} value
+     */
+    Block getBlockDefault();
+
+    /**
+     * Specifies the default value of the final attribute on element, simpleType, and complexType elements in the target namespace.
+     * <p>
+     * Optional.
+     * <p>
+     * The final attribute prevents a specified type of derivation of an element, simpleType, or complexType element.
+     * For element and complexType elements, this value can contain #all or a list that is a subset of extension or restriction.
+     * For simpleType elements, this value can additionally contain list and union:
+     * <ul>
+     * <li>extension - prevents derivation by extension</li>
+     * <li>restriction - prevents derivation by restriction</li>
+     * <li>list - prevents derivation by list</li>
+     * <li>union - prevents derivation by union</li>
+     * <li>#all - prevents all derivation</li>
+     * </ul>
+     *
+     * @return {@link Final} value
+     */
+    Final getFinalDefault();
+
+    /**
+     * A URI reference of the namespace of this schema.
+     * <p>
+     * Optional.
+     *
+     * @return
+     */
+    URI getTargetNamespace();
 
     /**
      * Returns a the value of the attribute <code>version</code> of this <code>schema</code> element.
@@ -36,17 +115,13 @@ public interface XsdSchema extends ElementAnnotation {
     String getVersion();
 
     /**
-     * Returns a the value of the attribute <code>elementFormDefault</code> of this <code>schema</code> element.
+     * A URI reference that specifies one or more namespaces for use in this schema.
      * <p>
-     * Optional. The form for elements declared in the target namespace of this schema.
-     * The value must be "qualified" or "unqualified". Default is "unqualified".
-     * "unqualified" indicates that elements from the target namespace are not required
-     * to be qualified with the namespace prefix. "qualified" indicates that elements
-     * from the target namespace must be qualified with the namespace prefix
+     * If no prefix is assigned, the schema components of the namespace can be used with unqualified references
      *
-     * @return String value of attribute <code>elementFormDefault</code>.
+     * @return URI value
      */
-    String getElementFormDefault();
+    URI getXmlns();
 
     /**
      * Returns a {@link List} of {@link XsdInclude} represented in the XSD by the element <code>include</code>.
