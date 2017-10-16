@@ -17,12 +17,11 @@
  */
 package de.elomagic.xsdmodel;
 
-import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
-
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 import de.elomagic.xsdmodel.elements.XsdSchema;
+import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
 public class XsdReaderTest {
 
@@ -32,8 +31,8 @@ public class XsdReaderTest {
 
         XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
 
-        Assert.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
-        Assert.assertEquals(12, schema.getComplexTypes().size());
+        Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
+        Assertions.assertEquals(12, schema.getComplexTypes().size());
     }
 
 }
