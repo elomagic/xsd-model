@@ -6,7 +6,7 @@
     <parent>
         <groupId>de.elomagic</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>8.8.7-SNAPSHOT</version>
+        <version>8.10.1</version>
     </parent>    
 
     <artifactId>xsd-model</artifactId>
