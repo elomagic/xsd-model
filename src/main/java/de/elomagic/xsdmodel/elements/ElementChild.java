@@ -31,6 +31,6 @@ public interface ElementChild {
      *
      * @return The parent element or null when this element is root or complex type of root.
      */
-    public ElementChild getParent();
+    ElementChild getParent();
 
 }

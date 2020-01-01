@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.Form;
 public class FormAttributeAdapter extends XmlAdapter<String, Form> {
 
     @Override
-    public Form unmarshal(String v) throws Exception {
+    public Form unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class FormAttributeAdapter extends XmlAdapter<String, Form> {
     }
 
     @Override
-    public String marshal(Form v) throws Exception {
+    public String marshal(Form v) {
         return v == null ? null : v.getValue();
     }
 

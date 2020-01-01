@@ -28,7 +28,7 @@ public class MaxOccursAttributeAdapter extends XmlAdapter<String, Integer> {
     private static final String UNBOUNDED = "unbounded";
 
     @Override
-    public Integer unmarshal(String v) throws Exception {
+    public Integer unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -47,7 +47,7 @@ public class MaxOccursAttributeAdapter extends XmlAdapter<String, Integer> {
     }
 
     @Override
-    public String marshal(Integer v) throws Exception {
+    public String marshal(Integer v) {
         if(v == null) {
             return null;
         }

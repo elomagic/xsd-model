@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.NMToken;
 public class NMTokenValueAdapter extends XmlAdapter<String, NMToken> {
 
     @Override
-    public NMToken unmarshal(String v) throws Exception {
+    public NMToken unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class NMTokenValueAdapter extends XmlAdapter<String, NMToken> {
     }
 
     @Override
-    public String marshal(NMToken v) throws Exception {
+    public String marshal(NMToken v) {
         return v == null ? null : v.getValue();
     }
 

@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class BooleanDataTypeAdapter extends XmlAdapter<String, Boolean> {
 
     @Override
-    public Boolean unmarshal(String v) throws Exception {
+    public Boolean unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -46,7 +46,7 @@ public class BooleanDataTypeAdapter extends XmlAdapter<String, Boolean> {
     }
 
     @Override
-    public String marshal(Boolean v) throws Exception {
+    public String marshal(Boolean v) {
         return v == null ? null : v.toString();
     }
 

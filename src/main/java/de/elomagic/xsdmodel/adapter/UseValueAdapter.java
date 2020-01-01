@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.Use;
 public class UseValueAdapter extends XmlAdapter<String, Use> {
 
     @Override
-    public Use unmarshal(String v) throws Exception {
+    public Use unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class UseValueAdapter extends XmlAdapter<String, Use> {
     }
 
     @Override
-    public String marshal(Use v) throws Exception {
+    public String marshal(Use v) {
         return v == null ? null : v.getValue();
     }
 

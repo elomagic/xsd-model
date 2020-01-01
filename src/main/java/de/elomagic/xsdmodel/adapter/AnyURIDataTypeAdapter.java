@@ -28,12 +28,12 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class AnyURIDataTypeAdapter extends XmlAdapter<String, URI> {
 
     @Override
-    public URI unmarshal(String v) throws Exception {
+    public URI unmarshal(String v) {
         return v == null || v.length() == 0 ? null : URI.create(v);
     }
 
     @Override
-    public String marshal(URI v) throws Exception {
+    public String marshal(URI v) {
         return v == null ? null : v.toASCIIString();
     }
 

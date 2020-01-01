@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.WhiteSpace;
 public class WhiteSpaceValueAdapter extends XmlAdapter<String, WhiteSpace> {
 
     @Override
-    public WhiteSpace unmarshal(String v) throws Exception {
+    public WhiteSpace unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class WhiteSpaceValueAdapter extends XmlAdapter<String, WhiteSpace> {
     }
 
     @Override
-    public String marshal(WhiteSpace v) throws Exception {
+    public String marshal(WhiteSpace v) {
         return v == null ? null : v.getValue();
     }
 

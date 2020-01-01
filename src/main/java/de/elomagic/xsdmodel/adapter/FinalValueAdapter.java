@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.Final;
 public class FinalValueAdapter extends XmlAdapter<String, Final> {
 
     @Override
-    public Final unmarshal(String v) throws Exception {
+    public Final unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class FinalValueAdapter extends XmlAdapter<String, Final> {
     }
 
     @Override
-    public String marshal(Final v) throws Exception {
+    public String marshal(Final v) {
         return v == null ? null : v.getValue();
     }
 

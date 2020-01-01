@@ -26,7 +26,7 @@ import javax.xml.bind.annotation.adapters.XmlAdapter;
 public class NonNegativeIntegerAdapter extends XmlAdapter<String, Integer> {
 
     @Override
-    public Integer unmarshal(String v) throws Exception {
+    public Integer unmarshal(String v)  {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -41,7 +41,7 @@ public class NonNegativeIntegerAdapter extends XmlAdapter<String, Integer> {
     }
 
     @Override
-    public String marshal(Integer v) throws Exception {
+    public String marshal(Integer v) {
         return v == null ? null : v.toString();
     }
 

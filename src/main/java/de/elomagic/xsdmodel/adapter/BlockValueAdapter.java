@@ -28,7 +28,7 @@ import de.elomagic.xsdmodel.enumerations.Block;
 public class BlockValueAdapter extends XmlAdapter<String, Block> {
 
     @Override
-    public Block unmarshal(String v) throws Exception {
+    public Block unmarshal(String v) {
         if(v == null || v.length() == 0) {
             return null;
         }
@@ -37,7 +37,7 @@ public class BlockValueAdapter extends XmlAdapter<String, Block> {
     }
 
     @Override
-    public String marshal(Block v) throws Exception {
+    public String marshal(Block v) {
         return v == null ? null : v.getValue();
     }
 
