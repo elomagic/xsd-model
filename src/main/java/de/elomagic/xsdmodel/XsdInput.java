@@ -1,6 +1,6 @@
 /*
  * XSD Model
- * Copyright (c) 2017-2018 Carsten Rambow
+ * Copyright (c) 2017-2019 Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -78,7 +78,7 @@ public class XsdInput implements LSInput {
             URLConnection con = url.openConnection();
             return con.getInputStream();
         } catch(IOException ex) {
-            throw new RuntimeException(ex.getMessage(), ex);
+            throw new XsdModelRuntimeException(ex.getMessage(), ex);
         }
     }
 

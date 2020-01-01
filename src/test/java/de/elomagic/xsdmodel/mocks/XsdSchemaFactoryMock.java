@@ -1,6 +1,6 @@
 /*
  * XSD Model
- * Copyright (c) 2017-2018 Carsten Rambow
+ * Copyright (c) 2017-2019 Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.mocks;
 
+import de.elomagic.xsdmodel.XsdSchemaException;
 import de.elomagic.xsdmodel.XsdSchemaFactory;
 
 import javax.xml.XMLConstants;
@@ -26,12 +27,14 @@ import javax.xml.validation.SchemaFactory;
 public class XsdSchemaFactoryMock implements XsdSchemaFactory {
 
     @Override
-    public Schema createSchema() throws Exception {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        sf.setResourceResolver(XsdInputMock::new);
-        Schema schema = sf.newSchema(XsdSchemaFactoryMock.class.getResource("/XMLSchema.xsd"));
-
-        return schema;
+    public Schema createSchema() throws XsdSchemaException {
+        try {
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            sf.setResourceResolver(XsdInputMock::new);
+            return sf.newSchema(XsdSchemaFactoryMock.class.getResource("/XMLSchema.xsd"));
+        } catch (Exception ex) {
+            throw new XsdSchemaException(ex.getMessage(), ex);
+        }
     }
 
 }

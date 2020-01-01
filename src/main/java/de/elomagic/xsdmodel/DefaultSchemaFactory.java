@@ -1,6 +1,6 @@
 /*
  * XSD Model
- * Copyright (c) 2017-2018 Carsten Rambow
+ * Copyright (c) 2017-2019 Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -32,16 +32,15 @@ import javax.xml.validation.SchemaFactory;
  */
 public final class DefaultSchemaFactory implements XsdSchemaFactory {
 
-    public DefaultSchemaFactory() {
-    }
-
     @Override
-    public Schema createSchema() throws Exception {
-        SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
-        sf.setResourceResolver(XsdInput::new);
-        Schema schema = sf.newSchema(new URL(XsdInput.URL_XMLSCHEMA_XSD));
-
-        return schema;
+    public Schema createSchema() throws XsdSchemaException {
+        try {
+            SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            sf.setResourceResolver(XsdInput::new);
+            return sf.newSchema(new URL(XsdInput.URL_XMLSCHEMA_XSD));
+        } catch (Exception ex) {
+            throw new XsdSchemaException(ex.getMessage(), ex);
+        }
     }
 
 }

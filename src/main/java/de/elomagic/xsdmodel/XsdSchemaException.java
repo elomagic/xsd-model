@@ -17,25 +17,10 @@
  */
 package de.elomagic.xsdmodel;
 
-import javax.xml.validation.Schema;
+public class XsdSchemaException extends Exception {
 
-/**
- *
- * @author Carsten Rambow
- */
-public interface XsdSchemaFactory {
-
-    /**
-     * System property key to set an alternative factory class provider.
-     */
-    String XSD_SCHEMA_FACTORY_CLASS = "de.elomagic.xsdmodel.xsd_factory_class";
-
-    /**
-     * Method to create a {@link Schema} for validation.
-     *
-     * @return The {@link Schema} or null to disable schema validation
-     * @throws XsdSchemaException Thrown when unable to create a {@link Schema}
-     */
-    Schema createSchema() throws XsdSchemaException;
+    public XsdSchemaException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }
