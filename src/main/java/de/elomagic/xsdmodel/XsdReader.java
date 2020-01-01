@@ -1,6 +1,6 @@
 /*
  * XSD Model
- * Copyright (c) 2017-2018 Carsten Rambow
+ * Copyright (c) 2017-2019 Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.net.MalformedURLException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,8 +30,6 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.Schema;
-
-import org.xml.sax.SAXException;
 
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.elements.impl.XsdSchemaImpl;
@@ -44,7 +41,7 @@ import de.elomagic.xsdmodel.elements.impl.XsdSchemaImpl;
  */
 public final class XsdReader {
 
-    private static final Class DEFAULT_ROOT_CLASS = XsdSchemaImpl.class;
+    private static final Class<XsdSchemaImpl> DEFAULT_ROOT_CLASS = XsdSchemaImpl.class;
 
     private XsdReader() {
     }
@@ -58,9 +55,8 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
      */
-    public static XsdSchema read(Path filename) throws JAXBException, IOException, SAXException {
+    public static XsdSchema read(Path filename) throws JAXBException, IOException {
         try (Reader reader = Files.newBufferedReader(filename, StandardCharsets.UTF_8)) {
             return read(reader);
         }
@@ -75,9 +71,8 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
      */
-    public static XsdSchema read(InputStream in) throws JAXBException, IOException, SAXException {
+    public static XsdSchema read(InputStream in) throws JAXBException, IOException {
         try (Reader reader = new InputStreamReader(in, StandardCharsets.UTF_8)) {
             return read(reader);
         }
@@ -91,10 +86,8 @@ public final class XsdReader {
      * @param reader {@link Reader} of the XSD source.
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
-     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
-     * @throws java.net.MalformedURLException Thrown when unable to read the one of the XSD which required to validate the to be read XSD.
      */
-    public static XsdSchema read(Reader reader) throws JAXBException, SAXException, MalformedURLException {
+    public static XsdSchema read(Reader reader) throws JAXBException {
         Schema schema = createSchema();
 
         JAXBContext context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
@@ -113,13 +106,12 @@ public final class XsdReader {
      * @return Returns a {@link XsdSchema}
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      * @throws java.io.IOException Thrown when unable to read from the source.
-     * @throws org.xml.sax.SAXException Thrown when unable to validate the schema itself.
      */
-    public static XsdSchema read(File file) throws JAXBException, IOException, SAXException {
+    public static XsdSchema read(File file) throws JAXBException, IOException {
         return read(file.toPath());
     }
 
-    private static Schema createSchema() throws SAXException, MalformedURLException {
+    private static Schema createSchema() throws XsdModelRuntimeException {
 
         String className = System.getProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, DefaultSchemaFactory.class.getName());
 
@@ -130,10 +122,10 @@ public final class XsdReader {
         Schema schema;
         try {
             Class<? extends XsdSchemaFactory> clazz = (Class<? extends XsdSchemaFactory>)Class.forName(className);
-            XsdSchemaFactory factory = clazz.newInstance();
+            XsdSchemaFactory factory = clazz.getDeclaredConstructor().newInstance();
             schema = factory.createSchema();
         } catch(Exception ex) {
-            throw new RuntimeException(ex.getMessage(), ex);
+            throw new XsdModelRuntimeException(ex.getMessage(), ex);
         }
 
         return schema;
