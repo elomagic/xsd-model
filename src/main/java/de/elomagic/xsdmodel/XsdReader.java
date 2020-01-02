@@ -43,7 +43,106 @@ public final class XsdReader {
 
     private static final Class<XsdSchemaImpl> DEFAULT_ROOT_CLASS = XsdSchemaImpl.class;
 
-    private XsdReader() {
+    private String xsdSchemaFactoryClass = System.getProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, DefaultSchemaFactory.class.getName());
+    private boolean validateSchema = true;
+    private JAXBContext context;
+
+    /**
+     * Returns the mode for schema validation.
+     *
+     * Default is true
+     *
+     * @return Returns schema validation mode
+     */
+    public boolean isValidateSchema() {
+        return validateSchema;
+    }
+
+    /**
+     * Set the schema validation mode.
+     *
+     * Disabling can be a performance booster
+     *
+     * When true then XSD itself will be validated against
+     * @param validateSchema True when
+     */
+    public void setValidateSchema(boolean validateSchema) {
+        this.validateSchema = validateSchema;
+    }
+
+    /**
+     * Returns the schema factory class.
+     *
+     * Default {@link DefaultSchemaFactory}
+     *
+     * @return Returns the schema factory class of this instance.
+     */
+    public String getXsdSchemaFactoryClass() {
+        return xsdSchemaFactoryClass;
+    }
+
+    /**
+     * Set a schema factory class.
+     *
+     * Useful to set an alternative schema factory class.
+     *
+     * @param xsdSchemaFactoryClass Class name
+     */
+    public void setXsdSchemaFactoryClass(String xsdSchemaFactoryClass) {
+        this.xsdSchemaFactoryClass = xsdSchemaFactoryClass;
+    }
+
+    /**
+     * Set a schema factory class.
+     *
+     * Useful to set an alternative schema factory class.
+     *
+     * @param xsdSchemaFactoryClass Class name
+     */
+    public void setXsdSchemaFactoryClass(Class<XsdSchemaFactory> xsdSchemaFactoryClass) {
+        setXsdSchemaFactoryClass(xsdSchemaFactoryClass == null ? null : xsdSchemaFactoryClass.getName());
+    }
+
+    private Schema createSchema() {
+
+        if(xsdSchemaFactoryClass == null || xsdSchemaFactoryClass.isEmpty()) {
+            return null;
+        }
+
+        Schema schema;
+        try {
+            Class<? extends XsdSchemaFactory> clazz = (Class<? extends XsdSchemaFactory>)Class.forName(xsdSchemaFactoryClass);
+            XsdSchemaFactory factory = clazz.getDeclaredConstructor().newInstance();
+            schema = factory.createSchema();
+        } catch(Exception ex) {
+            throw new XsdModelRuntimeException(ex.getMessage(), ex);
+        }
+
+        return schema;
+    }
+
+
+    /**
+     * Read the XSD from the {@link Reader} into a XSD object model including validating against the XSD.
+     * <p>
+     * XSD must be UTF-8 encoded.
+     *
+     * @param reader {@link Reader} of the XSD source.
+     * @return Returns a {@link XsdSchema}
+     * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
+     */
+    public XsdSchema readXsd(Reader reader) throws JAXBException {
+        if (context == null) {
+            context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
+        }
+
+        Unmarshaller u = context.createUnmarshaller();
+
+        if (validateSchema) {
+            u.setSchema(createSchema());
+        }
+
+        return (XsdSchema)u.unmarshal(reader);
     }
 
     /**
@@ -88,13 +187,8 @@ public final class XsdReader {
      * @throws javax.xml.bind.JAXBException Thrown when unable to parse the XSD.
      */
     public static XsdSchema read(Reader reader) throws JAXBException {
-        Schema schema = createSchema();
-
-        JAXBContext context = JAXBContext.newInstance(DEFAULT_ROOT_CLASS);
-        Unmarshaller u = context.createUnmarshaller();
-        u.setSchema(schema);
-
-        return (XsdSchema)u.unmarshal(reader);
+        XsdReader xsdReader = new XsdReader();
+        return xsdReader.readXsd(reader);
     }
 
     /**
@@ -109,26 +203,6 @@ public final class XsdReader {
      */
     public static XsdSchema read(File file) throws JAXBException, IOException {
         return read(file.toPath());
-    }
-
-    private static Schema createSchema() throws XsdModelRuntimeException {
-
-        String className = System.getProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, DefaultSchemaFactory.class.getName());
-
-        if(className == null || className.isEmpty()) {
-            return null;
-        }
-
-        Schema schema;
-        try {
-            Class<? extends XsdSchemaFactory> clazz = (Class<? extends XsdSchemaFactory>)Class.forName(className);
-            XsdSchemaFactory factory = clazz.getDeclaredConstructor().newInstance();
-            schema = factory.createSchema();
-        } catch(Exception ex) {
-            throw new XsdModelRuntimeException(ex.getMessage(), ex);
-        }
-
-        return schema;
     }
 
 }
