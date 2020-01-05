@@ -144,4 +144,16 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
 
     List<? extends XsdKeyref> getKeyrefs();
 
+    default String toLogString() {
+        return "XsdElement{" +
+                "getName()='" + getName() + '\'' +
+                ", getType()='" + getType() + '\'' +
+                ", getSubstitutionGroup()=" + getSubstitutionGroup() + '\'' +
+                ", getDefault()='" + getDefault() + '\'' +
+                ", getFixed()='" + getFixed() + '\'' +
+                ", getNillable()='" + getNillable() + '\'' +
+                ", getAbstract()='" + getAbstract() + '\'' +
+                '}';
+    }
+
 }
