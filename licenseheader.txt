@@ -2,7 +2,7 @@
 ${licenseFirst}
 </#if>
 ${licensePrefix}${project.displayName}
-${licensePrefix}Copyright (c) 2016-${date?date?string("yyyy")} Carsten Rambow
+${licensePrefix}Copyright (c) 2016-present Carsten Rambow
 ${licensePrefix}mailto:developer AT elomagic DOT de
 ${licensePrefix?replace(" +$", "", "r")}
 ${licensePrefix}Licensed under the Apache License, Version 2.0 (the "License");

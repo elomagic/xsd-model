@@ -7,15 +7,15 @@
         <!-- https://bitbucket.org/crambow/parent-pom/src/master/ -->
         <groupId>de.elomagic</groupId>
         <artifactId>parent-pom</artifactId>
-        <version>8.12.1</version>
+        <version>11.0.1-SNAPSHOT</version>
     </parent>    
 
     <artifactId>xsd-model</artifactId>
-    <version>1.2.1-BETA-SNAPSHOT</version>
+    <version>2.0.1-BETA-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>XSD Model</name>
-    <description>Java object model of the XSD.</description>
+    <name>XSD Model (Java 11)</name>
+    <description>Java object model of the XSD. Java 11 Supported</description>
     <url>https://github.com/elomagic/xsd-model</url>  
     
     <issueManagement>
@@ -114,15 +114,8 @@
    
     <dependencies>
         <dependency>
-            <groupId>javax.xml.bind</groupId>
-            <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish.jaxb</groupId>
             <artifactId>jaxb-runtime</artifactId>
-            <version>2.4.0-b180830.0438</version>
             <scope>provided</scope>
         </dependency>
 
