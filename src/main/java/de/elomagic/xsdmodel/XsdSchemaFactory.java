@@ -23,6 +23,7 @@ import javax.xml.validation.Schema;
  *
  * @author Carsten Rambow
  */
+@FunctionalInterface
 public interface XsdSchemaFactory {
 
     /**

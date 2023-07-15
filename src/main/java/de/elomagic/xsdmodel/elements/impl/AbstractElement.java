@@ -67,7 +67,7 @@ public abstract class AbstractElement implements ElementChild, ElementSetParent 
             return;
         }
 
-        childList.forEach((item)->setParentInProperty(item));
+        childList.forEach(this::setParentInProperty);
     }
 
     @Override
