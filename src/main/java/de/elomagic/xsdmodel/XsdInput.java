@@ -53,27 +53,23 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setCharacterStream(Reader characterStream) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
     public InputStream getByteStream() {
         try {
-            URL url;
-            switch(systemId) {
+            URL url = switch(systemId) {
                 case "XMLSchema.dtd":
-                    url = new URL(URL_XMLSCHEMA_DTD);
-                    break;
+                    yield new URL(URL_XMLSCHEMA_DTD);
                 case "datatypes.dtd":
-                    url = new URL(URL_DATATYPES_DTD);
-                    break;
+                    yield new URL(URL_DATATYPES_DTD);
                 case "http://www.w3.org/2001/xml.xsd":
-                    return null;
+                    yield null;
 
                 default:
                     throw new IOException("Unsupported system ID resource \"" + systemId + "\".");
-
-            }
+            };
 
             URLConnection con = url.openConnection();
             return con.getInputStream();
@@ -84,7 +80,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setByteStream(InputStream byteStream) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -94,7 +90,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setStringData(String stringData) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -104,7 +100,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setSystemId(String systemId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -114,7 +110,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setPublicId(String publicId) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -124,7 +120,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setBaseURI(String baseURI) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -134,7 +130,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setEncoding(String encoding) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
     @Override
@@ -144,7 +140,7 @@ public class XsdInput implements LSInput {
 
     @Override
     public void setCertifiedText(boolean certifiedText) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        throw new NotSupportedYetException();
     }
 
 }
