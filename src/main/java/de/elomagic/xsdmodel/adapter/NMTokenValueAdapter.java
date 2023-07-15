@@ -1,6 +1,6 @@
 /*
- * XSD Model
- * Copyright (c) 2017-2019 Carsten Rambow
+ * XSD Model (Java 17 + Jakarta)
+ * Copyright (c) 2017-present Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -17,7 +17,7 @@
  */
 package de.elomagic.xsdmodel.adapter;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 import de.elomagic.xsdmodel.enumerations.NMToken;
 

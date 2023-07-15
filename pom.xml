@@ -2,21 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    
-    <parent>
-        <!-- https://bitbucket.org/crambow/parent-pom/src/master/ -->
-        <groupId>de.elomagic</groupId>
-        <artifactId>parent-pom</artifactId>
-        <version>11.0.1-SNAPSHOT</version>
-    </parent>    
 
+    <groupId>de.elomagic</groupId>
     <artifactId>xsd-model</artifactId>
-    <version>2.0.1-BETA-SNAPSHOT</version>
+    <version>3.0.1-BETA-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>XSD Model (Java 11)</name>
-    <description>Java object model of the XSD. Java 11 Supported</description>
-    <url>https://github.com/elomagic/xsd-model</url>  
+    <name>XSD Model (Java 17 + Jakarta)</name>
+    <description>Java object model of the XSD. Java 17 + Jakarta Supported</description>
+    <url>https://github.com/elomagic/xsd-model</url>
+
+    <inceptionYear>2017</inceptionYear>
+
+    <developers>
+        <developer>
+            <id>carsten.rambow</id>
+            <name>Carsten Rambow</name>
+            <roles>
+                <role>Product Owner</role>
+                <role>Developer</role>
+            </roles>
+        </developer>
+    </developers>
+
+    <organization>
+        <name>elomagic</name>
+        <url>http://www.elomagic.de</url>
+    </organization>
     
     <issueManagement>
         <system>GitHub</system>
@@ -30,17 +42,54 @@
         </license>
     </licenses>
     
-    <inceptionYear>2017</inceptionYear>   
-    
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
+        <tag-format>v${project.version}</tag-format>
+
+        <maven.compiler.parameters>true</maven.compiler.parameters>
+        <maven.compiler.release>17</maven.compiler.release>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+
         <!-- To configure maven-license-plugin to check license headers -->
         <license.name>Apache 2.0</license.name>
-        
+        <license.owner>Carsten Rambow</license.owner>
+        <license.title>${project.name}</license.title>
+        <license.version>${project.version}</license.version>
+        <license.years>${project.inceptionYear}-present</license.years>
+        <license.mailto>mailto:developer AT elomagic DOT de</license.mailto>
+
         <!-- gpg signing -->
         <gpg.skip>true</gpg.skip>
         <gpg.passphraseServerId>gpg.elomagic</gpg.passphraseServerId>
 
         <jaxb.api.version>2.3.1</jaxb.api.version>
+
+        <!-- Plugin versions -->
+        <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
+        <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
+        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
+        <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
+        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
+        <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
+
+        <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
+        <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
+
+        <!-- Dependencies versions -->
+        <jakarta.xml.bind-api.version>4.0.0</jakarta.xml.bind-api.version>
+        <jaxb-impl.version>4.0.3</jaxb-impl.version>
+        <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
+
+        <!-- Test dependencies version< -->
+        <junit.version>5.9.2</junit.version>
     </properties>
     
     <scm>                
@@ -53,37 +102,110 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>3.2.0</version>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>${maven-enforcer-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>3.5.4</version>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
+                <version>${license-maven-plugin.version}</version>
                 <configuration>
                     <header>license-apache2.txt</header>
+                    <failIfMissing>true</failIfMissing>
+                    <strictCheck>true</strictCheck>
+                    <encoding>${project.build.sourceEncoding}</encoding>
+                    <properties>
+                        <license.owner>${license.owner}</license.owner>
+                        <license.title>${license.title}</license.title>
+                        <license.years>${license.years}</license.years>
+                        <license.mailto>${license.mailto}</license.mailto>
+                    </properties>
+                    <mapping>
+                        <java>SLASHSTAR_STYLE</java>
+                        <js>SLASHSTAR_STYLE</js>
+                        <css>SLASHSTAR_STYLE</css>
+                        <less>SLASHSTAR_STYLE</less>
+                    </mapping>
+                    <includes>
+                        <include>src/*/java/de/**/*.java</include>
+                        <include>src/*/js/de/**/*.js</include>
+                        <include>src/*/css/de/**/*.css</include>
+                        <include>src/*/less/de/**/*.less</include>
+                    </includes>
+                    <excludes>
+                        <exclude>src/*/java/de/**/package-info.java</exclude>
+                        <exclude>src/test/**</exclude>
+                    </excludes>
                 </configuration>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>      
             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+                <version>${maven-compiler-plugin.version}</version>
             </plugin>
             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven-surefire-plugin.version}</version>
             </plugin>
             
             <!-- http://jeremylong.github.io/DependencyCheck/index.html -->
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
+                <version>${dependency-check-maven.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>    
                                                
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
+                <version>${maven-resources-plugin.version}</version>
             </plugin>
             
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <version>${maven-jar-plugin.version}</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -101,6 +223,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
+                <version>${maven-gpg-plugin.version}</version>
             </plugin>                             
         </plugins>
         
@@ -114,14 +237,29 @@
    
     <dependencies>
         <dependency>
-            <groupId>org.glassfish.jaxb</groupId>
-            <artifactId>jaxb-runtime</artifactId>
-            <scope>provided</scope>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains.annotations.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>jakarta.xml.bind</groupId>
+            <artifactId>jakarta.xml.bind-api</artifactId>
+            <version>${jakarta.xml.bind-api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>${jaxb-impl.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- From here only dependencies with scope "test" -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -135,6 +273,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-release-plugin</artifactId>
+                        <version>${maven-release-plugin.version}</version>
                         <configuration>
                             <autoVersionSubmodules>true</autoVersionSubmodules>
                             <useReleaseProfile>false</useReleaseProfile>
@@ -146,15 +285,18 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
+                        <version>${maven-source-plugin.version}</version>
                     </plugin>                                            
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-javadoc-plugin</artifactId>                              
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>${maven-javadoc-plugin.version}</version>
                     </plugin>    
                     
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
@@ -166,7 +308,8 @@
             </build>           
         </profile>
     </profiles>
-    
+
+    <!--
     <repositories>       
         <repository>
             <releases>
@@ -179,18 +322,7 @@
             <name>Bintray caramba Maven repository</name>
             <url>https://dl.bintray.com/caramba/maven</url>
         </repository>
-        
-        <repository>
-            <releases>
-                <enabled>false</enabled>
-            </releases>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-            <id>elo-repository</id>
-            <name>elomagic Public Maven Repository</name>
-            <url>https://mvn.elomagic.de/repository/maven-public/</url>
-        </repository>                
     </repositories>
+    -->
        
 </project>

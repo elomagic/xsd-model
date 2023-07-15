@@ -1,6 +1,6 @@
 /*
- * XSD Model
- * Copyright (c) 2017-2019 Carsten Rambow
+ * XSD Model (Java 11)
+ * Copyright (c) 2017-present Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,10 +23,10 @@ import org.junit.jupiter.api.Test;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
-public class XsdReaderTest {
+class XsdReaderTest {
 
     @Test
-    public void testRead() throws Exception {
+    void testRead() throws Exception {
         System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
         XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));

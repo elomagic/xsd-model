@@ -1,6 +1,6 @@
 /*
- * XSD Model
- * Copyright (c) 2017-2019 Carsten Rambow
+ * XSD Model (Java 11)
+ * Copyright (c) 2017-present Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
