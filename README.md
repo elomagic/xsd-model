@@ -33,7 +33,7 @@ version in your project.
         <dependency>
             <groupId>de.elomagic</groupId>
             <artifactId>xsd-model</artifactId>
-            <version>[latest-version]</version>
+            <version>[3,]</version>
         </dependency>
     </dependencies>
     
