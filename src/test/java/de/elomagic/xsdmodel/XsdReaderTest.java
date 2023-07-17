@@ -25,6 +25,7 @@ import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 import de.elomagic.xsdmodel.prototype.Flatter;
 
+import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -44,7 +45,7 @@ class XsdReaderTest {
     void testSomethingResearch() throws Exception {
         System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
-        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
+        XsdSchema schema = XsdReader.read(Path.of("excluded/fax-default.xsd"));
 
         Flatter flatter = new Flatter();
         flatter.flattXsd(schema);
