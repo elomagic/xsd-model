@@ -44,7 +44,7 @@ version in your project.
 
 ## How to build artefact by myself?
 
-What you need is an installed JDK at least version 8 and [Apache Maven](https://maven.apache.org).
+What you need is an installed JDK at least version 17 and [Apache Maven](https://maven.apache.org).
 Then clone this project to your local file system and execute `mvn clean install` in the project folder. After successful finish you find 
 the artefact in the `target` folder.
 
