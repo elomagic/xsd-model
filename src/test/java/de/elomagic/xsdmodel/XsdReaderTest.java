@@ -20,8 +20,13 @@ package de.elomagic.xsdmodel;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
+import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
+import de.elomagic.xsdmodel.prototype.Flatter;
+
+import java.util.HashSet;
+import java.util.Set;
 
 class XsdReaderTest {
 
@@ -33,6 +38,16 @@ class XsdReaderTest {
 
         Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
         Assertions.assertEquals(12, schema.getComplexTypes().size());
+    }
+
+    @Test
+    void testSomethingResearch() throws Exception {
+        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
+
+        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
+
+        Flatter flatter = new Flatter();
+        flatter.flattXsd(schema);
     }
 
 }
