@@ -8,8 +8,8 @@
     <version>3.0.1-BETA-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>XSD Model (Java 17 + Jakarta)</name>
-    <description>Java object model of the XSD. Java 17 + Jakarta Supported</description>
+    <name>XSD Model (Java 17 with Jakarta XML Binding 4.0)</name>
+    <description>Java object model of the XSD. Java 17 with Jakarta Jakarta XML Binding 4.0 Support</description>
     <url>https://github.com/elomagic/xsd-model</url>
 
     <inceptionYear>2017</inceptionYear>
@@ -27,7 +27,7 @@
 
     <organization>
         <name>elomagic</name>
-        <url>http://www.elomagic.de</url>
+        <url>https://github.com/elomagic</url>
     </organization>
     
     <issueManagement>
@@ -38,7 +38,7 @@
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <url>https://www.apache.org/licenses/LICENSE-2.0.txt</url>
         </license>
     </licenses>
     
@@ -286,12 +286,47 @@
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-source-plugin</artifactId>
                         <version>${maven-source-plugin.version}</version>
-                    </plugin>                                            
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar-no-fork</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-javadoc-plugin</artifactId>
                         <version>${maven-javadoc-plugin.version}</version>
-                    </plugin>    
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                                <configuration>
+                                    <javadocExecutable>${java.home}/bin</javadocExecutable>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <version>${maven-gpg-plugin.version}</version>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
                     
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>

@@ -1,5 +1,5 @@
 /*
- * XSD Model (Java 17 + Jakarta)
+ * XSD Model (Java 17 with Jakarta XML Binding 4.0)
  * Copyright (c) 2017-present Carsten Rambow
  * mailto:developer AT elomagic DOT de
  *
