@@ -71,16 +71,16 @@
         <!-- Plugin versions -->
         <maven-enforcer-plugin.version>3.2.1</maven-enforcer-plugin.version>
         <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
-        <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-        <maven-jar-plugin.version>3.2.0</maven-jar-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-jar-plugin.version>3.3.0</maven-jar-plugin.version>
         <maven-javadoc-plugin.version>3.1.1</maven-javadoc-plugin.version>
         <maven-release-plugin.version>2.5.3</maven-release-plugin.version>
-        <maven-resources-plugin.version>3.1.0</maven-resources-plugin.version>
+        <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
         <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
         <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
 
         <dependency-check-maven.version>8.3.1</dependency-check-maven.version>
-        <license-maven-plugin.version>3.0</license-maven-plugin.version>
+        <license-maven-plugin.version>4.2</license-maven-plugin.version>
         <nexus-staging-maven-plugin.version>1.6.13</nexus-staging-maven-plugin.version>
 
         <!-- Dependencies versions -->
@@ -344,8 +344,8 @@
         </profile>
     </profiles>
 
-    <!--
-    <repositories>       
+    <repositories>
+        <!--
         <repository>
             <releases>
                 <enabled>true</enabled>
@@ -357,7 +357,15 @@
             <name>Bintray caramba Maven repository</name>
             <url>https://dl.bintray.com/caramba/maven</url>
         </repository>
+        -->
+
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/elomagic/xsd-model</url>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
     </repositories>
-    -->
-       
+
 </project>
