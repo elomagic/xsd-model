@@ -263,6 +263,14 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub elomagic Apache Maven Packages</name>
+            <url>https://maven.pkg.github.com/elomagic/xsd-model</url>
+        </repository>
+    </distributionManagement>
     
     <profiles>
         <profile>
@@ -344,8 +352,8 @@
         </profile>
     </profiles>
 
+    <!--
     <repositories>
-        <!--
         <repository>
             <releases>
                 <enabled>true</enabled>
@@ -357,7 +365,6 @@
             <name>Bintray caramba Maven repository</name>
             <url>https://dl.bintray.com/caramba/maven</url>
         </repository>
-        -->
 
         <repository>
             <id>github</id>
@@ -367,5 +374,6 @@
             </snapshots>
         </repository>
     </repositories>
+    -->
 
 </project>

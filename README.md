@@ -71,6 +71,15 @@ Execute following steps:
   mvn clean install release:prepare -P release
   mvn release:perform -P release
   ```
+
+#### Releasing snapshot package on GitHub 
+
+Execute Maven deploy process
+
+```bash
+mvn clean install deploy
+```
+
   
 ## Who do I talk to? ###
 
