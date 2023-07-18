@@ -45,6 +45,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.scm.id>github</project.scm.id>
 
         <tag-format>v${project.version}</tag-format>
 
@@ -288,11 +289,8 @@
                         <artifactId>maven-release-plugin</artifactId>
                         <version>${maven-release-plugin.version}</version>
                         <configuration>
-                            <autoVersionSubmodules>true</autoVersionSubmodules>
-                            <useReleaseProfile>false</useReleaseProfile>
-                            <releaseProfiles>releases</releaseProfiles>
-                            <goals>deploy</goals>
-                        </configuration>                
+                            <tagNameFormat>${tag-format}</tagNameFormat>
+                        </configuration>
                     </plugin>                       
                     
                     <plugin>
