@@ -412,7 +412,7 @@
                             <description>Please see https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md for release notes.</description>
                             <releaseName>${tag-format}</releaseName>
                             <tag>${tag-format}</tag>
-                            <serverId>github-oauth</serverId>
+                            <serverId>github</serverId>
                         </configuration>
                     </plugin>
                 </plugins>
