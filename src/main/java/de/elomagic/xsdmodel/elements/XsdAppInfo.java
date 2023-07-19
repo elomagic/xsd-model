@@ -18,8 +18,12 @@
 package de.elomagic.xsdmodel.elements;
 
 import java.net.URI;
+import java.util.Optional;
 
 import de.elomagic.xsdmodel.elements.extention.XsdNodeInfo;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The <code>appinfo</code> element specifies information to be used by the application.
@@ -39,6 +43,12 @@ public interface XsdAppInfo extends ElementChild {
      */
     URI getSource();
 
+    @Nullable
     XsdNodeInfo getNodeInfo();
+
+    @NotNull
+    default Optional<XsdNodeInfo> getOptionalNodeInfo() {
+        return Optional.ofNullable(getNodeInfo());
+    }
 
 }
