@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  * Interface of a XSD element child.
  *
@@ -31,6 +36,12 @@ public interface ElementChild {
      *
      * @return The parent element or null when this element is root or complex type of root.
      */
+    @Nullable
     ElementChild getParent();
+
+    @NotNull
+    default Optional<ElementChild> getOptionalParent() {
+        return Optional.ofNullable(getParent());
+    }
 
 }

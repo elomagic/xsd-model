@@ -18,10 +18,14 @@
 package de.elomagic.xsdmodel.elements;
 
 import java.util.List;
+import java.util.Optional;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.Form;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * The <code>element</code> element defines an element.
@@ -39,7 +43,20 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return String value of attribute <code>type</code>.
      */
+    @Nullable
     String getType();
+
+    /**
+     * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.
+     * <p>
+     * Optional.
+     *
+     * @return String value of attribute <code>type</code>.
+     */
+    @NotNull
+    default Optional<String> getOptionalType() {
+        return Optional.ofNullable(getType());
+    }
 
     /**
      * Specifies the name of an element that can be substituted with this element. This attribute cannot be used if the parent element is not the schema element
@@ -119,7 +136,7 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     Block getBlock();
 
     /**
-     * Sets the default value of the final attribute on the element element. This attribute cannot be used if the
+     * Sets the default value of the final attribute on the element. This attribute cannot be used if the
      * parent element is not the schema element. This value can contain #all or a list that is a subset of extension
      * or restriction:
      * <ul>
@@ -137,6 +154,10 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     XsdSimpleType getSimpleType();
 
     XsdComplexType getComplexType();
+
+    default Optional<XsdComplexType> getOptionalComplexType() {
+        return Optional.ofNullable(getComplexType());
+    }
 
     List<? extends XsdUnique> getUniques();
 

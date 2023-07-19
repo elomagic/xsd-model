@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  * The <code>annotation</code> element is a top level element that specifies schema comments.
  * <p>
@@ -35,6 +40,19 @@ public interface XsdAnnotation extends ElementChild, AttributeId {
      *
      * @return Element <code>appinfo</code>.
      */
+    @Nullable
     XsdAppInfo getAppInfo();
+
+    /**
+     * Returns {@link java.util.Optional} element <code>appInfo</code>.
+     * <p>
+     * This is a non standard XSD element.
+     *
+     * @return Optional of element <code>appinfo</code>.
+     */
+    @NotNull
+    default Optional<XsdAppInfo> getOptionalAppInfo() {
+        return Optional.ofNullable(getAppInfo());
+    }
 
 }
