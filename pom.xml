@@ -394,27 +394,6 @@
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
-
-                    <plugin>
-                        <!-- https://github.com/jutzig/github-release-plugin -->
-                        <groupId>de.jutzig</groupId>
-                        <artifactId>github-release-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>release</goal>
-                                </goals>
-                                <id>shell-upload</id>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <description>Please see https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md for release notes.</description>
-                            <releaseName>${tag-format}</releaseName>
-                            <tag>${tag-format}</tag>
-                            <serverId>github</serverId>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>           
         </profile>
