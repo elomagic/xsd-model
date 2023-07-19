@@ -20,6 +20,11 @@ package de.elomagic.xsdmodel.elements;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  * The <code>complexType</code> element defines a complex type.
  * <p>
@@ -83,9 +88,24 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * <p>
      * See also <a href="https://www.w3schools.com/xml/el_all.asp">W3Schools</a>
      *
+     * @return Returns the element or null
+     */
+    @Nullable
+    XsdAll getAll();
+
+    /**
+     * Returns the {@link Optional} of {@link #getAll()}.
+     * <p>
+     * The <code>all</code> element specifies that the child elements can appear in any order and that each child element can occur zero or one time (Default is one time).
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_all.asp">W3Schools</a>
+     *
      * @return Returns the element of null
      */
-    XsdAll getAll();
+    @NotNull
+    default Optional<XsdAll> getOptionalAll() {
+        return Optional.ofNullable(getAll());
+    }
 
     /**
      * Returns the <code>simpleContent</code> element if exists.
@@ -94,8 +114,9 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * <p>
      * See also <a href="https://www.w3schools.com/xml/el_simpleContent.asp">W3Schools</a>
      *
-     * @return Returns the element of null
+     * @return Returns the element or null
      */
+    @Nullable
     XsdSimpleContent getSimpleContent();
 
     /**
@@ -105,8 +126,9 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * <p>
      * See also <a href="https://www.w3schools.com/xml/el_complexcontent.asp">W3Schools</a>
      *
-     * @return Returns the element of null
+     * @return Returns the element or null
      */
+    @Nullable
     XsdComplexContent getComplexContent();
 
     /**
@@ -116,9 +138,24 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * <p>
      * See also <a href="https://www.w3schools.com/xml/el_sequence.asp">W3Schools</a>
      *
-     * @return Returns the element of null
+     * @return Returns the element or null
      */
+    @Nullable
     XsdSequence getSequence();
+
+    /**
+     * Returns the {@link Optional} of {@link #getSequence()}.
+     * <p>
+     * The <code>sequence</code> element specifies that the child elements must appear in a sequence. Each child element can occur from 0 to any number of times (Default is one time).
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_sequence.asp">W3Schools</a>
+     *
+     * @return Returns the element or null
+     */
+    @NotNull
+    default Optional<XsdSequence> getOptionalSequence() {
+        return Optional.ofNullable(getSequence());
+    }
 
     /**
      * Returns the <code>choice</code> element if exists.
@@ -127,23 +164,37 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      *
      * @return Returns the element of null
      */
+    @Nullable
     XsdChoice getChoice();
+
+    /**
+     * Returns the {@link Optional} of {@link #getChoice()}.
+     * <p>
+     * XML Schema <code>choice</code> element allows only one of the elements contained in the &lt;choice&gt; declaration to be present within the containing element (Default is one time).
+     *
+     * @return Returns the element or null
+     */
+    @NotNull
+    default Optional<XsdChoice> getOptionalChoice() {
+        return Optional.ofNullable(getChoice());
+    }
 
     /**
      * Helper method from this framework to get ElementGroup of one of the {@link #getAll()}, {@link #getSequence()} or {@link #getChoice()} element.
      *
      * @return Returns {@link ElementGroup} in order of <code>sequence</code>, <code>all</code>, <code>choice</code> or null when no of these is set.
      */
+    @Nullable
     default ElementGroup getElementGroup() {
-        if (getSequence() != null) {
+        if (getOptionalSequence().isPresent()) {
             return getSequence();
         }
 
-        if (getAll() != null) {
+        if (getOptionalAll().isPresent()) {
             return getAll();
         }
 
-        if (getChoice() != null) {
+        if (getOptionalChoice().isPresent()) {
             return getChoice();
         }
 

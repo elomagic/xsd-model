@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * The <code>simpleType</code> element defines a simple type and specifies the
  * constraints and information about the values of attributes or text-only elements.
@@ -27,6 +29,12 @@ public interface XsdSimpleType extends ElementAnnotation, AttributeId, Attribute
 
     String getFinal();
 
+    /**
+     * Return restriction of a range of values for the simple type to a subset of those for inherited simple type.
+     *
+     * @return Returns the restriction of null.
+     */
+    @Nullable
     XsdRestriction getRestriction();
 
     XsdList getList();

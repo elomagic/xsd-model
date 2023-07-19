@@ -420,28 +420,4 @@
         </profile>
     </profiles>
 
-    <!--
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray</id>
-            <name>Bintray caramba Maven repository</name>
-            <url>https://dl.bintray.com/caramba/maven</url>
-        </repository>
-
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/elomagic/xsd-model</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    -->
-
 </project>

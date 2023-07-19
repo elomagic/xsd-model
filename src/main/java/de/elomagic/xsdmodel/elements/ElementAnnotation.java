@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  *
  * @author Carsten Rambow
@@ -28,6 +33,18 @@ public interface ElementAnnotation extends ElementChild {
      *
      * @return Element <code>annotation</code>.
      */
+    @Nullable
     XsdAnnotation getAnnotation();
+
+    /**
+     * Returns {@link Optional} of root {@link XsdAnnotation} represented in the XSD by the element <code>annotation</code>.
+     *
+     * @return Optional of Element <code>annotation</code>.
+     */
+    @NotNull
+    default Optional<XsdAnnotation> getOptionalAnnotation() {
+        return Optional.ofNullable(getAnnotation());
+    }
+
 
 }
