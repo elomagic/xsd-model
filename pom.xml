@@ -394,54 +394,9 @@
                             <autoReleaseAfterClose>true</autoReleaseAfterClose>
                         </configuration>
                     </plugin>
-
-                    <plugin>
-                        <!-- https://github.com/jutzig/github-release-plugin -->
-                        <groupId>de.jutzig</groupId>
-                        <artifactId>github-release-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <phase>deploy</phase>
-                                <goals>
-                                    <goal>release</goal>
-                                </goals>
-                                <id>shell-upload</id>
-                            </execution>
-                        </executions>
-                        <configuration>
-                            <description>Please see https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md for release notes.</description>
-                            <releaseName>${tag-format}</releaseName>
-                            <tag>${tag-format}</tag>
-                            <serverId>github-oauth</serverId>
-                        </configuration>
-                    </plugin>
                 </plugins>
             </build>           
         </profile>
     </profiles>
-
-    <!--
-    <repositories>
-        <repository>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-            <id>bintray</id>
-            <name>Bintray caramba Maven repository</name>
-            <url>https://dl.bintray.com/caramba/maven</url>
-        </repository>
-
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/elomagic/xsd-model</url>
-            <snapshots>
-                <enabled>true</enabled>
-            </snapshots>
-        </repository>
-    </repositories>
-    -->
 
 </project>
