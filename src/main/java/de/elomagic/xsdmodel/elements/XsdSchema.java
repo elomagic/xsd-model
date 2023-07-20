@@ -19,6 +19,7 @@ package de.elomagic.xsdmodel.elements;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -151,6 +152,10 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
      */
     XsdElement getElement();
 
+    default Optional<XsdElement> getOptionalElement() {
+        return Optional.ofNullable(getElement());
+    }
+
     /**
      * Returns a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
      *
@@ -159,10 +164,29 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdSimpleType> getSimpleTypes();
 
     /**
-     * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
+     * Returns an {@link Optional} of a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
+     *
+     * @return {@link Optional} of a list of elements <code>simpleType</code>.
+     */
+    default Optional<List<? extends XsdSimpleType>> getOptionalSimpleTypes() {
+        return Optional.ofNullable(getSimpleTypes());
+    }
+
+    /**
+     * Returns an {@link Optional} of a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
      *
      * @return List of elements <code>complexType</code>.
      */
     List<? extends XsdComplexType> getComplexTypes();
+
+    /**
+     * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
+     *
+     * @return List of elements <code>complexType</code>.
+     */
+    default Optional<List<? extends XsdComplexType>> getOptionalComplexTypes() {
+        return Optional.ofNullable(getComplexTypes());
+    }
+
 
 }
