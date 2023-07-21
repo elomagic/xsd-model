@@ -65,7 +65,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The substitution group
      */
+    @Nullable
     String getSubstitutionGroup();
+
+    @NotNull
+    default Optional<String> getOptionalSubstitutionGroup() {
+        return Optional.ofNullable(getSubstitutionGroup());
+    }
 
     /**
      * Specifies a default value for the element (can only be used if the element's content is a simple type or text only).
@@ -74,7 +80,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return String value of attribute <code>default</code>.
      */
+    @Nullable
     String getDefault();
+
+    @NotNull
+    default Optional<String> getOptionalDefault() {
+        return Optional.ofNullable(getDefault());
+    }
 
     /**
      * Specifies a fixed value for the element (can only be used if the element's content is a simple type or text only).
@@ -83,7 +95,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The fixed value
      */
+    @Nullable
     String getFixed();
+
+    @NotNull
+    default Optional<String> getOptionalFixed() {
+        return Optional.ofNullable(getFixed());
+    }
 
     /**
      * Specifies the form for the element. "unqualified" indicates that this element is not required to be qualified with
@@ -95,7 +113,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The form value
      */
+    @Nullable
     Form getForm();
+
+    @NotNull
+    default Optional<Form> getOptionalForm() {
+        return Optional.ofNullable(getForm());
+    }
 
     /**
      * Specifies whether an explicit null value can be assigned to the element. True enables an instance of the element
@@ -106,7 +130,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The nillable value
      */
+    @Nullable
     Boolean getNillable();
+
+    @NotNull
+    default Optional<Boolean> getOptionalNillable() {
+        return Optional.ofNullable(getNillable());
+    }
 
     /**
      * Specifies whether the element can be used in an instance document. True indicates that the element cannot appear
@@ -117,7 +147,13 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The abstract value.
      */
+    @Nullable
     Boolean getAbstract();
+
+    @NotNull
+    default Optional<Boolean> getOptionalAbstract() {
+        return Optional.ofNullable(getAbstract());
+    }
 
     /**
      * Prevents an element with a specified type of derivation from being used in place of this element. This value can
@@ -133,7 +169,14 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The block value
      */
+    @Nullable
     Block getBlock();
+
+    @NotNull
+    default Optional<Block> getOptionalBlock() {
+        return Optional.ofNullable(getBlock());
+    }
+
 
     /**
      * Sets the default value of the final attribute on the element. This attribute cannot be used if the
@@ -149,12 +192,25 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @return The final value
      */
+    @Nullable
     Final getFinal();
 
+    default Optional<Final> getOptionalFinal() {
+        return Optional.ofNullable(getFinal());
+    }
+
+    @Nullable
     XsdSimpleType getSimpleType();
 
+    @NotNull
+    default Optional<XsdSimpleType> getOptionalSimpleType() {
+        return Optional.ofNullable(getSimpleType());
+    }
+
+    @Nullable
     XsdComplexType getComplexType();
 
+    @NotNull
     default Optional<XsdComplexType> getOptionalComplexType() {
         return Optional.ofNullable(getComplexType());
     }

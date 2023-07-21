@@ -20,6 +20,11 @@ package de.elomagic.xsdmodel.elements;
 import de.elomagic.xsdmodel.enumerations.Form;
 import de.elomagic.xsdmodel.enumerations.Use;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  * The <code>attribute</code> element defines an attribute.
  *
@@ -34,7 +39,13 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @return String value of attribute <code>default</code>.
      */
+    @Nullable
     String getDefault();
+
+    @NotNull
+    default Optional<String> getOptionalDefault() {
+        return Optional.ofNullable(getDefault());
+    }
 
     /**
      * Specifies a fixed value for the attribute.
@@ -43,7 +54,13 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @return String value of attribute <code>fixed</code>.
      */
+    @Nullable
     String getFixed();
+
+    @NotNull
+    default Optional<String> getOptionalFixed() {
+        return Optional.ofNullable(getFixed());
+    }
 
     /**
      * Specifies the form for the attribute.
@@ -59,7 +76,13 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @return String value of attribute <code>form</code>.
      */
+    @Nullable
     Form getForm();
+
+    @NotNull
+    default Optional<Form> getOptionalForm() {
+        return Optional.ofNullable(getForm());
+    }
 
     /**
      * Specifies a built-in data type or a simple type.
@@ -68,7 +91,13 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @return String value of attribute <code>type</code>.
      */
+    @Nullable
     String getType();
+
+    @NotNull
+    default Optional<String> getOptionalType() {
+        return Optional.ofNullable(getType());
+    }
 
     /**
      * Specifies how the attribute is used.
@@ -82,6 +111,12 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @return String value of attribute <code>use</code>.
      */
+    @Nullable
     Use getUse();
+
+    @NotNull
+    default Optional<Use> getOptionalUse() {
+        return Optional.ofNullable(getUse());
+    }
 
 }

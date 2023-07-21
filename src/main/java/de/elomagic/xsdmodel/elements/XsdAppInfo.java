@@ -41,7 +41,13 @@ public interface XsdAppInfo extends ElementChild {
      *
      * @return String value of attribute <code>source</code>.
      */
+    @Nullable
     URI getSource();
+
+    @NotNull
+    default Optional<URI> getOptionalSource() {
+        return Optional.ofNullable(getSource());
+    }
 
     @Nullable
     XsdNodeInfo getNodeInfo();

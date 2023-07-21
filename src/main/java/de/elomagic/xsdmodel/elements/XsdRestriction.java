@@ -17,7 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.List;
+import java.util.Optional;
 
 /**
  * The <code>restriction</code> element defines restrictions on a simpleType, simpleContent, or complexContent definition.
@@ -35,9 +39,21 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
      */
     String getBase();
 
+    @Nullable
     List<? extends XsdEnumeration> getEnumerations();
 
+    @NotNull
+    default Optional<List<? extends XsdEnumeration>> gerOptionalEnumerations() {
+        return Optional.ofNullable(getEnumerations());
+    }
+
+    @Nullable
     XsdFractionDigits getFractionDigits();
+
+    @NotNull
+    default Optional<XsdFractionDigits> getOptionalFractionDigits() {
+        return Optional.ofNullable(getFractionDigits());
+    }
 
     /**
      * Specifies the exact number of characters or list items allowed.
@@ -46,15 +62,45 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
      *
      * @return Exact number of characters or list items allowed.
      */
+    @Nullable
     XsdLength getLength();
 
+    @NotNull
+    default Optional<XsdLength> getOptionalLength() {
+        return Optional.ofNullable(getLength());
+    }
+
+    @Nullable
     XsdMaxExclusive getMaxExclusive();
 
+    @NotNull
+    default Optional<XsdMaxExclusive> getOptionalMaxExclusive() {
+        return Optional.ofNullable(getMaxExclusive());
+    }
+
+    @Nullable
     XsdMinLength getMinLength();
 
+    @NotNull
+    default Optional<XsdMinLength> getOptionalMinLength() {
+        return Optional.ofNullable(getMinLength());
+    }
+
+    @Nullable
     XsdMinInclusive getMinInclusive();
 
+    @NotNull
+    default Optional<XsdMinInclusive> getOptionalMinInclusive() {
+        return Optional.ofNullable(getMinInclusive());
+    }
+
+    @Nullable
     XsdMinExclusive getMinExclusive();
+
+    @NotNull
+    default Optional<XsdMinExclusive> getOptionalMinExclusive() {
+        return Optional.ofNullable(getMinExclusive());
+    }
 
     /**
      * Specifies the maximum number of characters or list items allowed.
@@ -63,14 +109,44 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
      *
      * @return Maximum number of characters or list items allowed.
      */
+    @Nullable
     XsdMaxLength getMaxLength();
 
+    @NotNull
+    default Optional<XsdMaxLength> getOptionalMaxLength() {
+        return Optional.ofNullable(getMaxLength());
+    }
+
+    @Nullable
     XsdMaxInclusive getMaxInclusive();
 
+    @NotNull
+    default Optional<XsdMaxInclusive> getOptionalMaxInclusive() {
+        return Optional.ofNullable(getMaxInclusive());
+    }
+
+    @Nullable
     XsdPattern getPattern();
 
+    @NotNull
+    default Optional<XsdPattern> getOptionalPattern() {
+        return Optional.ofNullable(getPattern());
+    }
+
+    @Nullable
     XsdTotalDigits getTotalDigits();
 
+    @NotNull
+    default Optional<XsdTotalDigits> getOptionalTotalDigits() {
+        return Optional.ofNullable(getTotalDigits());
+    }
+
+    @Nullable
     XsdWhiteSpace getWhiteSpace();
+
+    @NotNull
+    default Optional<XsdWhiteSpace> getOptionalWhiteSpace() {
+        return Optional.ofNullable(getWhiteSpace());
+    }
 
 }

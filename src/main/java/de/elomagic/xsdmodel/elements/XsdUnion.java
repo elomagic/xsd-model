@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  * The <code>union</code> element defines a simple type as a collection (union) of values from specified simple data types.
  *
@@ -31,6 +36,12 @@ public interface XsdUnion extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>memberTypes</code>.
      */
+    @Nullable
     String getMemberTypes();
+
+    @NotNull
+    default Optional<String> getOptionalMemberTypes() {
+        return Optional.ofNullable(getMemberTypes());
+    }
 
 }

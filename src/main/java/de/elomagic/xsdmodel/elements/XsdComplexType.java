@@ -119,6 +119,11 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     @Nullable
     XsdSimpleContent getSimpleContent();
 
+    @NotNull
+    default Optional<XsdSimpleContent> getOptionalSimpleContent() {
+        return Optional.ofNullable(getSimpleContent());
+    }
+
     /**
      * Returns the <code>complexContent</code> element if exists.
      * <p>
@@ -130,6 +135,11 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      */
     @Nullable
     XsdComplexContent getComplexContent();
+
+    @NotNull
+    default Optional<XsdComplexContent> getOptionalComplexContent() {
+        return Optional.ofNullable(getComplexContent());
+    }
 
     /**
      * Returns the <code>sequence</code> element if exists.

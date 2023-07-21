@@ -17,7 +17,10 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 /**
  * The <code>simpleType</code> element defines a simple type and specifies the
@@ -37,8 +40,25 @@ public interface XsdSimpleType extends ElementAnnotation, AttributeId, Attribute
     @Nullable
     XsdRestriction getRestriction();
 
+    @NotNull
+    default Optional<XsdRestriction> getOptionalRestriction() {
+        return Optional.ofNullable(getRestriction());
+    }
+
+    @Nullable
     XsdList getList();
 
+    @NotNull
+    default Optional<XsdList> getOptionalList() {
+        return Optional.ofNullable(getList());
+    }
+
+    @Nullable
     XsdUnion getUnion();
+
+    @NotNull
+    default Optional<XsdUnion> getOptionalUnion() {
+        return Optional.ofNullable(getUnion());
+    }
 
 }

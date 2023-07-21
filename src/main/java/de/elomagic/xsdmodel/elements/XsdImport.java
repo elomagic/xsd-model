@@ -17,7 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * The <code>import</code> element is used to add multiple schemas with different target namespace to a document.
@@ -33,7 +37,13 @@ public interface XsdImport extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>namespace</code>.
      */
+    @Nullable
     String getNamespace();
+
+    @NotNull
+    default Optional<String> getOptionalNamespace() {
+        return Optional.ofNullable(getNamespace());
+    }
 
     /**
      * Specifies the URI to the schema to include in the target namespace of the containing schema.

@@ -17,7 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.net.URI;
+import java.util.Optional;
 
 /**
  * The documentation element is used to enter text comments in a schema.
@@ -35,7 +39,13 @@ public interface XsdDocumentation extends ElementChild {
      *
      * @return String value of attribute <code>source</code>.
      */
+    @Nullable
     URI getSource();
+
+    @NotNull
+    default Optional<URI> getOptionalSource() {
+        return Optional.ofNullable(getSource());
+    }
 
     /**
      * Specifies the language used in the contents.
@@ -44,7 +54,13 @@ public interface XsdDocumentation extends ElementChild {
      *
      * @return String value of attribute <code>xml:lang</code>.
      */
+    @Nullable
     String getLanguage();
+
+    @NotNull
+    default Optional<String> getOptionalLanguage() {
+        return Optional.ofNullable(getLanguage());
+    }
 
     /**
      * Returns element value.

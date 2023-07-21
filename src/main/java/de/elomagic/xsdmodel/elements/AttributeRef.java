@@ -17,6 +17,12 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import javax.swing.text.html.Option;
+import java.util.Optional;
+
 /**
  *
  * @author Carsten Rambow
@@ -30,6 +36,12 @@ public interface AttributeRef {
      *
      * @return String value of attribute <code>ref</code>.
      */
+    @Nullable
     String getRef();
+
+    @NotNull
+    default Optional<String> getOptionalRef() {
+        return Optional.ofNullable(getRef());
+    }
 
 }

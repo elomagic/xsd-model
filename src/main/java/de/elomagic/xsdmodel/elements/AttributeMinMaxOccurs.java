@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  *
  * @author Carsten Rambow
@@ -32,7 +37,13 @@ public interface AttributeMinMaxOccurs {
      *
      * @return String value of attribute <code>max</code>.
      */
+    @Nullable
     Integer getMaxOccurs();
+
+    @NotNull
+    default Optional<Integer> getOptionalMaxOccurs() {
+        return Optional.ofNullable(getMaxOccurs());
+    }
 
     /**
      * Specifies the minimum number of times the choice element can occur in the parent the element.
@@ -42,6 +53,12 @@ public interface AttributeMinMaxOccurs {
      *
      * @return String value of attribute <code>min</code>.
      */
+    @Nullable
     Integer getMinOccurs();
+
+    @NotNull
+    default Optional<Integer> getOptionalMinOccurs() {
+        return Optional.ofNullable(getMinOccurs());
+    }
 
 }

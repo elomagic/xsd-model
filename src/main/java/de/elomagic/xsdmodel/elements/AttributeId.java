@@ -17,6 +17,11 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
+
 /**
  *
  * @author Carsten Rambow
@@ -30,6 +35,12 @@ public interface AttributeId {
      *
      * @return String value of attribute <code>id</code>.
      */
+    @Nullable
     String getId();
+
+    @NotNull
+    default Optional<String> getOptionalId() {
+        return Optional.ofNullable(getId());
+    }
 
 }
