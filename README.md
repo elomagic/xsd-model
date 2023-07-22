@@ -5,7 +5,7 @@
 [![build workflow](https://github.com/elomagic/xsd-model/actions/workflows/maven.yml/badge.svg)](https://github.com/elomagic/xsd-model/actions)
 [![GitHub issues](https://img.shields.io/github/issues-raw/elomagic/xsd-model)](https://github.com/elomagic/xsd-model/issues)
 [![GitHub tag](https://img.shields.io/github/tag/elomagic/xsd-model.svg)](https://GitHub.com/elomagic/xsd-model/tags/)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/elomagic/yacog4openapi/graphs/commit-activity)
+[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/elomagic/xsd-model/graphs/commit-activity)
 [![Buymeacoffee](https://badgen.net/badge/icon/buymeacoffee?icon=buymeacoffee&label)](https://www.buymeacoffee.com/elomagic)
 
 ## What is this xsd-model ? ###
