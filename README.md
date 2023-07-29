@@ -42,6 +42,27 @@ version in your project.
 </project>
 ```
 
+## Using the API
+
+### Convert XML to key values
+
+```java
+import de.elomagic.xsdmodel.XsdReader;
+import java.nio.file.Paths;
+
+class Sample {
+
+    void example() throws Exception {
+        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
+    
+        XsdSchema schema = XsdReader.read(Paths.get("root2.xsd"));
+    
+        Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
+        Assertions.assertEquals(12, schema.getComplexTypes().size());  
+    }
+}
+```
+
 ## How to build artefact by myself?
 
 What you need is an installed JDK at least version 17 and [Apache Maven](https://maven.apache.org).
