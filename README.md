@@ -27,25 +27,46 @@ version in your project.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 
-    ...
+  ...
 
-    <dependencies>
-        <dependency>
-            <groupId>de.elomagic</groupId>
-            <artifactId>xsd-model</artifactId>
-            <version>[3,]</version>
-        </dependency>
-    </dependencies>
-    
-    ...
-    
+  <dependencies>
+    <dependency>
+      <groupId>de.elomagic</groupId>
+      <artifactId>xsd-model</artifactId>
+      <version>[3,]</version>
+    </dependency>
+  </dependencies>
+
+  ...
+
 </project>
+```
+
+## Using the API
+
+### Convert XML to key values
+
+```java
+import de.elomagic.xsdmodel.XsdReader;
+import java.nio.file.Paths;
+
+class Sample {
+
+    void example() throws Exception {
+        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
+    
+        XsdSchema schema = XsdReader.read(Paths.get("root2.xsd"));
+    
+        Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
+        Assertions.assertEquals(12, schema.getComplexTypes().size());  
+    }
+}
 ```
 
 ## How to build artefact by myself?
 
 What you need is an installed JDK at least version 17 and [Apache Maven](https://maven.apache.org).
-Then clone this project to your local file system and execute `mvn clean install` in the project folder. After successful finish you find 
+Then clone this project to your local file system and execute `mvn clean install` in the project folder. After successful finish you find
 the artefact in the `target` folder.
 
 ## Contributing
@@ -72,7 +93,7 @@ Execute following steps:
   mvn release:perform -P release
   ```
 
-#### Releasing snapshot package on GitHub 
+#### Releasing snapshot package on GitHub
 
 Execute Maven deploy process
 
@@ -80,7 +101,6 @@ Execute Maven deploy process
 mvn clean install deploy
 ```
 
-  
 ## Who do I talk to? ###
 
 * Repo owner or admin
