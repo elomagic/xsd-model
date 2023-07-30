@@ -48,6 +48,7 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
         return getEnumerations() == null ? Stream.empty() : getEnumerations().stream();
     }
 
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdEnumeration>> gerOptionalEnumerations() {
         return Optional.ofNullable(getEnumerations());
