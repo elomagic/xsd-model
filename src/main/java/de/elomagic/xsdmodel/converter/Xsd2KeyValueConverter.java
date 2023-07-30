@@ -118,7 +118,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
         //schema.getComplexTypes().stream().map(t -> traverse(t)).forEach(kp -> complexTypeMap.put()) ;
 
-        throw new NotSupportedYetException();
+        return traverse(schema.getElement());
 
     }
 
