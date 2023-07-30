@@ -151,7 +151,7 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     String getVersion();
 
     @NotNull
-    default Optional<String> getOptionalVerions() {
+    default Optional<String> getOptionalVersions() {
         return Optional.ofNullable(getVersion());
     }
 
