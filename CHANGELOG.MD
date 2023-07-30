@@ -10,6 +10,7 @@ to [Semantic Versioning](https://semver.org/).
 ### Added
 
 * Simple XSD to key value template map
+* List from XSD model now streamable
 
 ## [3.0.6]
 
