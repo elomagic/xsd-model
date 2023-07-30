@@ -211,4 +211,14 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
         return null;
     }
 
+    /**
+     * Helper method from this framework to get ElementGroup of one of the {@link #getAll()}, {@link #getSequence()} or {@link #getChoice()} element.
+     *
+     * @return Returns an {@link Optional} with {@link ElementGroup} in order of <code>sequence</code>, <code>all</code>, <code>choice</code> or null when no of these is set.
+     */
+    @NotNull
+    default Optional<ElementGroup> getOptionalElementGroup() {
+        return Optional.ofNullable(getElementGroup());
+    }
+
 }

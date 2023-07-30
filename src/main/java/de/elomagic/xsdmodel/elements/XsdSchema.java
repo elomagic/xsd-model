@@ -20,6 +20,7 @@ package de.elomagic.xsdmodel.elements;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -172,6 +173,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdInclude> getIncludes();
 
     @NotNull
+    default Stream<? extends XsdInclude> streamIncludes() {
+        return getIncludes() == null ? Stream.empty() : getIncludes().stream();
+    }
+
+    @NotNull
     default Optional<List<? extends XsdInclude>> getOptionalIncludes() {
         return Optional.ofNullable(getIncludes());
     }
@@ -185,6 +191,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdImport> getImports();
 
     @NotNull
+    default Stream<? extends XsdImport> streamImports() {
+        return getImports() == null ? Stream.empty() : getImports().stream();
+    }
+
+    @NotNull
     default Optional<List<? extends XsdImport>> getOptionalImports() {
         return Optional.ofNullable(getImports());
     }
@@ -196,6 +207,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
      */
     @Nullable
     List<? extends XsdRedefine> getRedefines();
+
+    @NotNull
+    default Stream<? extends XsdRedefine> streamRedefines() {
+        return getRedefines() == null ? Stream.empty() : getRedefines().stream();
+    }
 
     @NotNull
     default Optional<List<? extends XsdRedefine>> getOptionalRedefines() {
@@ -222,6 +238,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     @Nullable
     List<? extends XsdSimpleType> getSimpleTypes();
 
+    @NotNull
+    default Stream<? extends XsdSimpleType> streamSimpleTypes() {
+        return getSimpleTypes() == null ? Stream.empty() : getSimpleTypes().stream();
+    }
+
     /**
      * Returns an {@link Optional} of a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
      *
@@ -239,6 +260,15 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
      */
     @Nullable
     List<? extends XsdComplexType> getComplexTypes();
+
+    /**
+     * Returns a {@link Stream} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
+     *
+     * @return Stream of elements <code>complexType</code>.
+     */    @NotNull
+    default Stream<? extends XsdComplexType> streamComplexTypes() {
+        return getComplexTypes() == null ? Stream.empty() : getComplexTypes().stream();
+    }
 
     /**
      * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.

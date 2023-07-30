@@ -17,7 +17,10 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  * The attributeGroup element is used to group a set of attribute declarations so that they can be incorporated as a group into complex type definitions.
@@ -28,6 +31,16 @@ public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeN
 
     List<? extends XsdAttributeGroup> getAttributeGroups();
 
+    @NotNull
+    default Stream<? extends XsdAttributeGroup> streamAttributeGroup() {
+        return getAttributeGroups() == null ? Stream.empty() : getAttributeGroups().stream();
+    }
+
     List<? extends XsdAttribute> getAttributes();
+
+    @NotNull
+    default Stream<? extends XsdAttribute> streamAttributes() {
+        return getAttributes() == null ? Stream.empty() : getAttributes().stream();
+    }
 
 }

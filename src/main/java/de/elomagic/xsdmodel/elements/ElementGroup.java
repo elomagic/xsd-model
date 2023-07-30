@@ -17,7 +17,10 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+import java.util.stream.Stream;
 
 /**
  *
@@ -26,5 +29,10 @@ import java.util.List;
 public interface ElementGroup extends ElementChild, AttributeId, AttributeMinMaxOccurs {
 
     List<? extends XsdElement> getElements();
+
+    @NotNull
+    default Stream<? extends XsdElement> streamElements() {
+        return getElements() == null ? Stream.empty() : getElements().stream();
+    }
 
 }

@@ -19,6 +19,7 @@ package de.elomagic.xsdmodel.elements;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -217,9 +218,24 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
 
     List<? extends XsdUnique> getUniques();
 
+    @NotNull
+    default Stream<? extends XsdUnique> streamUnique() {
+        return getUniques() == null ? Stream.empty() : getUniques().stream();
+    }
+
     List<? extends XsdKey> getKeys();
 
+    @NotNull
+    default Stream<? extends XsdKey> streamKeys() {
+        return getKeys() == null ? Stream.empty() : getKeys().stream();
+    }
+
     List<? extends XsdKeyref> getKeyrefs();
+
+    @NotNull
+    default Stream<? extends XsdKeyref> streamKeyrefs() {
+        return getKeyrefs() == null ? Stream.empty() : getKeyrefs().stream();
+    }
 
     default String toLogString() {
         return "XsdElement{" +
