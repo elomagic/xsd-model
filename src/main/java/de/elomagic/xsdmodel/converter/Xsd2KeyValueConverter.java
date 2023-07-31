@@ -19,7 +19,6 @@ package de.elomagic.xsdmodel.converter;
 
 import jakarta.xml.bind.JAXBException;
 
-import de.elomagic.xsdmodel.NotSupportedYetException;
 import de.elomagic.xsdmodel.XsdReader;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
@@ -43,13 +42,15 @@ import java.util.stream.Stream;
  */
 public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
+    // TODO Use namespace prefix from XSD
+    private final String namespace = "xs:";
     private String keyDelimiter = ".";
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
 
-    private final Map<String, XsdSimpleType> simpleTypeMap = new HashMap<>();
+    private final Map<String, Map<String, T>> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
-    private final Map<String, Map<String, KeyProperties>> complexTypeMap = new HashMap<>();
+    private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
     public String getKeyDelimiter() {
         return keyDelimiter;
@@ -116,13 +117,15 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     @NotNull
     public Map<String, T> convert(@NotNull XsdSchema schema) {
 
-        //schema.getComplexTypes().stream().map(t -> traverse(t)).forEach(kp -> complexTypeMap.put()) ;
+        schema.streamComplexTypes().forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
+        schema.streamSimpleTypes().forEach(st -> simpleTypeMap.put(st.getName(), traverse(st)));
 
         return traverse(schema.getElement());
 
     }
 
-    Map<String, T> traverse(XsdElement element) {
+    @NotNull
+    Map<String, T> traverse(@NotNull XsdElement element) {
 
         // TODO Handle complex type
 
@@ -149,7 +152,14 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .orElse(Map.of());
     }
 
-    Map<String, T> traverse(XsdComplexType complexType) {
+    @NotNull
+    Map<String, T> traverse(@NotNull XsdSimpleType simpleType) {
+        // TODO Implementation missing
+        return Map.of();
+    }
+
+    @NotNull
+    Map<String, T> traverse(@NotNull XsdComplexType complexType) {
         Map<String, T> result = new HashMap<>();
         complexType
                 .getOptionalElementGroup()
@@ -165,8 +175,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         return getPrimitiveType(element).isPresent();
     }
 
+    @NotNull
     Optional<String> getPrimitiveType(@NotNull XsdElement element) {
-        Optional<String> o = element.getOptionalType().filter(t -> t.startsWith("xs:"));
+        Optional<String> o = element.getOptionalType().filter(t -> t.startsWith(namespace));
         if (o.isPresent()) {
             return o;
         }
@@ -175,7 +186,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .getOptionalSimpleType()
                 .map(XsdSimpleType::getRestriction)
                 .map(XsdRestriction::getBase)
-                .filter(b -> b.startsWith("xs:"));
+                .filter(b -> b.startsWith(namespace));
     }
 
 }
