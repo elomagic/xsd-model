@@ -86,7 +86,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * @param file File to read
      * @return Returns a map but never null
      * @throws JAXBException Thrown when unable to parse the XSD document
-     * @throws IOException Thrown when unable to read XML document from the input stream
+     * @throws IOException   Thrown when unable to read XML document from the input stream
      */
     @NotNull
     public Map<String, T> convert(@NotNull Path file) throws JAXBException, IOException {
@@ -101,7 +101,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * @param in Input stream where to read the XSD document
      * @return Returns a map but never null
      * @throws JAXBException Thrown when unable to parse the XSD document
-     * @throws IOException Thrown when unable to read XML document from the input stream
+     * @throws IOException   Thrown when unable to read XML document from the input stream
      */
     @NotNull
     public Map<String, T> convert(@NotNull InputStream in) throws JAXBException, IOException {
@@ -187,6 +187,12 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .map(XsdSimpleType::getRestriction)
                 .map(XsdRestriction::getBase)
                 .filter(b -> b.startsWith(namespace));
+    }
+    @NotNull
+    Map<String, T> enrichKey(@NotNull Map<String, T> map, @NotNull String keyEnrichment) {
+        Map<String, T> result = new HashMap<>();
+        map.forEach((key, value) -> result.put(String.format("%s%s%s", keyEnrichment, keyDelimiter, key), value));
+        return result;
     }
 
 }
