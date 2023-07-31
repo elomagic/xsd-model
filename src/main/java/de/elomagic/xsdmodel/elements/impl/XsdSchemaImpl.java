@@ -17,11 +17,9 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-import java.net.URI;
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAccessType;
 import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlRootElement;
@@ -35,6 +33,13 @@ import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.NMToken;
+
+import javax.xml.namespace.QName;
+import java.net.URI;
+import java.util.AbstractMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -66,6 +71,8 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     @XmlAttribute
     @XmlJavaTypeAdapter(AnyURIDataTypeAdapter.class)
     private URI xmlns;
+    @XmlAnyAttribute
+    private Map<QName, String> anyAttributes;
 
     @XmlElement(name = "include")
     private List<XsdIncludeImpl> includes;
@@ -118,8 +125,15 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
-    public URI getXmlns() {
-        return xmlns;
+    public Map<String, URI> getXmlns() {
+        return anyAttributes == null
+                ? Map.of()
+                : anyAttributes
+                .entrySet()
+                .stream()
+                .filter(aa -> aa.getKey().toString().startsWith("xmlns:"))
+                .map(e -> new AbstractMap.SimpleEntry<String, URI>(e.getKey().toString(), URI.create(e.getValue())))
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
     }
 
     @Override

@@ -19,6 +19,7 @@ package de.elomagic.xsdmodel.elements;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -156,13 +157,14 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     }
 
     /**
-     * A URI reference that specifies one or more namespaces for use in this schema.
+     * A map of namespace and URI references that specifies one or more namespaces for use in this schema.
      * <p>
      * If no prefix is assigned, the schema components of the namespace can be used with unqualified references
      *
-     * @return URI value
+     * TODO Must be replaced by QName
+     * @return Returns a map of namespaces ith URIs
      */
-    URI getXmlns();
+    Map<String, URI> getXmlns();
 
     /**
      * Returns a {@link List} of {@link XsdInclude} represented in the XSD by the element <code>include</code>.
