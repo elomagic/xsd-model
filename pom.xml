@@ -92,7 +92,7 @@
         <jetbrains.annotations.version>24.0.1</jetbrains.annotations.version>
 
         <!-- Test dependencies version< -->
-        <junit.version>5.9.2</junit.version>
+        <junit.version>5.10.0</junit.version>
     </properties>
     
     <scm>                
@@ -126,11 +126,6 @@
                     <groupId>de.jutzig</groupId>
                     <artifactId>github-release-plugin</artifactId>
                     <version>${github-release-plugin}</version>
-                </plugin>
-                <plugin>
-                    <groupId>org.sonatype.plugins</groupId>
-                    <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>${nexus-staging-maven-plugin.version}</version>
                 </plugin>
             </plugins>
         </pluginManagement>
@@ -387,6 +382,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
+                        <version>${nexus-staging-maven-plugin.version}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
