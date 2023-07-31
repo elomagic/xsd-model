@@ -145,11 +145,14 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             return Map.of(key, kp);
         }
 
-        // TODO traverse complex element
-        return element
-                .getOptionalComplexType()
-                .map(this::traverse)
-                .orElse(Map.of());
+        return enrichKey(element.getOptionalType()
+                .map(t -> complexTypeMap.containsKey(t)
+                        ? complexTypeMap.get(t)
+                        : simpleTypeMap.get(t))
+                .orElse(element.getOptionalComplexType()
+                        .map(this::traverse)
+                        .orElse(Map.of())),
+                keyDelimiter);
     }
 
     @NotNull
