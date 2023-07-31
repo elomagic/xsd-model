@@ -140,11 +140,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             kp.setDatatype(opt.get());
             kp.setDefaultValue(element.getDefault());
 
-            // TODO Get annotation
+            getAppInfoMessage(element.getAnnotation()).ifPresent(kp::setDescription);
 
-            if (element.getOptionalComplexType().isEmpty()) {
-
-            }
             return Map.of(key, kp);
         }
 
@@ -179,7 +176,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     @NotNull
-    Optional<String> getAppInfo(@Nullable XsdAnnotation annotation) {
+    Optional<String> getAppInfoMessage(@Nullable XsdAnnotation annotation) {
         if (annotation == null) {
             return Optional.empty();
         }

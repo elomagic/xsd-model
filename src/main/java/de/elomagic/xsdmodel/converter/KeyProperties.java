@@ -4,7 +4,7 @@ public class KeyProperties {
 
     private String key;
     private String datatype;
-    private String annotation;
+    private String description;
     private String defaultValue;
 
     public String getKey() {
@@ -23,12 +23,12 @@ public class KeyProperties {
         this.datatype = datatype;
     }
 
-    public String getAnnotation() {
-        return annotation;
+    public String getDescription() {
+        return description;
     }
 
-    public void setAnnotation(String annotation) {
-        this.annotation = annotation;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public String getDefaultValue() {
