@@ -20,6 +20,7 @@ package de.elomagic.xsdmodel.converter;
 import jakarta.xml.bind.JAXBException;
 
 import de.elomagic.xsdmodel.XsdReader;
+import de.elomagic.xsdmodel.elements.AttributeName;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
@@ -38,12 +39,19 @@ import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
  * Very <b>experimental</b> small tooling class to map a simple XSD into a key properties map.
+ * <p>
+ *
  */
 public class Xsd2KeyValueConverter<T extends KeyProperties> {
+
+    private static final Logger LOGGER = Logger.getLogger(Xsd2KeyValueConverter.class.getName());
 
     // TODO Use namespace prefix from XSD
     private final String namespace = "xs:";
@@ -51,7 +59,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
 
-    private final Map<String, Map<String, T>> simpleTypeMap = new HashMap<>();
+    private final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
     private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
@@ -120,10 +128,22 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     @NotNull
     public Map<String, T> convert(@NotNull XsdSchema schema) {
 
-        schema.streamComplexTypes().forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
-        schema.streamSimpleTypes().forEach(st -> simpleTypeMap.put(st.getName(), traverse(st)));
+        buildupNamedTypeMap(schema);
 
         return traverse(schema.getElement());
+
+    }
+
+    void buildupNamedTypeMap(@NotNull XsdSchema schema) {
+        simpleTypeMap.clear();
+        complexTypeMap.clear();
+
+        schema.streamSimpleTypes().forEach(st -> traverse(st).ifPresent(kp -> simpleTypeMap.put(st.getName(), kp)));
+
+        // TODO Resolve complex types recursive !
+        Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+
+        schema.streamComplexTypes().forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
 
     }
 
@@ -146,19 +166,46 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         }
 
         return enrichKey(element.getOptionalType()
-                .map(t -> complexTypeMap.containsKey(t)
-                        ? complexTypeMap.get(t)
-                        : simpleTypeMap.get(t))
+                // TODO Check also simpleTypeMap
+                .map(complexTypeMap::get)
                 .orElse(element.getOptionalComplexType()
                         .map(this::traverse)
                         .orElse(Map.of())),
                 keyDelimiter);
     }
 
+    /**
+     * <code>
+     *     <simpleType
+     *          id=ID
+     *          name=NCName
+     *          any attributes
+     *          >
+     *
+     *          (annotation?,(restriction|list|union))
+     *
+     *      </simpleType>
+     * </code>
+     * @param simpleType
+     * @return
+     */
     @NotNull
-    Map<String, T> traverse(@NotNull XsdSimpleType simpleType) {
+    Optional<T> traverse(@NotNull XsdSimpleType simpleType) {
+
+        if (simpleType.getOptionalRestriction().isPresent()) {
+            T kp = createKeyProperties();
+            getPrimitiveType(simpleType).ifPresent(kp::setDatatype);
+            getAppInfoMessage(simpleType.getAnnotation()).ifPresent(kp::setDescription);
+
+            return Optional.of(kp);
+        } else if (simpleType.getOptionalList().isPresent()) {
+            LOGGER.info("Element 'list' in simple type '" + simpleType.getName() + "' currently not supported");
+        } else if (simpleType.getOptionalUnion().isPresent()) {
+            LOGGER.info("Element 'union' in simple type '" + simpleType.getName() + "' currently not supported");
+        }
         // TODO Implementation missing
-        return Map.of();
+
+        return Optional.empty();
     }
 
     @NotNull
@@ -179,17 +226,6 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     @NotNull
-    Optional<String> getAppInfoMessage(@Nullable XsdAnnotation annotation) {
-        if (annotation == null) {
-            return Optional.empty();
-        }
-
-        return annotation
-                .getOptionalAppInfo()
-                .flatMap(ai -> ai.getOptionalNodeInfo().map(XsdNodeInfo::getMessage));
-    }
-
-    @NotNull
     Optional<String> getPrimitiveType(@NotNull XsdElement element) {
         Optional<String> o = element.getOptionalType().filter(t -> t.startsWith(namespace));
         if (o.isPresent()) {
@@ -202,6 +238,25 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .map(XsdRestriction::getBase)
                 .filter(b -> b.startsWith(namespace));
     }
+
+    @NotNull
+    Optional<String> getPrimitiveType(@NotNull XsdSimpleType simpleType) {
+        return simpleType.getOptionalRestriction()
+                .map(XsdRestriction::getBase)
+                .filter(b -> b.startsWith(namespace));
+    }
+
+    @NotNull
+    Optional<String> getAppInfoMessage(@Nullable XsdAnnotation annotation) {
+        if (annotation == null) {
+            return Optional.empty();
+        }
+
+        return annotation
+                .getOptionalAppInfo()
+                .flatMap(ai -> ai.getOptionalNodeInfo().map(XsdNodeInfo::getMessage));
+    }
+
     @NotNull
     Map<String, T> enrichKey(@NotNull Map<String, T> map, @NotNull String keyEnrichment) {
         Map<String, T> result = new HashMap<>();
