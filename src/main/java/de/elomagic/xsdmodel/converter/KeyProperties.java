@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.converter;
 
+import java.util.Objects;
+
 public class KeyProperties {
 
     private String key;
@@ -63,12 +65,11 @@ public class KeyProperties {
 
         KeyProperties that = (KeyProperties) o;
 
-        return key.equals(that.key);
+        return Objects.equals(key, that.key);
     }
 
     @Override
     public int hashCode() {
-        return key.hashCode();
+        return key != null ? key.hashCode() : 0;
     }
-
 }
