@@ -21,6 +21,8 @@ class Xsd2KeyValueConverterTest {
 
         XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
 
+        System.out.println("ns=" + schema.getXmlns());
+
         Xsd2KeyValueConverter converter = new Xsd2KeyValueConverter();
         Map<String, KeyProperties> map = converter.convert(schema);
 
