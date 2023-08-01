@@ -273,7 +273,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                         // Check also simpleTypeMap
                         .map(t -> complexTypeMap.getOrDefault(t, Map.of(element.getName(), simpleTypeMap.get(t))))
                         .orElse(element.getOptionalComplexType()
-                                .map(ct -> enrichKey(traverse(ct), keyDelimiter))
+                                .map(ct -> enrichKey(traverse(ct), element.getName()))
                                 .orElse(Map.of())),
                 keyDelimiter
         );

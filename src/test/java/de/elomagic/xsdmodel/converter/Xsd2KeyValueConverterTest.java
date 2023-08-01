@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.Comparator;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,17 +26,19 @@ class Xsd2KeyValueConverterTest {
         //System.out.println("ns=" + schema.getXmlns());
 
         Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
-                .setKeyDelimiter("$")
+                .setKeyDelimiter("/")
                 .setAttributeDelimiter("?")
                 .setAttributeSupport(true)
                 .setKeyPropertySupplier(KeyProperties::new);
 
         Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
 
-        assertEquals("$", converter.getKeyDelimiter());
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
+
+        assertEquals("/", converter.getKeyDelimiter());
         assertEquals("?", converter.getAttributeDelimiter());
         assertTrue(converter.isAttributeSupport());
-        assertEquals(15, map.size());
-        //assertEquals("xs:string", map.get("sample-xsd$complex5$interfaces$interface$required").getDatatype());
+        assertEquals(31, map.size());
+        //assertEquals("xs:string", map.get("sample-xsd/complex5/interfaces/interface/required").getDatatype());
     }
 }
