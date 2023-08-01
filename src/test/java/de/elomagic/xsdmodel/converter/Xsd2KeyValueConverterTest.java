@@ -2,9 +2,7 @@ package de.elomagic.xsdmodel.converter;
 
 import jakarta.xml.bind.JAXBException;
 
-import de.elomagic.xsdmodel.XsdReader;
 import de.elomagic.xsdmodel.XsdSchemaFactory;
-import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
 import org.junit.jupiter.api.Test;
@@ -20,12 +18,11 @@ class Xsd2KeyValueConverterTest {
         System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
         //XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
-        XsdSchema schema = XsdReader.read(Paths.get("excluded/sample.xsd"));
-
-        System.out.println("ns=" + schema.getXmlns());
+        //XsdSchema schema = XsdReader.read(Paths.get("excluded/sample.xsd"));
+        //System.out.println("ns=" + schema.getXmlns());
 
         Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>();
-        Map<String, KeyProperties> map = converter.convert(schema);
+        Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
 
         //assertEquals(12, map.size());
         //assertEquals("xs:string", map.get("sample-xsd.complex5.interfaces.interface,required").getDatatype());

@@ -240,20 +240,16 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         );
     }
 
-    /**
+    /*
      * <code>
      *     <simpleType
      *          id=ID
      *          name=NCName
      *          any attributes
      *          >
-     *
      *          (annotation?,(restriction|list|union))
-     *
      *      </simpleType>
      * </code>
-     * @param simpleType
-     * @return
      */
     @NotNull
     Optional<T> traverse(@NotNull XsdSimpleType simpleType) {
