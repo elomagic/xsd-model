@@ -63,26 +63,70 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     // Name of complex type, key and property of key
     private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
+    /**
+     * Returns delimiters string
+     * <p>
+     * Default "." (Dot)
+     *
+     * @return Returns a string.
+     */
+    @NotNull
     public String getKeyDelimiter() {
         return keyDelimiter;
     }
 
-    public void setKeyDelimiter(String keyDelimiter) {
+    /**
+     * Set key word delimiter.
+     * <p>
+     * Default "." (Dot)
+     *
+     * @param keyDelimiter A string
+     */
+    public void setKeyDelimiter(@NotNull String keyDelimiter) {
         this.keyDelimiter = keyDelimiter;
     }
 
+    /**
+     * Returns delimiters for attributes.
+     * <p>
+     * Default "#" (Hashtag)
+     *
+     * @return Returns a string.
+     */
+    @NotNull
     public String getAttributeDelimiter() {
         return attributeDelimiter;
     }
 
-    public void setAttributeDelimiter(String attributeDelimiter) {
+    /**
+     * Set delimiter for the attribute name.
+     * <p>
+     * Default "#" (Hashtag)
+     *
+     * @param attributeDelimiter A string
+     */
+    public void setAttributeDelimiter(@NotNull String attributeDelimiter) {
         this.attributeDelimiter = attributeDelimiter;
     }
 
+    /**
+     * Returns support of converting XML attributes.
+     * <p>
+     * Default true
+     *
+     * @return When true, XML attributes will also be converted otherwise not
+     */
     public boolean isAttributeSupport() {
         return attributeSupport;
     }
 
+    /**
+     * Set converting support of XML attributes
+     * <p>
+     * Default true;
+     *
+     * @param attributeSupport When true, XML attributes will also be converted otherwise not
+     */
     public void setAttributeSupport(boolean attributeSupport) {
         this.attributeSupport = attributeSupport;
     }
