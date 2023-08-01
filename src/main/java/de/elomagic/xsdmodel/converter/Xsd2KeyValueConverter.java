@@ -216,9 +216,6 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     @NotNull
     Map<String, T> traverse(@NotNull XsdElement element) {
-
-        // TODO Handle complex type
-
         String key = element.getName();
         Optional<String> opt = getPrimitiveType(element);
         if (opt.isPresent()) {
@@ -232,13 +229,15 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             return Map.of(key, kp);
         }
 
-        return enrichKey(element.getOptionalType()
-                // TODO Check also simpleTypeMap
-                .map(complexTypeMap::get)
-                .orElse(element.getOptionalComplexType()
-                        .map(this::traverse)
-                        .orElse(Map.of())),
-                keyDelimiter);
+        return enrichKey(
+                element.getOptionalType()
+                        // Check also simpleTypeMap
+                        .map(t -> complexTypeMap.getOrDefault(t, Map.of(element.getName(), simpleTypeMap.get(t))))
+                        .orElse(element.getOptionalComplexType()
+                                .map(ct -> enrichKey(traverse(ct), keyDelimiter))
+                                .orElse(Map.of())),
+                keyDelimiter
+        );
     }
 
     /**
