@@ -140,11 +140,12 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
         schema.streamSimpleTypes().forEach(st -> traverse(st).ifPresent(kp -> simpleTypeMap.put(st.getName(), kp)));
 
-        // TODO Resolve complex types recursive !
+        // Set of complex types to resolve
         Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+        // TODO Resolve complex types recursive !
+        // TODO Possible strategie, identify thoses w/o complex dependencies
 
         schema.streamComplexTypes().forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
-
     }
 
     @NotNull
