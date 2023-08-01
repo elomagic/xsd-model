@@ -39,7 +39,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -100,9 +99,11 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * Default "." (Dot)
      *
      * @param keyDelimiter A string
+     * @return This instance
      */
-    public void setKeyDelimiter(@NotNull String keyDelimiter) {
+    public Xsd2KeyValueConverter<T> setKeyDelimiter(@NotNull String keyDelimiter) {
         this.keyDelimiter = keyDelimiter;
+        return this;
     }
 
     /**
@@ -123,9 +124,11 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * Default "#" (Hashtag)
      *
      * @param attributeDelimiter A string
+     * @return This instance
      */
-    public void setAttributeDelimiter(@NotNull String attributeDelimiter) {
+    public Xsd2KeyValueConverter<T> setAttributeDelimiter(@NotNull String attributeDelimiter) {
         this.attributeDelimiter = attributeDelimiter;
+        return this;
     }
 
     /**
@@ -145,9 +148,11 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * Default true;
      *
      * @param attributeSupport When true, XML attributes will also be converted otherwise not
+     * @return This instance
      */
-    public void setAttributeSupport(boolean attributeSupport) {
+    public Xsd2KeyValueConverter<T> setAttributeSupport(boolean attributeSupport) {
         this.attributeSupport = attributeSupport;
+        return this;
     }
 
     /**
@@ -156,9 +161,11 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      * MUST be set, when this class is used with an extended class of {@link KeyProperties}
      *
      * @param keyPropertySupplier The alternative supplier
+     * @return This instance
      */
-    public void setKeyPropertySupplier(@NotNull Supplier<T> keyPropertySupplier) {
+    public Xsd2KeyValueConverter<T> setKeyPropertySupplier(@NotNull Supplier<T> keyPropertySupplier) {
         this.keyPropertySupplier = keyPropertySupplier;
+        return this;
     }
 
     /**
