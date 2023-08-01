@@ -268,15 +268,12 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             return Map.of(key, kp);
         }
 
-        return enrichKey(
-                element.getOptionalType()
+        return element.getOptionalType()
                         // Check also simpleTypeMap
                         .map(t -> complexTypeMap.getOrDefault(t, Map.of(element.getName(), simpleTypeMap.get(t))))
                         .orElse(element.getOptionalComplexType()
                                 .map(ct -> enrichKey(traverse(ct), element.getName()))
-                                .orElse(Map.of())),
-                keyDelimiter
-        );
+                                .orElse(Map.of()));
     }
 
     /*
@@ -306,7 +303,6 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         } else {
             throw new XsdConverterException("Element 'restriction' is missing an strongly recommended in " + simpleType.getName());
         }
-        // TODO Implementation missing
 
         return Optional.empty();
     }
@@ -322,10 +318,6 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .forEach(result::putAll);
 
         return result;
-    }
-
-    boolean isPrimitiveType(@NotNull XsdElement element) {
-        return getPrimitiveType(element).isPresent();
     }
 
     @NotNull
