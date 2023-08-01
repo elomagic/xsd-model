@@ -36,7 +36,11 @@ import org.jetbrains.annotations.Nullable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -207,11 +211,39 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         schema.streamSimpleTypes().forEach(st -> traverse(st).ifPresent(kp -> simpleTypeMap.put(st.getName(), kp)));
 
         // Set of complex types to resolve
-        Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+        Set<String> dependencycomplexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
         // TODO Resolve complex types recursive !
         // TODO Build dependency tree
+        Map<String, Set<String>> dependencyTree = schema
+                .streamComplexTypes()
+                .collect(Collectors.toMap(AttributeName::getName, this::getChildComplexTypes));
 
-        schema.streamComplexTypes().forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
+        // Bring in order, so that first item has no dependency and so on.
+        List<String> orderedName = dependencyTree
+                .entrySet()
+                .stream()
+                .sorted(Comparator.comparingInt(e -> e.getValue().size()))
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        while (!orderedName.isEmpty()) {
+            schema.streamComplexTypes()
+                    .filter(ct -> orderedName.get(0).equals(ct.getName()))
+                    .forEach(ct -> {
+                        complexTypeMap.put(ct.getName(), traverse(ct));
+                        orderedName.remove(ct.getName());
+                    });
+        }
+    }
+
+    @NotNull
+    Set<String> getChildComplexTypes(XsdComplexType parent) {
+        return parent.getOptionalElementGroup()
+                .map(ElementGroup::getElements)
+                .orElseGet(ArrayList::new)
+                .stream()
+                .map(XsdElement::getType)
+                .collect(Collectors.toSet());
     }
 
     @NotNull
@@ -264,6 +296,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             LOGGER.info("Element 'list' in simple type '" + simpleType.getName() + "' currently not supported");
         } else if (simpleType.getOptionalUnion().isPresent()) {
             LOGGER.info("Element 'union' in simple type '" + simpleType.getName() + "' currently not supported");
+        } else {
+            throw new XsdConverterException("Element 'restriction' is missing an strongly recommended in " + simpleType.getName());
         }
         // TODO Implementation missing
 

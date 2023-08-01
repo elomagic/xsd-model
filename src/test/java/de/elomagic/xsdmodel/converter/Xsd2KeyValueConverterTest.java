@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 class Xsd2KeyValueConverterTest {
 
     @Test
@@ -24,7 +26,7 @@ class Xsd2KeyValueConverterTest {
         Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>();
         Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
 
-        //assertEquals(12, map.size());
+        assertEquals(15, map.size());
         //assertEquals("xs:string", map.get("sample-xsd.complex5.interfaces.interface,required").getDatatype());
     }
 }
