@@ -40,6 +40,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Supplier;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -58,10 +59,24 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     private String keyDelimiter = ".";
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
+    private Supplier<T> keyPropertySupplier = () -> (T) new KeyProperties();
 
     private final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
     private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
+
+    /**
+     * Create an instance with default {@link KeyProperties} supplier.
+     */
+    public Xsd2KeyValueConverter() {
+    }
+
+    /**
+     * Create an instance with an alternative {@link KeyProperties} {@link Supplier}.
+     */
+    public Xsd2KeyValueConverter(@NotNull Supplier<T> keyPropertySupplier) {
+        this.keyPropertySupplier = keyPropertySupplier;
+    }
 
     /**
      * Returns delimiters string
@@ -131,8 +146,15 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         this.attributeSupport = attributeSupport;
     }
 
-    protected T createKeyProperties() {
-        return (T) new KeyProperties();
+    /**
+     * Set an alternative {@link KeyProperties} {@link Supplier}.
+     * <p>
+     * MUST be set, when this class is used with an extended class of {@link KeyProperties}
+     *
+     * @param keyPropertySupplier The alternative supplier
+     */
+    public void setKeyPropertySupplier(@NotNull Supplier<T> keyPropertySupplier) {
+        this.keyPropertySupplier = keyPropertySupplier;
     }
 
     /**
@@ -200,7 +222,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         String key = element.getName();
         Optional<String> opt = getPrimitiveType(element);
         if (opt.isPresent()) {
-            T kp = createKeyProperties();
+            T kp = keyPropertySupplier.get();
             kp.setKey(key);
             kp.setDatatype(opt.get());
             kp.setDefaultValue(element.getDefault());
@@ -238,7 +260,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     Optional<T> traverse(@NotNull XsdSimpleType simpleType) {
 
         if (simpleType.getOptionalRestriction().isPresent()) {
-            T kp = createKeyProperties();
+            T kp = keyPropertySupplier.get();
             getPrimitiveType(simpleType).ifPresent(kp::setDatatype);
             getAppInfoMessage(simpleType.getAnnotation()).ifPresent(kp::setDescription);
 
