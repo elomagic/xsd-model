@@ -44,7 +44,7 @@ version in your project.
 
 ## Using the API
 
-### Convert XML to key values
+### Read an XSD file
 
 ```java
 import de.elomagic.xsdmodel.XsdReader;
@@ -62,6 +62,25 @@ class Sample {
     }
 }
 ```
+
+### Convert XML to key values
+
+```java
+import de.elomagic.xsdmodel.XsdReader;
+import java.nio.file.Paths;
+
+class Sample {
+
+    void example() throws Exception {
+        // tbd
+    }
+}
+```
+
+#### Limitations
+
+* No repetition support
+* 
 
 ## How to build artefact by myself?
 
