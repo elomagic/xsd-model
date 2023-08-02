@@ -222,27 +222,12 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
         // TODO Build weighted dependency tree. Contains currently bugs
 
+        // Loop when a complex type not resolved
         while (schema.streamComplexTypes().anyMatch(ct -> isUnresolvedType(ct.getName()))) {
-            Map<String, Set<String>> dependencyTree = schema
-                    .streamComplexTypes()
-                    .filter(ct -> isUnresolvedType(ct.getName()))
-                    .collect(Collectors.toMap(AttributeName::getName, this::getUnresolvedChildComplexTypes));
-
-            // Bring in order, so that first item has no dependency and so on.
-            List<String> orderedName = dependencyTree
-                    .entrySet()
-                    .stream()
-                    .sorted(Comparator.comparingInt(e -> e.getValue().size()))
-                    .map(Map.Entry::getKey)
-                    .collect(Collectors.toList());
-
+            // Identify complex type wo/ unresolved complex type child
             schema.streamComplexTypes()
-                    .filter(ct -> orderedName.get(0).equals(ct.getName()))
-                    .findFirst()
-                    .ifPresent(ct -> {
-                        complexTypeMap.put(ct.getName(), traverse(ct));
-                        orderedName.remove(ct.getName());
-                    });
+                    .filter(ct -> getUnresolvedChildComplexTypes(ct).isEmpty())
+                    .forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
         }
     }
 
