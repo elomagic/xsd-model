@@ -44,7 +44,7 @@ version in your project.
 
 ## Using the API
 
-### Read an XSD file
+### Read a XSD file
 
 ```java
 import de.elomagic.xsdmodel.XsdReader;
@@ -63,7 +63,9 @@ class Sample {
 }
 ```
 
-### Convert XML to key values
+### Convert XSD to key map
+
+Very experimental implementation of mapping a XSD to key a map.
 
 ```java
 import de.elomagic.xsdmodel.XsdReader;
@@ -72,7 +74,14 @@ import java.nio.file.Paths;
 class Sample {
 
     void example() throws Exception {
-        // tbd
+        Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
+                .setKeyDelimiter(".")
+                .setAttributeDelimiter("#")
+                .setAttributeSupport(true)
+                .setKeyPropertySupplier(KeyProperties::new);
+
+        Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
     }
 }
 ```
@@ -80,7 +89,8 @@ class Sample {
 #### Limitations
 
 * No repetition support
-* 
+* No attribution support
+* Simple restriction support
 
 ## How to build artefact by myself?
 
