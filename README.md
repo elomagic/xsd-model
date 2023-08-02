@@ -90,6 +90,7 @@ class Sample {
 
 * No repetition support
 * No attribution support
+* No recursive element type support
 * Simple restriction support
 
 ## How to build artefact by myself?
