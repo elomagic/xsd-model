@@ -51,7 +51,6 @@ import java.util.stream.Stream;
 /**
  * Very <b>experimental</b> small tooling class to map a simple XSD into a key properties map.
  * <p>
- *
  */
 public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
@@ -211,32 +210,36 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     }
 
+    boolean isUnresolvedType(@NotNull String name) {
+        return !(complexTypeMap.containsKey(name) || simpleTypeMap.containsKey(name));
+    }
+
     void buildupNamedTypeMap(@NotNull XsdSchema schema) {
         simpleTypeMap.clear();
         complexTypeMap.clear();
 
         schema.streamSimpleTypes().forEach(st -> traverse(st).ifPresent(kp -> simpleTypeMap.put(st.getName(), kp)));
 
-        // Set of complex types to resolve
-        Set<String> dependencycomplexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
-        // TODO Resolve complex types recursive !
-        // TODO Build dependency tree
-        Map<String, Set<String>> dependencyTree = schema
-                .streamComplexTypes()
-                .collect(Collectors.toMap(AttributeName::getName, this::getChildComplexTypes));
+        // TODO Build weighted dependency tree. Contains currently bugs
 
-        // Bring in order, so that first item has no dependency and so on.
-        List<String> orderedName = dependencyTree
-                .entrySet()
-                .stream()
-                .sorted(Comparator.comparingInt(e -> e.getValue().size()))
-                .map(Map.Entry::getKey)
-                .collect(Collectors.toList());
+        while (schema.streamComplexTypes().anyMatch(ct -> isUnresolvedType(ct.getName()))) {
+            Map<String, Set<String>> dependencyTree = schema
+                    .streamComplexTypes()
+                    .filter(ct -> isUnresolvedType(ct.getName()))
+                    .collect(Collectors.toMap(AttributeName::getName, this::getUnresolvedChildComplexTypes));
 
-        while (!orderedName.isEmpty()) {
+            // Bring in order, so that first item has no dependency and so on.
+            List<String> orderedName = dependencyTree
+                    .entrySet()
+                    .stream()
+                    .sorted(Comparator.comparingInt(e -> e.getValue().size()))
+                    .map(Map.Entry::getKey)
+                    .collect(Collectors.toList());
+
             schema.streamComplexTypes()
                     .filter(ct -> orderedName.get(0).equals(ct.getName()))
-                    .forEach(ct -> {
+                    .findFirst()
+                    .ifPresent(ct -> {
                         complexTypeMap.put(ct.getName(), traverse(ct));
                         orderedName.remove(ct.getName());
                     });
@@ -244,12 +247,13 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     @NotNull
-    Set<String> getChildComplexTypes(XsdComplexType parent) {
+    Set<String> getUnresolvedChildComplexTypes(XsdComplexType parent) {
         return parent.getOptionalElementGroup()
                 .map(ElementGroup::getElements)
                 .orElseGet(ArrayList::new)
                 .stream()
                 .filter(this::isComplexType)
+                .filter(ct -> isUnresolvedType(ct.getName()))
                 .map(XsdElement::getType)
                 .collect(Collectors.toSet());
     }
@@ -270,11 +274,11 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         }
 
         return element.getOptionalType()
-                        // Check also simpleTypeMap
-                        .map(t -> complexTypeMap.containsKey(t) ? complexTypeMap.get(t) : Map.of(element.getName(), simpleTypeMap.get(t)))
-                        .orElse(element.getOptionalComplexType()
-                                .map(ct -> enrichKey(traverse(ct), element.getName()))
-                                .orElse(Map.of()));
+                // Check also simpleTypeMap
+                .map(t -> complexTypeMap.containsKey(t) ? complexTypeMap.get(t) : Map.of(element.getName(), simpleTypeMap.get(t)))
+                .orElse(element.getOptionalComplexType()
+                        .map(ct -> enrichKey(traverse(ct), element.getName()))
+                        .orElse(Map.of()));
     }
 
     /*
