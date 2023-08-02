@@ -249,6 +249,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .map(ElementGroup::getElements)
                 .orElseGet(ArrayList::new)
                 .stream()
+                .filter(this::isComplexType)
                 .map(XsdElement::getType)
                 .collect(Collectors.toSet());
     }
@@ -270,7 +271,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
         return element.getOptionalType()
                         // Check also simpleTypeMap
-                        .map(t -> complexTypeMap.getOrDefault(t, Map.of(element.getName(), simpleTypeMap.get(t))))
+                        .map(t -> complexTypeMap.containsKey(t) ? complexTypeMap.get(t) : Map.of(element.getName(), simpleTypeMap.get(t)))
                         .orElse(element.getOptionalComplexType()
                                 .map(ct -> enrichKey(traverse(ct), element.getName()))
                                 .orElse(Map.of()));
@@ -339,6 +340,10 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         return simpleType.getOptionalRestriction()
                 .map(XsdRestriction::getBase)
                 .filter(b -> b.startsWith(namespace));
+    }
+
+    boolean isComplexType(XsdElement element) {
+        return getPrimitiveType(element).isEmpty();
     }
 
     @NotNull

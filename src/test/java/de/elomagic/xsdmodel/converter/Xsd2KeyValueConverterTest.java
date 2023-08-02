@@ -8,8 +8,6 @@ import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.Comparator;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -21,17 +19,14 @@ class Xsd2KeyValueConverterTest {
     void convert() throws JAXBException, IOException {
         System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
-        //XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
-        //XsdSchema schema = XsdReader.read(Paths.get("excluded/sample.xsd"));
-        //System.out.println("ns=" + schema.getXmlns());
-
         Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
                 .setKeyDelimiter("/")
                 .setAttributeDelimiter("?")
                 .setAttributeSupport(true)
                 .setKeyPropertySupplier(KeyProperties::new);
 
-        Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
+        //Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
+        Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
 
         map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
 
