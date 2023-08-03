@@ -20,6 +20,7 @@ package de.elomagic.xsdmodel.converter;
 import jakarta.xml.bind.JAXBException;
 
 import de.elomagic.xsdmodel.XsdReader;
+import de.elomagic.xsdmodel.elements.AttributeName;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
@@ -63,6 +64,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
     final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
+    final Map<String, XsdComplexType> resolvedComplexTypes = new HashMap<>();
 
     /**
      * Create an instance with default {@link KeyProperties} supplier.
@@ -201,6 +203,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     @NotNull
     public Map<String, T> convert(@NotNull XsdSchema schema) {
 
+        resolveComplexTypes(schema);
         buildupNamedTypeMap(schema);
 
         return traverse(schema.getElement());
@@ -209,6 +212,33 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     boolean isUnresolvedType(@NotNull String name) {
         return !complexTypeMap.containsKey(name) && !simpleTypeMap.containsKey(name);
+    }
+
+    void resolveComplexTypes(@NotNull XsdSchema schema) {
+        Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+
+        while (!complexTypeNames.isEmpty()) {
+            schema.streamComplexTypes()
+                    .filter(ct -> !resolvedComplexTypes.containsKey(ct.getName()))
+                    .map(this::resolveComplexTypes)
+                    .forEach(ct -> {
+                        complexTypeNames.remove(ct.getName());
+                        resolvedComplexTypes.put(ct.getName(), ct);
+                    });
+        }
+    }
+
+    XsdComplexType resolveComplexTypes(@NotNull XsdComplexType complexType) {
+        complexType
+                .streamElementGroup()
+                .filter(e -> e.getOptionalType().isPresent())
+                .filter(e -> !resolvedComplexTypes.containsKey(e.getType()))
+                .forEach(e -> {
+                    e.setComplexType(resolvedComplexTypes.get(e.getType()));
+                    resolvedComplexTypes.put(complexType.getName(), complexType);
+                });
+
+        return complexType;
     }
 
     void buildupNamedTypeMap(@NotNull XsdSchema schema) {
