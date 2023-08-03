@@ -63,9 +63,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     private String attributeDelimiter = "#";
     private Supplier<T> keyPropertySupplier = () -> (T) new KeyProperties();
 
-    private final Map<String, T> simpleTypeMap = new HashMap<>();
+    final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
-    private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
+    final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
     /**
      * Create an instance with default {@link KeyProperties} supplier.
@@ -211,7 +211,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     boolean isUnresolvedType(@NotNull String name) {
-        return !(complexTypeMap.containsKey(name) || simpleTypeMap.containsKey(name));
+        return !complexTypeMap.containsKey(name) && !simpleTypeMap.containsKey(name);
     }
 
     void buildupNamedTypeMap(@NotNull XsdSchema schema) {
