@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The <code>complexType</code> element defines a complex type.
@@ -32,7 +33,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdComplexType extends ElementChild, AttributeId, AttributeName {
+public interface XsdComplexType extends ElementChild, AttributeId, AttributeName, AttributeAny {
 
     /**
      * Specifies whether the complex type can be used in an instance document.
@@ -219,6 +220,13 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     @NotNull
     default Optional<ElementGroup> getOptionalElementGroup() {
         return Optional.ofNullable(getElementGroup());
+    }
+
+    @NotNull
+    default Stream<? extends XsdElement> streamElementGroup() {
+        return getOptionalElementGroup()
+                .map(ElementGroup::streamElements)
+                .orElse(Stream.empty());
     }
 
 }

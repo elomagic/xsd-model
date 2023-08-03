@@ -41,7 +41,7 @@ import java.util.Map;
  *
  * @author Carsten Rambow
  */
-public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexType, AttributeAny {
+public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexType {
 
     @XmlAttribute
     private String id;

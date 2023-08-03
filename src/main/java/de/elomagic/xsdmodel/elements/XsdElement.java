@@ -47,6 +47,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     String getType();
 
+    void setType(@Nullable String type);
+
     /**
      * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.
      * <p>
@@ -210,6 +212,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
 
     @Nullable
     XsdComplexType getComplexType();
+
+    void setComplexType(@Nullable XsdComplexType complexType);
 
     @NotNull
     default Optional<XsdComplexType> getOptionalComplexType() {
