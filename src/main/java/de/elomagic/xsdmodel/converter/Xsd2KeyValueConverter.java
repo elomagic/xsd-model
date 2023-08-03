@@ -20,7 +20,6 @@ package de.elomagic.xsdmodel.converter;
 import jakarta.xml.bind.JAXBException;
 
 import de.elomagic.xsdmodel.XsdReader;
-import de.elomagic.xsdmodel.elements.AttributeName;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
@@ -37,9 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -238,7 +235,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .orElseGet(ArrayList::new)
                 .stream()
                 .filter(this::isComplexType)
-                .filter(ct -> isUnresolvedType(ct.getName()))
+                .filter(e -> e.getOptionalType().filter(this::isUnresolvedType).isPresent())
+                //.filter(e -> isUnresolvedType(e.getType()))
                 .map(XsdElement::getType)
                 .collect(Collectors.toSet());
     }
