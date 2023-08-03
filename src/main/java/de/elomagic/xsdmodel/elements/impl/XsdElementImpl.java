@@ -200,7 +200,7 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
 
     @Override
     public String toString() {
-        return super.toString() + ";id=" + id + ";name=" + name + ";type=" + type;
+        return getClass().getSimpleName() + "{name='" + name + "';type='" + type + "';id='" + id + "'}";
     }
 
 }

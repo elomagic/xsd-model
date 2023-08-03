@@ -34,6 +34,8 @@ import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.NMToken;
 
+import org.jetbrains.annotations.Nullable;
+
 import javax.xml.namespace.QName;
 import java.net.URI;
 import java.util.AbstractMap;
@@ -176,6 +178,11 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     public List<? extends XsdComplexTypeImpl> getComplexTypes() {
         setParentInList(complexTypes);
         return complexTypes;
+    }
+
+    @Override
+    public @Nullable Map<QName, String> getAnyAttributes() {
+        return anyAttributes;
     }
 
 }

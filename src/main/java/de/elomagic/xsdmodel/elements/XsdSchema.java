@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementAnnotation, AttributeId {
+public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny {
 
     /**
      * The form for attributes declared in the target namespace of this schema.

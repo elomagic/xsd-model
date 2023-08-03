@@ -28,7 +28,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdSimpleType extends ElementAnnotation, AttributeId, AttributeName {
+public interface XsdSimpleType extends ElementAnnotation, AttributeId, AttributeName, AttributeAny {
 
     String getFinal();
 
