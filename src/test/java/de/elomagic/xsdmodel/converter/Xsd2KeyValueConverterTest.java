@@ -28,13 +28,15 @@ class Xsd2KeyValueConverterTest {
         //Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
         Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
 
-        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue()));
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + " = " + e.getValue()));
 
         assertEquals("/", converter.getKeyDelimiter());
         assertEquals("?", converter.getAttributeDelimiter());
         assertTrue(converter.isAttributeSupport());
+        assertEquals(12, converter.complexTypeMap.size());
+        assertEquals(0, converter.simpleTypeMap.size());
         assertEquals(31, map.size());
-        //assertEquals("xs:string", map.get("sample-xsd/complex5/interfaces/interface/required").getDatatype());
+        assertEquals("xs:string", map.get("sample-xsd/complex5/interfaces/interface/required").getDatatype());
     }
 
     @Test
