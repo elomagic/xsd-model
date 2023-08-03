@@ -28,7 +28,7 @@ class Xsd2KeyValueConverterTest {
         //Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
         Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
 
-        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue()));
 
         assertEquals("/", converter.getKeyDelimiter());
         assertEquals("?", converter.getAttributeDelimiter());
