@@ -20,7 +20,6 @@ package de.elomagic.xsdmodel.converter;
 import jakarta.xml.bind.JAXBException;
 
 import de.elomagic.xsdmodel.XsdReader;
-import de.elomagic.xsdmodel.elements.AttributeName;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
@@ -37,9 +36,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -63,9 +60,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     private String attributeDelimiter = "#";
     private Supplier<T> keyPropertySupplier = () -> (T) new KeyProperties();
 
-    private final Map<String, T> simpleTypeMap = new HashMap<>();
+    final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
-    private final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
+    final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
     /**
      * Create an instance with default {@link KeyProperties} supplier.
@@ -211,7 +208,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     boolean isUnresolvedType(@NotNull String name) {
-        return !(complexTypeMap.containsKey(name) || simpleTypeMap.containsKey(name));
+        return !complexTypeMap.containsKey(name) && !simpleTypeMap.containsKey(name);
     }
 
     void buildupNamedTypeMap(@NotNull XsdSchema schema) {
@@ -222,15 +219,12 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
         // TODO Build weighted dependency tree. Contains currently bugs
 
+        // Loop when a complex type not resolved
         while (schema.streamComplexTypes().anyMatch(ct -> isUnresolvedType(ct.getName()))) {
+            // Identify complex type wo/ unresolved complex type child
             schema.streamComplexTypes()
-                    .filter(ct -> isUnresolvedType(ct.getName()))
                     .filter(ct -> getUnresolvedChildComplexTypes(ct).isEmpty())
-                    .findAny()
-                    .ifPresent(ct -> {
-                        complexTypeMap.put(ct.getName(), traverse(ct));
-                        //orderedName.remove(ct.getName());
-                    });
+                    .forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
         }
     }
 
@@ -241,7 +235,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .orElseGet(ArrayList::new)
                 .stream()
                 .filter(this::isComplexType)
-                .filter(ct -> isUnresolvedType(ct.getName()))
+                .filter(e -> e.getOptionalType().filter(this::isUnresolvedType).isPresent())
+                //.filter(e -> isUnresolvedType(e.getType()))
                 .map(XsdElement::getType)
                 .collect(Collectors.toSet());
     }

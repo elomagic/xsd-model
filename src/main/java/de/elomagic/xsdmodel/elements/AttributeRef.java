@@ -20,7 +20,6 @@ package de.elomagic.xsdmodel.elements;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.text.html.Option;
 import java.util.Optional;
 
 /**
