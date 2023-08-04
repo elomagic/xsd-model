@@ -17,8 +17,6 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -29,13 +27,19 @@ import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
+import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdKey;
 import de.elomagic.xsdmodel.elements.XsdKeyref;
+import de.elomagic.xsdmodel.elements.XsdSimpleType;
 import de.elomagic.xsdmodel.elements.XsdUnique;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.Form;
+
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  *
@@ -108,6 +112,11 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
     public Integer getMinOccurs() {
         return minOccurs;
     }
@@ -175,9 +184,19 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
+    public void setSimpleType(@Nullable XsdSimpleType simpleType) {
+        this.simpleType = (XsdSimpleTypeImpl)simpleType;
+    }
+
+    @Override
     public XsdComplexTypeImpl getComplexType() {
         setParentInProperty(complexType);
         return complexType;
+    }
+
+    @Override
+    public void setComplexType(@Nullable XsdComplexType complexType) {
+        this.complexType = (XsdComplexTypeImpl)complexType;
     }
 
     @Override
@@ -200,7 +219,7 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
 
     @Override
     public String toString() {
-        return super.toString() + ";id=" + id + ";name=" + name + ";type=" + type;
+        return getClass().getSimpleName() + "{name='" + name + "';type='" + type + "';id='" + id + "'}";
     }
 
 }

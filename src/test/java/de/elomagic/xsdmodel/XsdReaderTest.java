@@ -20,8 +20,9 @@ package de.elomagic.xsdmodel;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class XsdReaderTest {
 
@@ -29,10 +30,13 @@ class XsdReaderTest {
     void testRead() throws Exception {
         System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
-        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/root2.xsd"));
+        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/example.xsd"));
+        System.out.println("ns=" + String.join(", ", schema.getXmlns().keySet()));
 
-        Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
-        Assertions.assertEquals(12, schema.getComplexTypes().size());
+        //assertEquals("http://www.w3.org/2001/XMLSchema", schema.getXmlns().get("xmlns:xs").toString());
+        
+        assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
+        assertEquals(12, schema.getComplexTypes().size());
     }
 
 }

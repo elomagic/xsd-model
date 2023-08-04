@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
@@ -24,6 +25,11 @@ import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdList;
 import de.elomagic.xsdmodel.elements.XsdSimpleType;
 import de.elomagic.xsdmodel.elements.XsdUnion;
+
+import org.jetbrains.annotations.Nullable;
+
+import javax.xml.namespace.QName;
+import java.util.Map;
 
 /**
  *
@@ -37,6 +43,8 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     private String id;
     @XmlAttribute
     private String name;
+    @XmlAnyAttribute
+    private Map<QName, String> anyAttributes;
 
     @XmlElement
     private XsdRestrictionImpl restriction;
@@ -83,5 +91,10 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    public @Nullable Map<QName, String> getAnyAttributes() {
+        return anyAttributes;
     }
 }

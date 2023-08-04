@@ -18,29 +18,20 @@
 package de.elomagic.xsdmodel.elements;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.stream.Stream;
+import javax.xml.namespace.QName;
+import java.util.Map;
+import java.util.Optional;
 
-/**
- * The attributeGroup element is used to group a set of attribute declarations so that they can be incorporated as a group into complex type definitions.
- *
- * @author Carsten Rambow
- */
-public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeName, AttributeRef {
+public interface AttributeAny {
 
-    List<? extends XsdAttributeGroup> getAttributeGroups();
+    @Nullable
+    Map<QName, String> getAnyAttributes();
 
     @NotNull
-    default Stream<? extends XsdAttributeGroup> streamAttributeGroup() {
-        return getAttributeGroups() == null ? Stream.empty() : getAttributeGroups().stream();
-    }
-
-    List<? extends XsdAttribute> getAttributes();
-
-    @NotNull
-    default Stream<? extends XsdAttribute> streamAttributes() {
-        return getAttributes() == null ? Stream.empty() : getAttributes().stream();
+    default Optional<Map<QName, String>> getOptionalAnyAttributes() {
+        return Optional.ofNullable(getAnyAttributes());
     }
 
 }

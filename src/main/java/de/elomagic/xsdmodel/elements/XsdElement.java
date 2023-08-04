@@ -19,6 +19,7 @@ package de.elomagic.xsdmodel.elements;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -45,6 +46,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      */
     @Nullable
     String getType();
+
+    void setType(@Nullable String type);
 
     /**
      * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.
@@ -202,6 +205,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     XsdSimpleType getSimpleType();
 
+    void setSimpleType(@Nullable XsdSimpleType simpleType);
+
     @NotNull
     default Optional<XsdSimpleType> getOptionalSimpleType() {
         return Optional.ofNullable(getSimpleType());
@@ -210,6 +215,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     XsdComplexType getComplexType();
 
+    void setComplexType(@Nullable XsdComplexType complexType);
+
     @NotNull
     default Optional<XsdComplexType> getOptionalComplexType() {
         return Optional.ofNullable(getComplexType());
@@ -217,9 +224,24 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
 
     List<? extends XsdUnique> getUniques();
 
+    @NotNull
+    default Stream<? extends XsdUnique> streamUnique() {
+        return getUniques() == null ? Stream.empty() : getUniques().stream();
+    }
+
     List<? extends XsdKey> getKeys();
 
+    @NotNull
+    default Stream<? extends XsdKey> streamKeys() {
+        return getKeys() == null ? Stream.empty() : getKeys().stream();
+    }
+
     List<? extends XsdKeyref> getKeyrefs();
+
+    @NotNull
+    default Stream<? extends XsdKeyref> streamKeyrefs() {
+        return getKeyrefs() == null ? Stream.empty() : getKeyrefs().stream();
+    }
 
     default String toLogString() {
         return "XsdElement{" +

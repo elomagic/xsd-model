@@ -15,24 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.elomagic.xsdmodel.elements;
+package de.elomagic.xsdmodel.converter;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.stream.Stream;
+public class XsdConverterException extends RuntimeException {
 
-/**
- *
- * @author Carsten Rambow
- */
-public interface ElementGroup extends ElementChild, AttributeId, AttributeMinMaxOccurs {
+    public XsdConverterException(@NotNull String message) {
+        super(message);
+    }
 
-    List<? extends XsdElement> getElements();
-
-    @NotNull
-    default Stream<? extends XsdElement> streamElements() {
-        return getElements() == null ? Stream.empty() : getElements().stream();
+    public XsdConverterException(String message, @NotNull Throwable cause) {
+        super(message, cause);
     }
 
 }

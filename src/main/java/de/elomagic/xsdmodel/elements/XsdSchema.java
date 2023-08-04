@@ -19,7 +19,9 @@ package de.elomagic.xsdmodel.elements;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -33,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementAnnotation, AttributeId {
+public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny {
 
     /**
      * The form for attributes declared in the target namespace of this schema.
@@ -150,18 +152,19 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     String getVersion();
 
     @NotNull
-    default Optional<String> getOptionalVerions() {
+    default Optional<String> getOptionalVersions() {
         return Optional.ofNullable(getVersion());
     }
 
     /**
-     * A URI reference that specifies one or more namespaces for use in this schema.
+     * A map of namespace and URI references that specifies one or more namespaces for use in this schema.
      * <p>
      * If no prefix is assigned, the schema components of the namespace can be used with unqualified references
-     *
-     * @return URI value
+     * <p>
+     * TODO Must be replaced by QName
+     * @return Returns a map of namespaces ith URIs
      */
-    URI getXmlns();
+    Map<String, URI> getXmlns();
 
     /**
      * Returns a {@link List} of {@link XsdInclude} represented in the XSD by the element <code>include</code>.
@@ -171,6 +174,17 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     @Nullable
     List<? extends XsdInclude> getIncludes();
 
+    @NotNull
+    default Stream<? extends XsdInclude> streamIncludes() {
+        return getIncludes() == null ? Stream.empty() : getIncludes().stream();
+    }
+
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamIncludes()} instead.
+     */
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdInclude>> getOptionalIncludes() {
         return Optional.ofNullable(getIncludes());
@@ -185,6 +199,17 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdImport> getImports();
 
     @NotNull
+    default Stream<? extends XsdImport> streamImports() {
+        return getImports() == null ? Stream.empty() : getImports().stream();
+    }
+
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamImports()} instead.
+     */
+    @Deprecated(since = "3.1.0")
+    @NotNull
     default Optional<List<? extends XsdImport>> getOptionalImports() {
         return Optional.ofNullable(getImports());
     }
@@ -197,6 +222,17 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     @Nullable
     List<? extends XsdRedefine> getRedefines();
 
+    @NotNull
+    default Stream<? extends XsdRedefine> streamRedefines() {
+        return getRedefines() == null ? Stream.empty() : getRedefines().stream();
+    }
+
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamRedefines()} instead.
+     */
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdRedefine>> getOptionalRedefines() {
         return Optional.ofNullable(getRedefines());
@@ -223,10 +259,22 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdSimpleType> getSimpleTypes();
 
     /**
+     * Returns a {@link Stream} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
+     *
+     * @return {@link Stream} of elements <code>simpleType</code>.
+     */
+    @NotNull
+    default Stream<? extends XsdSimpleType> streamSimpleTypes() {
+        return getSimpleTypes() == null ? Stream.empty() : getSimpleTypes().stream();
+    }
+
+    /**
      * Returns an {@link Optional} of a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
      *
      * @return {@link Optional} of a list of elements <code>simpleType</code>.
+     * @deprecated Use {@link XsdSchema#streamSimpleTypes()} instead
      */
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdSimpleType>> getOptionalSimpleTypes() {
         return Optional.ofNullable(getSimpleTypes());
@@ -241,10 +289,21 @@ public interface XsdSchema extends ElementAnnotation, AttributeId {
     List<? extends XsdComplexType> getComplexTypes();
 
     /**
+     * Returns a {@link Stream} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
+     *
+     * @return Stream of elements <code>complexType</code>.
+     */    @NotNull
+    default Stream<? extends XsdComplexType> streamComplexTypes() {
+        return getComplexTypes() == null ? Stream.empty() : getComplexTypes().stream();
+    }
+
+    /**
      * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
      *
      * @return List of elements <code>complexType</code>.
+     * @deprecated Use {@link XsdSchema#streamComplexTypes()} instead
      */
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdComplexType>> getOptionalComplexTypes() {
         return Optional.ofNullable(getComplexTypes());

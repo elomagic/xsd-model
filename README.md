@@ -27,24 +27,24 @@ version in your project.
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
 
-  ...
+    ...
 
-  <dependencies>
-    <dependency>
-      <groupId>de.elomagic</groupId>
-      <artifactId>xsd-model</artifactId>
-      <version>[3,]</version>
-    </dependency>
-  </dependencies>
-
-  ...
-
+    <dependencies>
+        <dependency>
+            <groupId>de.elomagic</groupId>
+            <artifactId>xsd-model</artifactId>
+            <version>[3,]</version>
+        </dependency>
+    </dependencies>
+    
+    ...
+    
 </project>
 ```
 
 ## Using the API
 
-### Convert XML to key values
+### Read a XSD file
 
 ```java
 import de.elomagic.xsdmodel.XsdReader;
@@ -62,6 +62,36 @@ class Sample {
     }
 }
 ```
+
+### Convert XSD to key map
+
+Very experimental implementation of mapping a XSD to key a map.
+
+```java
+import de.elomagic.xsdmodel.XsdReader;
+import java.nio.file.Paths;
+
+class Sample {
+
+    void example() throws Exception {
+        Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
+                .setKeyDelimiter(".")
+                .setAttributeDelimiter("#")
+                .setAttributeSupport(true)
+                .setKeyPropertySupplier(KeyProperties::new);
+
+        Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
+    }
+}
+```
+
+#### Limitations
+
+* No repetition support
+* No attribution support
+* No recursive element type support
+* Simple restriction support
 
 ## How to build artefact by myself?
 

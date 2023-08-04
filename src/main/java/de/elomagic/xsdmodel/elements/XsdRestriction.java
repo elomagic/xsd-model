@@ -22,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The <code>restriction</code> element defines restrictions on a simpleType, simpleContent, or complexContent definition.
@@ -42,6 +43,12 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     @Nullable
     List<? extends XsdEnumeration> getEnumerations();
 
+    @NotNull
+    default Stream<? extends XsdEnumeration> streamEnumeration() {
+        return getEnumerations() == null ? Stream.empty() : getEnumerations().stream();
+    }
+
+    @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdEnumeration>> gerOptionalEnumerations() {
         return Optional.ofNullable(getEnumerations());

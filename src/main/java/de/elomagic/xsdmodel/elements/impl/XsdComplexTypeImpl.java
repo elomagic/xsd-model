@@ -17,6 +17,7 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
+import jakarta.xml.bind.annotation.XmlAnyAttribute;
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -24,11 +25,17 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
+import de.elomagic.xsdmodel.elements.AttributeAny;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdSimpleContent;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
+
+import org.jetbrains.annotations.Nullable;
+
+import javax.xml.namespace.QName;
+import java.util.Map;
 
 /**
  *
@@ -52,6 +59,8 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     @XmlAttribute(name = "final")
     @XmlJavaTypeAdapter(FinalValueAdapter.class)
     private Final finalValue;
+    @XmlAnyAttribute
+    private Map<QName, String> anyAttributes;
 
     @XmlElement
     private XsdSimpleContentImpl simpleContent;
@@ -123,8 +132,13 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
+    public @Nullable Map<QName, String> getAnyAttributes() {
+        return anyAttributes;
+    }
+
+    @Override
     public String toString() {
-        return super.toString() + ";name=" + name;
+        return getClass().getSimpleName() + "{name='" + name + "'}";
     }
 
 }

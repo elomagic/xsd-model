@@ -24,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The <code>complexType</code> element defines a complex type.
@@ -32,7 +33,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdComplexType extends ElementChild, AttributeId, AttributeName {
+public interface XsdComplexType extends ElementChild, AttributeId, AttributeName, AttributeAny {
 
     /**
      * Specifies whether the complex type can be used in an instance document.
@@ -209,6 +210,23 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
         }
 
         return null;
+    }
+
+    /**
+     * Helper method from this framework to get ElementGroup of one of the {@link #getAll()}, {@link #getSequence()} or {@link #getChoice()} element.
+     *
+     * @return Returns an {@link Optional} with {@link ElementGroup} in order of <code>sequence</code>, <code>all</code>, <code>choice</code> or null when no of these is set.
+     */
+    @NotNull
+    default Optional<ElementGroup> getOptionalElementGroup() {
+        return Optional.ofNullable(getElementGroup());
+    }
+
+    @NotNull
+    default Stream<? extends XsdElement> streamElementGroup() {
+        return getOptionalElementGroup()
+                .map(ElementGroup::streamElements)
+                .orElse(Stream.empty());
     }
 
 }
