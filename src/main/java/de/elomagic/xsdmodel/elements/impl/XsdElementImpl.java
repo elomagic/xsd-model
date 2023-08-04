@@ -31,6 +31,7 @@ import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdKey;
 import de.elomagic.xsdmodel.elements.XsdKeyref;
+import de.elomagic.xsdmodel.elements.XsdSimpleType;
 import de.elomagic.xsdmodel.elements.XsdUnique;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -180,6 +181,11 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     public XsdSimpleTypeImpl getSimpleType() {
         setParentInProperty(simpleType);
         return simpleType;
+    }
+
+    @Override
+    public void setSimpleType(@Nullable XsdSimpleType simpleType) {
+        this.simpleType = (XsdSimpleTypeImpl)simpleType;
     }
 
     @Override

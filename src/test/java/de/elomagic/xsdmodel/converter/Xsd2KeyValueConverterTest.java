@@ -35,8 +35,8 @@ class Xsd2KeyValueConverterTest {
         assertTrue(converter.isAttributeSupport());
         assertEquals(12, converter.complexTypeMap.size());
         assertEquals(0, converter.simpleTypeMap.size());
-        assertEquals(31, map.size());
-        assertEquals("xs:string", map.get("sample-xsd/complex5/interfaces/interface/required").getDatatype());
+        assertEquals(17, map.size());
+        assertEquals("xs:string", map.get("sample-xsd/complex5/interface/hostname").getDatatype());
     }
 
     @Test

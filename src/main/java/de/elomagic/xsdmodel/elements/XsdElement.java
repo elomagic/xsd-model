@@ -205,6 +205,8 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     XsdSimpleType getSimpleType();
 
+    void setSimpleType(@Nullable XsdSimpleType simpleType);
+
     @NotNull
     default Optional<XsdSimpleType> getOptionalSimpleType() {
         return Optional.ofNullable(getSimpleType());

@@ -64,6 +64,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     final Map<String, T> simpleTypeMap = new HashMap<>();
     // Name of complex type, key and property of key
     final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
+
+    final Map<String, XsdSimpleType> resolvedSimpleTypes = new HashMap<>();
     final Map<String, XsdComplexType> resolvedComplexTypes = new HashMap<>();
 
     /**
@@ -203,7 +205,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     @NotNull
     public Map<String, T> convert(@NotNull XsdSchema schema) {
 
-        resolveComplexTypes(schema);
+        resolveTypes(schema);
         buildupNamedTypeMap(schema);
 
         return traverse(schema.getElement());
@@ -214,31 +216,44 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         return !complexTypeMap.containsKey(name) && !simpleTypeMap.containsKey(name);
     }
 
-    void resolveComplexTypes(@NotNull XsdSchema schema) {
-        Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+    void resolveTypes(@NotNull XsdSchema schema) {
+        schema.streamSimpleTypes().forEach(st -> resolvedSimpleTypes.put(st.getName(), st));
 
-        while (!complexTypeNames.isEmpty()) {
-            schema.streamComplexTypes()
-                    .filter(ct -> !resolvedComplexTypes.containsKey(ct.getName()))
-                    .map(this::resolveComplexTypes)
-                    .forEach(ct -> {
-                        complexTypeNames.remove(ct.getName());
-                        resolvedComplexTypes.put(ct.getName(), ct);
-                    });
-        }
-    }
-
-    XsdComplexType resolveComplexTypes(@NotNull XsdComplexType complexType) {
-        complexType
-                .streamElementGroup()
-                .filter(e -> e.getOptionalType().isPresent())
-                .filter(e -> !resolvedComplexTypes.containsKey(e.getType()))
+        // Resolve simple types in complex types
+        schema.streamComplexTypes()
+                // Pass filter when simple type isn't resolved
+                .filter(ct -> resolvedSimpleTypes.containsKey(ct.getName()))
+                .flatMap(XsdComplexType::streamElementGroup)
+                // Filter only type, who has no child of type complex
+                .filter(e -> resolvedSimpleTypes.containsKey(e.getType()))
                 .forEach(e -> {
-                    e.setComplexType(resolvedComplexTypes.get(e.getType()));
-                    resolvedComplexTypes.put(complexType.getName(), complexType);
+                    e.setSimpleType(resolvedSimpleTypes.get(e.getType()));
+                    e.setType(null);
                 });
 
-        return complexType;
+        Set<String> complexTypeNames = schema.streamComplexTypes().map(AttributeName::getName).collect(Collectors.toSet());
+
+        while (resolvedComplexTypes.size() + resolvedSimpleTypes.size() < complexTypeNames.size()) {
+            // Collect resolved complex types
+            schema.streamComplexTypes()
+                    // Pass filter when type isn't resolved
+                    .filter(ct -> !resolvedComplexTypes.containsKey(ct.getName()) && !resolvedSimpleTypes.containsKey(ct.getName()))
+                    // Resolve complex type because it can not be a simple type because simple types must not be resolved
+                    // TODO Filter only type, who has no child of type complex
+                    .filter(ct -> getUnresolvedChildComplexTypes(ct).isEmpty())
+                    .forEach(ct -> resolvedComplexTypes.put(ct.getName(), ct));
+
+            // Resolve complex types
+            schema.streamComplexTypes()
+                    // Pass filter when type isn't resolved
+                    .filter(ct -> !resolvedComplexTypes.containsKey(ct.getName()))
+                    .flatMap(XsdComplexType::streamElementGroup)
+                    .filter(e -> resolvedComplexTypes.containsKey(e.getType()))
+                    .forEach(e -> {
+                        e.setComplexType(resolvedComplexTypes.get(e.getType()));
+                        e.setType(null);
+                    });
+        }
     }
 
     void buildupNamedTypeMap(@NotNull XsdSchema schema) {
