@@ -8,10 +8,10 @@ import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Xsd2KeyValueConverterTest {
 
@@ -33,26 +33,10 @@ class Xsd2KeyValueConverterTest {
         assertEquals("/", converter.getKeyDelimiter());
         assertEquals("?", converter.getAttributeDelimiter());
         assertTrue(converter.isAttributeSupport());
-        assertEquals(12, converter.complexTypeMap.size());
-        assertEquals(0, converter.simpleTypeMap.size());
+        assertEquals(12, converter.resolvedComplexTypes.size());
+        assertEquals(0, converter.resolvedSimpleTypes.size());
         assertEquals(17, map.size());
-        assertEquals("xs:string", map.get("sample-xsd/complex5/interface/hostname").getDatatype());
+        assertEquals("xs:string", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDatatype());
     }
 
-    @Test
-    void testIsUnresolved() throws JAXBException, IOException {
-        Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>();
-
-        assertTrue(converter.isUnresolvedType("abc"));
-
-        converter.simpleTypeMap.put("abc", new KeyProperties());
-        assertFalse(converter.isUnresolvedType("abc"));
-
-        converter.simpleTypeMap.clear();
-        converter.complexTypeMap.put("abc", new HashMap<>());
-        assertFalse(converter.isUnresolvedType("abc"));
-
-        converter.simpleTypeMap.put("abc", new KeyProperties());
-        assertFalse(converter.isUnresolvedType("abc"));
-    }
 }
