@@ -31,7 +31,23 @@ import java.util.Optional;
  */
 public interface XsdAnnotation extends ElementChild, AttributeId {
 
+    /**
+     * Returns the documentation element, which is used to enter text comments in a schema.
+     *
+     * @return Element <code>documentation</code>.
+     */
+    @Nullable
     XsdDocumentation getDocumentation();
+
+    /**
+     * Returns {@link Optional} of the documentation element, which is used to enter text comments in a schema.
+     *
+     * @return  Optional of element <code>documentation</code>.
+     */
+    @NotNull
+    default Optional<XsdDocumentation> getOptionalDocumentation() {
+        return  Optional.ofNullable(getDocumentation());
+    }
 
     /**
      * Returns element <code>appInfo</code>.

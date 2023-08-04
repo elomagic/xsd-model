@@ -37,6 +37,7 @@ class Xsd2KeyValueConverterTest {
         assertEquals(0, converter.resolvedSimpleTypes.size());
         assertEquals(17, map.size());
         assertEquals("xs:string", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDatatype());
+        assertEquals("Name or IP address of a host", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDescription());
     }
 
 }

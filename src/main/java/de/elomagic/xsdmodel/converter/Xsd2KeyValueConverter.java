@@ -20,14 +20,7 @@ package de.elomagic.xsdmodel.converter;
 import jakarta.xml.bind.JAXBException;
 
 import de.elomagic.xsdmodel.XsdReader;
-import de.elomagic.xsdmodel.elements.AttributeName;
-import de.elomagic.xsdmodel.elements.ElementGroup;
-import de.elomagic.xsdmodel.elements.XsdAnnotation;
-import de.elomagic.xsdmodel.elements.XsdComplexType;
-import de.elomagic.xsdmodel.elements.XsdElement;
-import de.elomagic.xsdmodel.elements.XsdRestriction;
-import de.elomagic.xsdmodel.elements.XsdSchema;
-import de.elomagic.xsdmodel.elements.XsdSimpleType;
+import de.elomagic.xsdmodel.elements.*;
 import de.elomagic.xsdmodel.elements.extention.XsdNodeInfo;
 
 import org.jetbrains.annotations.NotNull;
@@ -323,9 +316,15 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             return Optional.empty();
         }
 
-        return annotation
-                .getOptionalAppInfo()
-                .flatMap(ai -> ai.getOptionalNodeInfo().map(XsdNodeInfo::getMessage));
+        return Optional.ofNullable(annotation
+                .getOptionalDocumentation()
+                .map(XsdDocumentation::getValue)
+                .orElse(annotation
+                        .getOptionalAppInfo()
+                        .map(XsdAppInfo::getNodeInfo)
+                        .map(XsdNodeInfo::getMessage)
+                        .orElse(null)
+                ));
     }
 
     @NotNull
