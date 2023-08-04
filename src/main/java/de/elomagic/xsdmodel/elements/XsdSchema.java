@@ -160,7 +160,7 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny 
      * A map of namespace and URI references that specifies one or more namespaces for use in this schema.
      * <p>
      * If no prefix is assigned, the schema components of the namespace can be used with unqualified references
-     *
+     * <p>
      * TODO Must be replaced by QName
      * @return Returns a map of namespaces ith URIs
      */
@@ -179,6 +179,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny 
         return getIncludes() == null ? Stream.empty() : getIncludes().stream();
     }
 
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamIncludes()} instead.
+     */
     @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdInclude>> getOptionalIncludes() {
@@ -198,6 +203,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny 
         return getImports() == null ? Stream.empty() : getImports().stream();
     }
 
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamImports()} instead.
+     */
     @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdImport>> getOptionalImports() {
@@ -217,6 +227,11 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny 
         return getRedefines() == null ? Stream.empty() : getRedefines().stream();
     }
 
+    /**
+     *
+     * @return Optional list
+     * @deprecated Use {@link XsdSchema#streamRedefines()} instead.
+     */
     @Deprecated(since = "3.1.0")
     @NotNull
     default Optional<List<? extends XsdRedefine>> getOptionalRedefines() {

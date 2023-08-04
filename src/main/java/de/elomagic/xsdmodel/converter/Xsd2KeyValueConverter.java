@@ -42,7 +42,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Supplier;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -52,18 +51,12 @@ import java.util.stream.Stream;
  */
 public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
-    private static final Logger LOGGER = Logger.getLogger(Xsd2KeyValueConverter.class.getName());
-
     // TODO Use namespace prefix from XSD
     private final String namespace = "xs:";
     private String keyDelimiter = ".";
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
     private Supplier<T> keyPropertySupplier = () -> (T) new KeyProperties();
-
-    final Map<String, T> simpleTypeMap = new HashMap<>();
-    // Name of complex type, key and property of key
-    final Map<String, Map<String, T>> complexTypeMap = new HashMap<>();
 
     final Map<String, XsdSimpleType> resolvedSimpleTypes = new HashMap<>();
     final Map<String, XsdComplexType> resolvedComplexTypes = new HashMap<>();
@@ -206,14 +199,10 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     public Map<String, T> convert(@NotNull XsdSchema schema) {
 
         resolveTypes(schema);
-        buildupNamedTypeMap(schema);
+        resolveElement(schema.getElement());
 
         return traverse(schema.getElement());
 
-    }
-
-    boolean isUnresolvedType(@NotNull String name) {
-        return !complexTypeMap.containsKey(name) && !simpleTypeMap.containsKey(name);
     }
 
     void resolveTypes(@NotNull XsdSchema schema) {
@@ -239,7 +228,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                     // Pass filter when type isn't resolved
                     .filter(ct -> !resolvedComplexTypes.containsKey(ct.getName()) && !resolvedSimpleTypes.containsKey(ct.getName()))
                     // Resolve complex type because it can not be a simple type because simple types must not be resolved
-                    // TODO Filter only type, who has no child of type complex
+                    // Filter only type, who has no child of type complex
                     .filter(ct -> getUnresolvedChildComplexTypes(ct).isEmpty())
                     .forEach(ct -> resolvedComplexTypes.put(ct.getName(), ct));
 
@@ -256,21 +245,13 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         }
     }
 
-    void buildupNamedTypeMap(@NotNull XsdSchema schema) {
-        simpleTypeMap.clear();
-        complexTypeMap.clear();
-
-        schema.streamSimpleTypes().forEach(st -> traverse(st).ifPresent(kp -> simpleTypeMap.put(st.getName(), kp)));
-
-        // TODO Build weighted dependency tree. Contains currently bugs
-
-        // Loop when a complex type not resolved
-        while (schema.streamComplexTypes().anyMatch(ct -> isUnresolvedType(ct.getName()))) {
-            // Identify complex type wo/ unresolved complex type child
-            schema.streamComplexTypes()
-                    .filter(ct -> getUnresolvedChildComplexTypes(ct).isEmpty())
-                    .forEach(ct -> complexTypeMap.put(ct.getName(), traverse(ct)));
-        }
+    void resolveElement(@NotNull XsdElement element) {
+        element.getOptionalType()
+                .ifPresentOrElse(t -> {
+                    Optional.ofNullable(resolvedSimpleTypes.get(t)).ifPresent(element::setSimpleType);
+                    Optional.ofNullable(resolvedComplexTypes.get(t)).ifPresent(element::setComplexType);
+                    element.setType(null);
+                }, () -> element.getOptionalComplexType().ifPresent(ct -> ct.streamElementGroup().forEach(this::resolveElement)));
     }
 
     @NotNull
@@ -280,8 +261,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .orElseGet(ArrayList::new)
                 .stream()
                 .filter(this::isComplexType)
-                .filter(e -> e.getOptionalType().filter(this::isUnresolvedType).isPresent())
-                //.filter(e -> isUnresolvedType(e.getType()))
+                .filter(e -> e.getOptionalType().isPresent())
                 .map(XsdElement::getType)
                 .collect(Collectors.toSet());
     }
@@ -301,43 +281,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             return Map.of(key, kp);
         }
 
-        return element.getOptionalType()
-                // Check also simpleTypeMap
-                .map(t -> complexTypeMap.containsKey(t) ? complexTypeMap.get(t) : Map.of(element.getName(), simpleTypeMap.get(t)))
-                .orElse(element.getOptionalComplexType()
+        return element.getOptionalComplexType()
                         .map(ct -> enrichKey(traverse(ct), element.getName()))
-                        .orElse(Map.of()));
-    }
-
-    /*
-     * <code>
-     *     <simpleType
-     *          id=ID
-     *          name=NCName
-     *          any attributes
-     *          >
-     *          (annotation?,(restriction|list|union))
-     *      </simpleType>
-     * </code>
-     */
-    @NotNull
-    Optional<T> traverse(@NotNull XsdSimpleType simpleType) {
-
-        if (simpleType.getOptionalRestriction().isPresent()) {
-            T kp = keyPropertySupplier.get();
-            getPrimitiveType(simpleType).ifPresent(kp::setDatatype);
-            getAppInfoMessage(simpleType.getAnnotation()).ifPresent(kp::setDescription);
-
-            return Optional.of(kp);
-        } else if (simpleType.getOptionalList().isPresent()) {
-            LOGGER.info("Element 'list' in simple type '" + simpleType.getName() + "' currently not supported");
-        } else if (simpleType.getOptionalUnion().isPresent()) {
-            LOGGER.info("Element 'union' in simple type '" + simpleType.getName() + "' currently not supported");
-        } else {
-            throw new XsdConverterException("Element 'restriction' is missing an strongly recommended in " + simpleType.getName());
-        }
-
-        return Optional.empty();
+                        .orElse(Map.of());
     }
 
     @NotNull
@@ -363,13 +309,6 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         return element
                 .getOptionalSimpleType()
                 .map(XsdSimpleType::getRestriction)
-                .map(XsdRestriction::getBase)
-                .filter(b -> b.startsWith(namespace));
-    }
-
-    @NotNull
-    Optional<String> getPrimitiveType(@NotNull XsdSimpleType simpleType) {
-        return simpleType.getOptionalRestriction()
                 .map(XsdRestriction::getBase)
                 .filter(b -> b.startsWith(namespace));
     }
