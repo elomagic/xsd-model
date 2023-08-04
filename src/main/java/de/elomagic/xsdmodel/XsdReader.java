@@ -68,9 +68,12 @@ public final class XsdReader {
      * <p>
      * When true then XSD itself will be validated against
      * @param validateSchema True when
+     * @return Returns this instance
      */
-    public void setValidateSchema(boolean validateSchema) {
+    @NotNull
+    public XsdReader setValidateSchema(boolean validateSchema) {
         this.validateSchema = validateSchema;
+        return this;
     }
 
     /**
@@ -91,9 +94,12 @@ public final class XsdReader {
      * Useful to set an alternative schema factory class.
      *
      * @param xsdSchemaFactoryClass Class name
+     *                              @return Returns the schema factory class of this instance.
      */
-    public void setXsdSchemaFactoryClass(@Nullable String xsdSchemaFactoryClass) {
+    @NotNull
+    public XsdReader setXsdSchemaFactoryClass(@Nullable String xsdSchemaFactoryClass) {
         this.xsdSchemaFactoryClass = xsdSchemaFactoryClass;
+        return this;
     }
 
     /**
@@ -102,9 +108,11 @@ public final class XsdReader {
      * Useful to set an alternative schema factory class.
      *
      * @param xsdSchemaFactoryClass Class name
+     * @return Returns the schema factory class of this instance.
      */
-    public void setXsdSchemaFactoryClass(@Nullable Class<XsdSchemaFactory> xsdSchemaFactoryClass) {
+    public XsdReader setXsdSchemaFactoryClass(@Nullable Class<XsdSchemaFactory> xsdSchemaFactoryClass) {
         setXsdSchemaFactoryClass(xsdSchemaFactoryClass == null ? null : xsdSchemaFactoryClass.getName());
+        return this;
     }
 
     @Nullable

@@ -22,15 +22,18 @@ import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
 import org.junit.jupiter.api.Test;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class XsdReaderTest {
 
     @Test
     void testRead() throws Exception {
-        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
-
-        XsdSchema schema = XsdReader.read(getClass().getResourceAsStream("/example.xsd"));
+        XsdSchema schema = new XsdReader()
+                .setXsdSchemaFactoryClass(XsdSchemaFactoryMock.class.getName())
+                .readXsd(new InputStreamReader(getClass().getResourceAsStream("/example.xsd")));
         System.out.println("ns=" + String.join(", ", schema.getXmlns().keySet()));
 
         //assertEquals("http://www.w3.org/2001/XMLSchema", schema.getXmlns().get("xmlns:xs").toString());

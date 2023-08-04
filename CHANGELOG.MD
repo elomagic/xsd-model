@@ -11,7 +11,8 @@ to [Semantic Versioning](https://semver.org/).
 
 * Experimental XSD to key value (template) mapper
 * List from XSD model now streamable
-* 
+* Fluently API Added
+
 ### Changed
 
 * Minor changes to the XSD model API
