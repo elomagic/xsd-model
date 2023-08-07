@@ -97,4 +97,10 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     public @Nullable Map<QName, String> getAnyAttributes() {
         return anyAttributes;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{name='" + name + "';id='" + id + "'}";
+    }
+
 }
