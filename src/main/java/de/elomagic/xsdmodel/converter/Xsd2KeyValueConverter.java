@@ -28,6 +28,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +50,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     // TODO Use namespace prefix from XSD
     private final String namespace = "xs:";
+    private XsdReader reader = new XsdReader();
     private String keyDelimiter = ".";
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
@@ -65,6 +70,27 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      */
     public Xsd2KeyValueConverter(@NotNull Supplier<T> keyPropertySupplier) {
         this.keyPropertySupplier = keyPropertySupplier;
+    }
+
+    /**
+     * Returns the current XSD reader instance.
+     *
+     * @return Returns the current XSD reader instance
+     */
+    @NotNull
+    public XsdReader getReader() {
+        return reader;
+    }
+
+    /**
+     * Sets an alternative XSD reader instance.
+     *
+     * @param reader Alternative XSD reader instance.
+     * @return Returns this instance
+     */
+    public Xsd2KeyValueConverter<T> setReader(@NotNull XsdReader reader) {
+        this.reader = reader;
+        return this;
     }
 
     /**
@@ -164,7 +190,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      */
     @NotNull
     public Map<String, T> convert(@NotNull Path file) throws JAXBException, IOException {
-        return convert(XsdReader.read(file));
+        try (Reader r = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
+            return convert(reader.readXsd(r));
+        }
     }
 
     /**
@@ -179,7 +207,9 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
      */
     @NotNull
     public Map<String, T> convert(@NotNull InputStream in) throws JAXBException, IOException {
-        return convert(XsdReader.read(in));
+        try (Reader r = new InputStreamReader(in, StandardCharsets.UTF_8)) {
+            return convert(reader.readXsd(r));
+        }
     }
 
     /**

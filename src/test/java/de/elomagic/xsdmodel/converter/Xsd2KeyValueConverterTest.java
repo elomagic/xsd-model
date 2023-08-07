@@ -2,7 +2,7 @@ package de.elomagic.xsdmodel.converter;
 
 import jakarta.xml.bind.JAXBException;
 
-import de.elomagic.xsdmodel.XsdSchemaFactory;
+import de.elomagic.xsdmodel.XsdReader;
 import de.elomagic.xsdmodel.mocks.XsdSchemaFactoryMock;
 
 import org.junit.jupiter.api.Test;
@@ -17,9 +17,8 @@ class Xsd2KeyValueConverterTest {
 
     @Test
     void testConvert() throws JAXBException, IOException {
-        System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
-
         Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
+                .setReader(new XsdReader().setXsdSchemaFactoryClass(XsdSchemaFactoryMock.class.getName()))
                 .setKeyDelimiter("/")
                 .setAttributeDelimiter("?")
                 .setAttributeSupport(true)
