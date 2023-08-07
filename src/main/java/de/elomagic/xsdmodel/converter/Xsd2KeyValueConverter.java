@@ -55,6 +55,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     private boolean attributeSupport = true;
     private String attributeDelimiter = "#";
     private Supplier<T> keyPropertySupplier = () -> (T) new KeyProperties();
+    private boolean restrictionSupport = true;
 
     final Map<String, XsdSimpleType> resolvedSimpleTypes = new HashMap<>();
     final Map<String, XsdComplexType> resolvedComplexTypes = new HashMap<>();
@@ -181,6 +182,24 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     /**
+     * Converts also restriction of simple type elements
+     *
+     * @return Return restriction support. Default: true
+     */
+    public boolean isRestrictionSupport() {
+        return restrictionSupport;
+    }
+
+    /**
+     * Set the support of converting restrictions of simple type elements.
+     *
+     * @param restrictionSupport Set support. Default: true
+     */
+    public void setRestrictionSupport(boolean restrictionSupport) {
+        this.restrictionSupport = restrictionSupport;
+    }
+
+    /**
      * Reads an XSD file and converts as a very simple key properties {@link Map}.
      *
      * @param file File to read
@@ -300,6 +319,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             kp.setDatatype(opt.get());
             kp.setDefaultValue(element.getDefault());
 
+            element.getOptionalSimpleType().ifPresent(st -> kp.setRestrictions(convertRestrictions(st)));
+
             getAppInfoMessage(element.getAnnotation()).ifPresent(kp::setDescription);
 
             return Map.of(key, kp);
@@ -369,6 +390,29 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         Map<String, T> result = new HashMap<>();
         map.forEach((key, value) -> result.put(String.format("%s%s%s", keyEnrichment, keyDelimiter, key), value));
         return result;
+    }
+
+    @Nullable
+    KeyRestrictions convertRestrictions(@NotNull XsdSimpleType simpleType) {
+        if (!restrictionSupport) {
+            return null;
+        }
+
+        KeyRestrictions restrictions = new KeyRestrictions();
+        restrictions.setEnumeration(getEnumerationRestriction(simpleType));
+
+        return restrictions;
+    }
+
+    @NotNull
+    Set<String> getEnumerationRestriction(@NotNull XsdSimpleType simpleType) {
+        return simpleType
+                .getOptionalRestriction()
+                .map(r -> r
+                        .streamEnumeration()
+                        .map(AttributeValue::getValue)
+                        .collect(Collectors.toSet()))
+                .orElse(Set.of());
     }
 
 }

@@ -7,6 +7,10 @@ to [Semantic Versioning](https://semver.org/).
 
 ## [3.2.0]
 
+### Added
+
+* Enumeration support for simple types added
+
 ### Changed
 
 * Schema validation by default now disabled

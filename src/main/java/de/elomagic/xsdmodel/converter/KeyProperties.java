@@ -17,7 +17,9 @@
  */
 package de.elomagic.xsdmodel.converter;
 
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 public class KeyProperties {
 
@@ -25,6 +27,7 @@ public class KeyProperties {
     private String datatype;
     private String description;
     private String defaultValue;
+    private KeyRestrictions restrictions;
 
     public String getKey() {
         return key;
@@ -56,6 +59,14 @@ public class KeyProperties {
 
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public KeyRestrictions getRestrictions() {
+        return restrictions;
+    }
+
+    public void setRestrictions(KeyRestrictions restrictions) {
+        this.restrictions = restrictions;
     }
 
     @Override

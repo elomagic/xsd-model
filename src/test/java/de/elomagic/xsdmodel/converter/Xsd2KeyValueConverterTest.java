@@ -65,6 +65,7 @@ class Xsd2KeyValueConverterTest {
         assertEquals(31, map.size());
         assertEquals("xs:string", map.get("Service/RIStoFerrari/faxLID").getDatatype());
         assertEquals("Locale sender ID", map.get("Service/RIStoFerrari/faxLID").getDescription());
+        assertEquals(4, map.get("Service/FaxManager/faxClass").getRestrictions().getEnumeration().size());
     }
 
 
