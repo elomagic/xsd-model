@@ -47,7 +47,7 @@ public final class XsdReader {
     private static final Class<XsdSchemaImpl> DEFAULT_ROOT_CLASS = XsdSchemaImpl.class;
 
     private String xsdSchemaFactoryClass = DefaultSchemaFactory.class.getName();
-    private boolean validateSchema = true;
+    private boolean validateSchema = false;
     private JAXBContext context;
 
     /**
