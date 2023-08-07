@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+    <xs:annotation>
+        <xs:documentation>Fax configuration</xs:documentation>
+    </xs:annotation>
+
+    <xs:simpleType name="FaxClass">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="Class 1"/>
+            <xs:enumeration value="Class 2"/>
+            <xs:enumeration value="Class 2.0"/>
+            <xs:enumeration value="Class 2.1"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="portType">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="65535"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="checkInterval">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="1"/>
+            <xs:maxInclusive value="1000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="sendDelay">
+        <xs:restriction base="xs:integer">
+            <xs:minInclusive value="50"/>
+            <xs:maxInclusive value="60000"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:element name="Service">
+        <xs:complexType>
+            <xs:all>
+                <xs:element name="FaxManager">
+                    <xs:annotation><xs:appinfo><xs:node-info message="Fax Manager"/></xs:appinfo></xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="active" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="Service will be started only if true"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="checkInterval" type="checkInterval" default="30">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Interval check interval in seconds" /></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="port" type="portType" default="1">
+                                <xs:annotation><xs:appinfo><xs:node-info message="COM-port number"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="initString" type="xs:string" default="AT&amp;FE0V1&amp;C1&amp;D2S0=0M0">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Init String for the modem"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxPrefix" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Prefix number for getting a dial tone"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxSharePath" type="xs:string" default="e:\fax">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Fax-file folder"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxClass" type="FaxClass" default="Class 2">
+                                <xs:annotation><xs:appinfo><xs:node-info message="FaxClass Type"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxLID" type="xs:string" default="Sender ID">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Locale sender ID"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="highResolution" type="xs:boolean" default="true">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="'false' for low resolution and 'true' for high resolution (default value)"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="sendDelay" type="sendDelay" default="1000">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Delay time in milli seconds between send process of faxes. Set a higher delay if corrupted faxes are occuring on high fax throughput" /></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="fallBack" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="'false' for disabling fallBack mode for Class 2 fax and 'true' for enabling (default value=false)"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="RIStoFerrari">
+                    <xs:annotation><xs:appinfo><xs:node-info message="RIS to Ferrari"/></xs:appinfo></xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="active" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="Dervice will be started only if true"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="checkInterval" type="checkInterval" default="30">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Interval check in seconds"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxShareFolder" type="xs:string" default="e:\fax\share">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Fax-file folder"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="jobPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The job folder of the ferrari fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="outPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The out folder of the ferrari fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxLID" type="xs:string" default="Sender ID">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Locale sender ID"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="FerraritoRIS">
+                    <xs:annotation><xs:appinfo><xs:node-info message="Ferrari to RIS"/></xs:appinfo></xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="active" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editorFCheckBox" message="service will be started only if true"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="checkInterval" type="checkInterval" default="30">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Interval check interval in seconds"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="ackPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The acknowledge folder of the ferrari fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="errorPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The error folder of the ferrari fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="RIStoT611">
+                    <xs:annotation><xs:appinfo><xs:node-info message="RIS to T611"/></xs:appinfo></xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="active" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="Service will be started only if true"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="checkInterval" type="checkInterval" default="30">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Interval check in seconds"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxShareFolder" type="xs:string" default="c:\fax\shared">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Fax-file folder"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="jobPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The job folder of the T611 fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="outPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The out folder of the T611 fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="faxLID" type="xs:string" default="Sender ID">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Locale sender ID"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="T611toRIS">
+                    <xs:annotation><xs:appinfo><xs:node-info message="T611 to RIS"/></xs:appinfo></xs:annotation>
+                    <xs:complexType>
+                        <xs:all>
+                            <xs:element name="active" type="xs:boolean" default="false">
+                                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.editor.FCheckBox" message="Service will be started only if true"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="checkInterval" type="checkInterval" default="30">
+                                <xs:annotation><xs:appinfo><xs:node-info message="Interval check in seconds"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="ackPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The acknowledge folder of the T611 fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                            <xs:element name="errorPath" type="xs:string" default="">
+                                <xs:annotation><xs:appinfo><xs:node-info message="The error folder of the T611 fax system"/></xs:appinfo></xs:annotation>
+                            </xs:element>
+                        </xs:all>
+                    </xs:complexType>
+                </xs:element>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+</xs:schema>

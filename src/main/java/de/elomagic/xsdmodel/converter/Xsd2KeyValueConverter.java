@@ -270,6 +270,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     void resolveElement(@NotNull XsdElement element) {
         element.getOptionalType()
+                .filter(t -> !isPrimitiveType(t))
                 .ifPresentOrElse(t -> {
                     Optional.ofNullable(resolvedSimpleTypes.get(t)).ifPresent(element::setSimpleType);
                     Optional.ofNullable(resolvedComplexTypes.get(t)).ifPresent(element::setComplexType);
@@ -322,9 +323,15 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
         return result;
     }
 
+    boolean isPrimitiveType(@Nullable String type) {
+        return type != null && type.startsWith(namespace);
+    }
+
     @NotNull
     Optional<String> getPrimitiveType(@NotNull XsdElement element) {
-        Optional<String> o = element.getOptionalType().filter(t -> t.startsWith(namespace));
+        Optional<String> o = element
+                .getOptionalType()
+                .filter(this::isPrimitiveType);
         if (o.isPresent()) {
             return o;
         }
@@ -333,7 +340,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
                 .getOptionalSimpleType()
                 .map(XsdSimpleType::getRestriction)
                 .map(XsdRestriction::getBase)
-                .filter(b -> b.startsWith(namespace));
+                .filter(this::isPrimitiveType);
     }
 
     boolean isComplexType(XsdElement element) {

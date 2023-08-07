@@ -24,8 +24,9 @@ class Xsd2KeyValueConverterTest {
                 .setAttributeSupport(true)
                 .setKeyPropertySupplier(KeyProperties::new);
 
-        //Map<String, KeyProperties> map = converter.convert(Paths.get("excluded/sample.xsd"));
+        //Map<String, KeyProperties> map = converter.convert(java.nio.file.Paths.get("excluded/sample.xsd"));
         Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
+        //Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example02.xsd"));
 
         map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + " = " + e.getValue()));
 
@@ -34,9 +35,37 @@ class Xsd2KeyValueConverterTest {
         assertTrue(converter.isAttributeSupport());
         assertEquals(12, converter.resolvedComplexTypes.size());
         assertEquals(0, converter.resolvedSimpleTypes.size());
-        assertEquals(17, map.size());
+        assertEquals(18, map.size());
         assertEquals("xs:string", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDatatype());
         assertEquals("Name or IP address of a host", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDescription());
+        assertEquals("Something to activate", map.get("sample-xsd/complex5/interface/active").getDescription());
+        assertEquals("xs:boolean", map.get("sample-xsd/complex5/interface/active").getDatatype());
     }
+
+    @Test
+    void testConvert2() throws JAXBException, IOException {
+        Xsd2KeyValueConverter<KeyProperties> converter = new Xsd2KeyValueConverter<>()
+                .setReader(new XsdReader().setXsdSchemaFactoryClass(XsdSchemaFactoryMock.class.getName()))
+                .setKeyDelimiter("/")
+                .setAttributeDelimiter("?")
+                .setAttributeSupport(true)
+                .setKeyPropertySupplier(KeyProperties::new);
+
+        //Map<String, KeyProperties> map = converter.convert(java.nio.file.Paths.get("excluded/sample.xsd"));
+        //Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
+        Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example02.xsd"));
+
+        map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + " = " + e.getValue()));
+
+        assertEquals("/", converter.getKeyDelimiter());
+        assertEquals("?", converter.getAttributeDelimiter());
+        assertTrue(converter.isAttributeSupport());
+        assertEquals(0, converter.resolvedComplexTypes.size());
+        assertEquals(4, converter.resolvedSimpleTypes.size());
+        assertEquals(31, map.size());
+        assertEquals("xs:string", map.get("Service/RIStoFerrari/faxLID").getDatatype());
+        assertEquals("Locale sender ID", map.get("Service/RIStoFerrari/faxLID").getDescription());
+    }
+
 
 }

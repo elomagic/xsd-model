@@ -73,6 +73,9 @@ Some XML comment text
         </xs:annotation>
         <xs:all>
             <xs:element name="remoteInterface" type="address"/>
+            <xs:element name="active" type="xs:boolean" default="false">
+                <xs:annotation><xs:appinfo><xs:node-info editor-class="de.elomagic.sample.editor.FCheckBox" message="Something to activate"/></xs:appinfo></xs:annotation>
+            </xs:element>
         </xs:all>
         <xs:attribute name="id" type="xs:string" use="required">
             <xs:annotation>
