@@ -9,7 +9,7 @@
     <packaging>jar</packaging>
 
     <name>XSD Model (Java 17 with Jakarta XML Binding 4.0)</name>
-    <description>Java object model of the XSD. Java 17 with Jakarta Jakarta XML Binding 4.0 Support</description>
+    <description>Java object model of the XSD. Java 17 with Jakarta XML Binding 4.0 Support</description>
     <url>https://github.com/elomagic/xsd-model</url>
 
     <inceptionYear>2017</inceptionYear>
