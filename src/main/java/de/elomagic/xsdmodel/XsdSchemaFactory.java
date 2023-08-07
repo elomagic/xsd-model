@@ -27,14 +27,6 @@ import javax.xml.validation.Schema;
 public interface XsdSchemaFactory {
 
     /**
-     * System property key to set an alternative factory class provider.
-     *
-     * @deprecated Use {@link XsdReader#setXsdSchemaFactoryClass(String)} instead
-     */
-    @Deprecated(since = "2023-08-04", forRemoval = true)
-    String XSD_SCHEMA_FACTORY_CLASS = "de.elomagic.xsdmodel.xsd_factory_class";
-
-    /**
      * Method to create a {@link Schema} for validation.
      *
      * @return The {@link Schema} or null to disable schema validation
