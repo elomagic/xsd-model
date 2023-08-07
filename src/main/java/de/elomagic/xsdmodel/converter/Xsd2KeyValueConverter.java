@@ -319,7 +319,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             kp.setDatatype(opt.get());
             kp.setDefaultValue(element.getDefault());
 
-            element.getOptionalSimpleType().ifPresent(st -> kp.setRestrictions(convertRestrictions(st)));
+            element.getOptionalSimpleType().ifPresent(st -> kp.setConstraints(convertRestrictions(st)));
 
             getAppInfoMessage(element.getAnnotation()).ifPresent(kp::setDescription);
 
@@ -393,15 +393,33 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     @Nullable
-    KeyRestrictions convertRestrictions(@NotNull XsdSimpleType simpleType) {
+    KeyConstraints convertRestrictions(@NotNull XsdSimpleType simpleType) {
         if (!restrictionSupport) {
             return null;
         }
 
-        KeyRestrictions restrictions = new KeyRestrictions();
-        restrictions.setEnumeration(getEnumerationRestriction(simpleType));
+        KeyConstraints kr = new KeyConstraints();
 
-        return restrictions;
+        if (simpleType.getRestriction() == null) {
+            return kr;
+        }
+
+        XsdRestriction restriction = simpleType.getRestriction();
+        kr.setEnumeration(getEnumerationRestriction(simpleType));
+        restriction.getOptionalMinExclusive().ifPresent(e -> kr.setMinExclusive(Integer.parseInt(e.getValue())));
+
+        restriction.getOptionalMinExclusive().ifPresent(e -> kr.setMinExclusive(Integer.parseInt(e.getValue())));
+        restriction.getOptionalMinInclusive().ifPresent(e -> kr.setMinInclusive(Integer.parseInt(e.getValue())));
+        restriction.getOptionalMaxExclusive().ifPresent(e -> kr.setMaxExclusive(Integer.parseInt(e.getValue())));
+        restriction.getOptionalMaxInclusive().ifPresent(e -> kr.setMaxInclusive(Integer.parseInt(e.getValue())));
+        restriction.getOptionalTotalDigits().ifPresent(e -> kr.setTotalDigits(e.getValue()));
+        restriction.getOptionalFractionDigits().ifPresent(e -> kr.setFractionDigits(e.getValue()));
+        restriction.getOptionalLength().ifPresent(e -> kr.setLength(e.getValue()));
+        restriction.getOptionalMinLength().ifPresent(e -> kr.setMinLength(e.getValue()));
+        restriction.getOptionalMaxLength().ifPresent(e -> kr.setMaxLength(e.getValue()));
+        restriction.getOptionalPattern().ifPresent(e -> kr.setPattern(e.getValue()));
+
+        return kr;
     }
 
     @NotNull

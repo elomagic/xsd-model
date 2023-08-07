@@ -17,9 +17,9 @@
  */
 package de.elomagic.xsdmodel.converter;
 
-import java.util.HashSet;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Objects;
-import java.util.Set;
 
 public class KeyProperties {
 
@@ -27,7 +27,7 @@ public class KeyProperties {
     private String datatype;
     private String description;
     private String defaultValue;
-    private KeyRestrictions restrictions;
+    private KeyConstraints constraints;
 
     public String getKey() {
         return key;
@@ -61,12 +61,13 @@ public class KeyProperties {
         this.defaultValue = defaultValue;
     }
 
-    public KeyRestrictions getRestrictions() {
-        return restrictions;
+    @Nullable
+    public KeyConstraints getConstraints() {
+        return constraints;
     }
 
-    public void setRestrictions(KeyRestrictions restrictions) {
-        this.restrictions = restrictions;
+    public void setConstraints(@Nullable KeyConstraints constraints) {
+        this.constraints = constraints;
     }
 
     @Override

@@ -9,7 +9,7 @@ to [Semantic Versioning](https://semver.org/).
 
 ### Added
 
-* Enumeration support for simple types added
+* Key constraints support for simple types added
 
 ### Changed
 
