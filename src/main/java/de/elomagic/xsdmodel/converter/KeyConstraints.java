@@ -25,6 +25,7 @@ import java.util.Set;
 
 public class KeyConstraints {
 
+    private boolean required;
     private Set<String> enumeration = new HashSet<>();
     private Integer minExclusive;
     private Integer minInclusive;
@@ -36,6 +37,14 @@ public class KeyConstraints {
     private Integer minLength;
     private Integer maxLength;
     private String pattern;
+
+    public boolean isRequired() {
+        return required;
+    }
+
+    public void setRequired(boolean required) {
+        this.required = required;
+    }
 
     @NotNull
     public Set<String> getEnumeration() {

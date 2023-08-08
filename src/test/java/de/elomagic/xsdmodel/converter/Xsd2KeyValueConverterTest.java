@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class Xsd2KeyValueConverterTest {
@@ -40,6 +41,8 @@ class Xsd2KeyValueConverterTest {
         assertEquals("Name or IP address of a host", map.get("sample-xsd/complex5/interface/remoteInterface/hostname").getDescription());
         assertEquals("Something to activate", map.get("sample-xsd/complex5/interface/active").getDescription());
         assertEquals("xs:boolean", map.get("sample-xsd/complex5/interface/active").getDatatype());
+        assertTrue(map.get("sample-xsd/complex3/a/b").getConstraints().isRequired());
+        assertFalse(map.get("sample-xsd/complex5/interface/active").getConstraints().isRequired());
     }
 
     @Test

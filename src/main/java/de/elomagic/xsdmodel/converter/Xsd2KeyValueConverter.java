@@ -318,8 +318,7 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
             kp.setKey(key);
             kp.setDatatype(opt.get());
             kp.setDefaultValue(element.getDefault());
-
-            element.getOptionalSimpleType().ifPresent(st -> kp.setConstraints(convertRestrictions(st)));
+            kp.setConstraints(convertRestrictions(element));
 
             getAppInfoMessage(element.getAnnotation()).ifPresent(kp::setDescription);
 
@@ -393,31 +392,29 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
     }
 
     @Nullable
-    KeyConstraints convertRestrictions(@NotNull XsdSimpleType simpleType) {
+    KeyConstraints convertRestrictions(@NotNull XsdElement element) {
         if (!restrictionSupport) {
             return null;
         }
 
         KeyConstraints kr = new KeyConstraints();
+        kr.setRequired(element.getOptionalMinOccurs().orElse(0) > 0 || !Optional.ofNullable(element.getNillable()).orElse(true));
 
-        if (simpleType.getRestriction() == null) {
-            return kr;
-        }
-
-        XsdRestriction restriction = simpleType.getRestriction();
-        kr.setEnumeration(getEnumerationRestriction(simpleType));
-        restriction.getOptionalMinExclusive().ifPresent(e -> kr.setMinExclusive(Integer.parseInt(e.getValue())));
-
-        restriction.getOptionalMinExclusive().ifPresent(e -> kr.setMinExclusive(Integer.parseInt(e.getValue())));
-        restriction.getOptionalMinInclusive().ifPresent(e -> kr.setMinInclusive(Integer.parseInt(e.getValue())));
-        restriction.getOptionalMaxExclusive().ifPresent(e -> kr.setMaxExclusive(Integer.parseInt(e.getValue())));
-        restriction.getOptionalMaxInclusive().ifPresent(e -> kr.setMaxInclusive(Integer.parseInt(e.getValue())));
-        restriction.getOptionalTotalDigits().ifPresent(e -> kr.setTotalDigits(e.getValue()));
-        restriction.getOptionalFractionDigits().ifPresent(e -> kr.setFractionDigits(e.getValue()));
-        restriction.getOptionalLength().ifPresent(e -> kr.setLength(e.getValue()));
-        restriction.getOptionalMinLength().ifPresent(e -> kr.setMinLength(e.getValue()));
-        restriction.getOptionalMaxLength().ifPresent(e -> kr.setMaxLength(e.getValue()));
-        restriction.getOptionalPattern().ifPresent(e -> kr.setPattern(e.getValue()));
+        element.getOptionalSimpleType().map(st -> {
+            kr.setEnumeration(getEnumerationRestriction(st));
+            return st.getRestriction();
+        }).ifPresent(r -> {
+            r.getOptionalMinExclusive().ifPresent(e -> kr.setMinExclusive(Integer.parseInt(e.getValue())));
+            r.getOptionalMinInclusive().ifPresent(e -> kr.setMinInclusive(Integer.parseInt(e.getValue())));
+            r.getOptionalMaxExclusive().ifPresent(e -> kr.setMaxExclusive(Integer.parseInt(e.getValue())));
+            r.getOptionalMaxInclusive().ifPresent(e -> kr.setMaxInclusive(Integer.parseInt(e.getValue())));
+            r.getOptionalTotalDigits().ifPresent(e -> kr.setTotalDigits(e.getValue()));
+            r.getOptionalFractionDigits().ifPresent(e -> kr.setFractionDigits(e.getValue()));
+            r.getOptionalLength().ifPresent(e -> kr.setLength(e.getValue()));
+            r.getOptionalMinLength().ifPresent(e -> kr.setMinLength(e.getValue()));
+            r.getOptionalMaxLength().ifPresent(e -> kr.setMaxLength(e.getValue()));
+            r.getOptionalPattern().ifPresent(e -> kr.setPattern(e.getValue()));
+        });
 
         return kr;
     }
