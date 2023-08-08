@@ -50,7 +50,6 @@ version in your project.
 import de.elomagic.xsdmodel.XsdReader;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 
-import java.nio.file.Files;
 import java.nio.file.Paths;
 
 class Sample {
@@ -58,10 +57,7 @@ class Sample {
   void example() throws Exception {
     System.setProperty(XsdSchemaFactory.XSD_SCHEMA_FACTORY_CLASS, XsdSchemaFactoryMock.class.getName());
 
-    XsdReader reader = new XsdReader()
-            .setValidateSchema(false);
-
-    XsdSchema schema = reader.readXsd(Files.newBufferedReader(Paths.get("root2.xsd")));
+    XsdSchema schema = XsdReader.read(Paths.get("root2.xsd"));
 
     Assertions.assertEquals("Documentation of the schema annotation.", schema.getAnnotation().getDocumentation().getValue());
     Assertions.assertEquals(12, schema.getComplexTypes().size());
@@ -88,7 +84,6 @@ class Sample {
                 .setAttributeDelimiter("#")
                 .setAttributeSupport(true)
                 .setKeyPropertySupplier(KeyProperties::new);
-        converter.getReader().setValidateSchema(false);
 
         Map<String, KeyProperties> map = converter.convert(getClass().getResourceAsStream("/example.xsd"));
         map.entrySet().stream().sorted(Map.Entry.comparingByKey()).forEach(e -> System.out.println(e.getKey() + "=" + e.getValue().getDatatype()));
