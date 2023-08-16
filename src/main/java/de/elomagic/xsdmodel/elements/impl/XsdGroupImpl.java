@@ -54,6 +54,11 @@ public class XsdGroupImpl extends AbstractElement implements XsdGroup {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public Integer getMaxOccurs() {
         return maxOccurs;
     }

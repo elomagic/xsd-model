@@ -20,6 +20,8 @@ package de.elomagic.xsdmodel.mocks;
 import de.elomagic.xsdmodel.XsdSchemaException;
 import de.elomagic.xsdmodel.XsdSchemaFactory;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -27,6 +29,7 @@ import javax.xml.validation.SchemaFactory;
 public class XsdSchemaFactoryMock implements XsdSchemaFactory {
 
     @Override
+    @NotNull
     public Schema createSchema() throws XsdSchemaException {
         try {
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

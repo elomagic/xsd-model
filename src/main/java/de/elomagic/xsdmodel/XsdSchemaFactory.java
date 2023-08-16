@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.validation.Schema;
 
 /**
@@ -32,6 +34,7 @@ public interface XsdSchemaFactory {
      * @return The {@link Schema} or null to disable schema validation
      * @throws XsdSchemaException Thrown when unable to create a {@link Schema}
      */
+    @NotNull
     Schema createSchema() throws XsdSchemaException;
 
 }

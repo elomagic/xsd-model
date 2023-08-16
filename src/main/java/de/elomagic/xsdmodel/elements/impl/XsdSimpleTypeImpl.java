@@ -71,6 +71,11 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public XsdRestrictionImpl getRestriction() {
         setParentInProperty(restriction);
         return restriction;

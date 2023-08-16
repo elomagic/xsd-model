@@ -95,6 +95,14 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     XsdAll getAll();
 
     /**
+     * Creates a {@link XsdAll} and set them to this instance.
+     *
+     * @return The {@link XsdAll}
+     */
+    @NotNull
+    XsdAll createAll();
+
+    /**
      * Returns the {@link Optional} of {@link #getAll()}.
      * <p>
      * The <code>all</code> element specifies that the child elements can appear in any order and that each child element can occur zero or one time (Default is one time).

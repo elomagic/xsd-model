@@ -37,6 +37,7 @@ import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.Form;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
@@ -104,6 +105,11 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @Override
     public String getName() {
         return name;
+    }
+
+    @Override
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
@@ -183,9 +189,17 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
         return simpleType;
     }
 
-    @Override
     public void setSimpleType(@Nullable XsdSimpleType simpleType) {
-        this.simpleType = (XsdSimpleTypeImpl)simpleType;
+        this.simpleType = (XsdSimpleTypeImpl) simpleType;
+    }
+
+    @NotNull
+    @Override
+    public XsdSimpleTypeImpl createSimpleType() {
+        XsdSimpleTypeImpl st = new XsdSimpleTypeImpl();
+        st.setParent(this);
+        setSimpleType(st);
+        return st;
     }
 
     @Override
@@ -194,9 +208,17 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
         return complexType;
     }
 
-    @Override
     public void setComplexType(@Nullable XsdComplexType complexType) {
-        this.complexType = (XsdComplexTypeImpl)complexType;
+        this.complexType = (XsdComplexTypeImpl) complexType;
+    }
+
+    @NotNull
+    @Override
+    public XsdComplexTypeImpl createComplexType() {
+        XsdComplexTypeImpl ct = new XsdComplexTypeImpl();
+        setComplexType(ct);
+        ct.setParent(this);
+        return ct;
     }
 
     @Override

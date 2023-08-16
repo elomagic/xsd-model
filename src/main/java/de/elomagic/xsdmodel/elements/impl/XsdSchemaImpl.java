@@ -34,6 +34,7 @@ import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.NMToken;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.xml.namespace.QName;
@@ -166,6 +167,15 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     public XsdElementImpl getElement() {
         setParentInProperty(element);
         return element;
+    }
+
+    @NotNull
+    @Override
+    public XsdElementImpl createElement() {
+        XsdElementImpl e = new XsdElementImpl();
+        e.setParent(this);
+        this.element = e;
+        return e;
     }
 
     @Override

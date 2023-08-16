@@ -48,6 +48,11 @@ public class XsdKeyImpl extends AbstractElement implements XsdKey {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public XsdSelector getSelector() {
         setParentInProperty(selector);
         return selector;

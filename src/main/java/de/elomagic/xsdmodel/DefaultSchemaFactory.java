@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.URL;
 
 import javax.xml.XMLConstants;
@@ -33,6 +35,7 @@ import javax.xml.validation.SchemaFactory;
 public final class DefaultSchemaFactory implements XsdSchemaFactory {
 
     @Override
+    @NotNull
     public Schema createSchema() throws XsdSchemaException {
         try {
             SchemaFactory sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);

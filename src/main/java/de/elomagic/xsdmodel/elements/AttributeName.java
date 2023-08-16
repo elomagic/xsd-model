@@ -29,4 +29,11 @@ public interface AttributeName {
      * @return String value of attribute <code>name</code>.
      */
     String getName();
+
+    /**
+     * Specifies a name for the element.
+     *
+     * @param name String value of attribute <code>name</code>.
+     */
+    void setName(String name);
 }

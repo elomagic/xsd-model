@@ -17,8 +17,6 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -26,6 +24,11 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.ElementGroup;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -64,6 +67,19 @@ public abstract class AbstractGroupElement extends AbstractElement implements El
     public List<XsdElementImpl> getElements() {
         setParentInList(elements);
         return elements;
+    }
+
+    @NotNull
+    @Override
+    public XsdElementImpl createElement() {
+        if (elements == null) {
+            elements = new ArrayList<>();
+        }
+
+        XsdElementImpl element = new XsdElementImpl();
+        element.setParent(this);
+        elements.add(element);
+        return element;
     }
 
 }

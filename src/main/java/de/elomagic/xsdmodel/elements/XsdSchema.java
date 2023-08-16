@@ -251,6 +251,14 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny 
     }
 
     /**
+     * Creates a {@link XsdElement} and set them to this instance.
+     *
+     * @return Returns the {@link XsdElement}
+     */
+    @NotNull
+    XsdElement createElement();
+
+    /**
      * Returns a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
      *
      * @return List of elements <code>simpleType</code>.

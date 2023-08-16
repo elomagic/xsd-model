@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel;
 
+import org.jetbrains.annotations.NotNull;
+
 import javax.xml.XMLConstants;
 import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
@@ -34,6 +36,7 @@ public final class CachedSchemaFactory implements XsdSchemaFactory {
     private Schema schema;
 
     @Override
+    @NotNull
     public Schema createSchema() throws XsdSchemaException {
         if (schema == null) {
             try {

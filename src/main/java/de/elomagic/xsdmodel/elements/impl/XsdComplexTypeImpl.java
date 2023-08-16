@@ -26,12 +26,14 @@ import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.elements.AttributeAny;
+import de.elomagic.xsdmodel.elements.XsdAll;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdSimpleContent;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.xml.namespace.QName;
@@ -84,6 +86,11 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public Boolean getAbstract() {
         return abstractValue;
     }
@@ -117,6 +124,15 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     public XsdAllImpl getAll() {
         setParentInProperty(all);
         return all;
+    }
+
+    @Override
+    @NotNull
+    public XsdAllImpl createAll() {
+        XsdAllImpl a = new XsdAllImpl();
+        a.setParent(this);
+        all = a;
+        return a;
     }
 
     @Override

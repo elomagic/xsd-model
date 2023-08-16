@@ -35,4 +35,12 @@ public interface ElementGroup extends ElementChild, AttributeId, AttributeMinMax
         return getElements() == null ? Stream.empty() : getElements().stream();
     }
 
+    /**
+     * Creates a {@link XsdElement} and add them to the elements list.
+     *
+     * @return The created {@link XsdElement}
+     */
+    @NotNull
+    XsdElement createElement();
+
 }

@@ -50,6 +50,11 @@ public class XsdKeyrefImpl extends AbstractElement implements XsdKeyref {
     }
 
     @Override
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
     public String getRefer() {
         return refer;
     }
