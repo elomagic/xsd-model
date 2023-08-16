@@ -28,6 +28,8 @@ import java.util.Optional;
  */
 public interface AttributeMinMaxOccurs {
 
+    String UNBOUNDED = "unbounded";
+
     /**
      * Specifies the maximum number of times the choice element can occur in the parent element.
      * <p>
@@ -38,10 +40,21 @@ public interface AttributeMinMaxOccurs {
      * @return String value of attribute <code>max</code>.
      */
     @Nullable
-    Integer getMaxOccurs();
+    String getMaxOccurs();
+
+    /**
+     * Specifies the maximum number of times the choice element can occur in the parent element.
+     * <p>
+     * Optional. The value can be any number &gt;= 0, or if you want to set no limit on the maximum
+     * number, use the value "unbounded". Default value is 1, This attribute cannot
+     * be used if the parent element is the schema element.
+     *
+     * @param value Value of attribute <code>max</code>.
+     */
+    void setMaxOccurs(@Nullable String value);
 
     @NotNull
-    default Optional<Integer> getOptionalMaxOccurs() {
+    default Optional<String> getOptionalMaxOccurs() {
         return Optional.ofNullable(getMaxOccurs());
     }
 
@@ -55,6 +68,8 @@ public interface AttributeMinMaxOccurs {
      */
     @Nullable
     Integer getMinOccurs();
+
+    void setMinOccurs(@Nullable Integer value);
 
     @NotNull
     default Optional<Integer> getOptionalMinOccurs() {

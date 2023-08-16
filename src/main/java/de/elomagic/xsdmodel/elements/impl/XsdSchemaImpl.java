@@ -29,6 +29,8 @@ import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.NMTokenValueAdapter;
+import de.elomagic.xsdmodel.elements.XsdAttribute;
+import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -40,9 +42,12 @@ import org.jetbrains.annotations.Nullable;
 import javax.xml.namespace.QName;
 import java.net.URI;
 import java.util.AbstractMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  *
@@ -91,6 +96,8 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     private List<XsdComplexTypeImpl> complexTypes;
     @XmlElement(name = "redefine")
     private List<XsdRedefineImpl> redefines;
+    @XmlElement
+    private Set<XsdAttributeImpl> attributes;
 
     @Override
     public String getId() {
@@ -193,6 +200,24 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     @Override
     public @Nullable Map<QName, String> getAnyAttributes() {
         return anyAttributes;
+    }
+
+    @Override
+    public @NotNull Stream<XsdAttribute> streamAttributes() {
+        return attributes == null ? Stream.empty() : attributes.stream().map(a -> (XsdAttribute)a);
+    }
+
+    @NotNull
+    @Override
+    public XsdAttribute createAttribute() {
+        if (attributes == null) {
+            attributes = new HashSet<>();
+        }
+
+        XsdAttributeImpl attribute = new XsdAttributeImpl();
+        attribute.setParent(this);
+        attributes.add(attribute);
+        return attribute;
     }
 
 }

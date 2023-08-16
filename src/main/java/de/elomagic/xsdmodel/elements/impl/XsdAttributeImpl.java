@@ -27,6 +27,8 @@ import de.elomagic.xsdmodel.elements.XsdAttribute;
 import de.elomagic.xsdmodel.enumerations.Form;
 import de.elomagic.xsdmodel.enumerations.Use;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -76,6 +78,11 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    @Override
     public Use getUse() {
         return use;
     }
@@ -83,6 +90,11 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     @Override
     public String getDefault() {
         return defaultValue;
+    }
+
+    @Override
+    public void setDefault(@Nullable String value) {
+        this.defaultValue = value;
     }
 
     @Override

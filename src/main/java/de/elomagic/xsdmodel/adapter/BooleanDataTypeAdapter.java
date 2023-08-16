@@ -27,22 +27,15 @@ public class BooleanDataTypeAdapter extends XmlAdapter<String, Boolean> {
 
     @Override
     public Boolean unmarshal(String v) {
-        if(v == null || v.length() == 0) {
+        if(v == null || v.isEmpty()) {
             return null;
         }
 
-        switch(v) {
-            case "true":
-            case "1":
-                return true;
-
-            case "false":
-            case "0":
-                return false;
-
-            default:
-                throw new IllegalArgumentException("Value \"" + v + "\" is'n a valid boolean string.");
-        }
+        return switch (v) {
+            case "true", "1" -> true;
+            case "false", "0" -> false;
+            default -> throw new IllegalArgumentException("Value \"" + v + "\" is'n a valid boolean string.");
+        };
     }
 
     @Override

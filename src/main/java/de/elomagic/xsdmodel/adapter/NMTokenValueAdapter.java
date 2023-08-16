@@ -29,7 +29,7 @@ public class NMTokenValueAdapter extends XmlAdapter<String, NMToken> {
 
     @Override
     public NMToken unmarshal(String v) {
-        if(v == null || v.length() == 0) {
+        if(v == null || v.isEmpty()) {
             return null;
         }
 

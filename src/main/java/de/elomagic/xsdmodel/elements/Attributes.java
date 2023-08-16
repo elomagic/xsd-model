@@ -15,30 +15,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package de.elomagic.xsdmodel.adapter;
+package de.elomagic.xsdmodel.elements;
 
-import jakarta.xml.bind.annotation.adapters.XmlAdapter;
+import org.jetbrains.annotations.NotNull;
 
-import de.elomagic.xsdmodel.enumerations.WhiteSpace;
+import java.util.stream.Stream;
 
-/**
- *
- * @author rambow
- */
-public class WhiteSpaceValueAdapter extends XmlAdapter<String, WhiteSpace> {
+public interface Attributes {
 
-    @Override
-    public WhiteSpace unmarshal(String v) {
-        if(v == null || v.isEmpty()) {
-            return null;
-        }
+    @NotNull
+    XsdAttribute createAttribute();
 
-        return WhiteSpace.parseValue(v);
-    }
-
-    @Override
-    public String marshal(WhiteSpace v) {
-        return v == null ? null : v.getValue();
-    }
+    @NotNull
+    Stream<XsdAttribute> streamAttributes();
 
 }

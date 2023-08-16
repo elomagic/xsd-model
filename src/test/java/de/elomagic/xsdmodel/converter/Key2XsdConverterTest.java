@@ -3,7 +3,6 @@ package de.elomagic.xsdmodel.converter;
 import de.elomagic.xmltools.XmlWriter;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 
-import org.glassfish.jaxb.core.marshaller.XMLWriter;
 import org.junit.jupiter.api.Test;
 
 import java.util.Properties;
@@ -20,7 +19,7 @@ class Key2XsdConverterTest {
 
         XsdSchema schema = new Key2XsdConverter()
                 .setRootName(null)
-                .convert(p.keySet()).get();
+                .convert(p).get();
 
         assertEquals("a1", schema.getElement().getName());
 

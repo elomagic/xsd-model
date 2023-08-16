@@ -25,7 +25,6 @@ import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
-import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
@@ -77,8 +76,7 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
     private Integer minOccurs;
     @XmlAttribute
-    @XmlJavaTypeAdapter(MaxOccursAttributeAdapter.class)
-    private Integer maxOccurs;
+    private String maxOccurs;
     @XmlAttribute(name = "default")
     private String defaultValue;
     @XmlAttribute
@@ -128,13 +126,28 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public Integer getMaxOccurs() {
+    public void setMinOccurs(Integer minOccurs) {
+        this.minOccurs = minOccurs;
+    }
+
+    @Override
+    public String getMaxOccurs() {
         return maxOccurs;
+    }
+
+    @Override
+    public void setMaxOccurs(String maxOccurs) {
+        this.maxOccurs = maxOccurs;
     }
 
     @Override
     public String getDefault() {
         return defaultValue;
+    }
+
+    @Override
+    public void setDefault(@Nullable String defaultValue) {
+        this.defaultValue = defaultValue;
     }
 
     @Override

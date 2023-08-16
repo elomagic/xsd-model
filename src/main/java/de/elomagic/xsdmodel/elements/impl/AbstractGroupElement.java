@@ -21,7 +21,6 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import de.elomagic.xsdmodel.adapter.MaxOccursAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.ElementGroup;
 
@@ -39,8 +38,7 @@ public abstract class AbstractGroupElement extends AbstractElement implements El
     @XmlAttribute
     private String id;
     @XmlAttribute
-    @XmlJavaTypeAdapter(MaxOccursAttributeAdapter.class)
-    private Integer maxOccurs;
+    private String maxOccurs;
     @XmlAttribute
     @XmlJavaTypeAdapter(NonNegativeIntegerAdapter.class)
     private Integer minOccurs;
@@ -54,13 +52,23 @@ public abstract class AbstractGroupElement extends AbstractElement implements El
     }
 
     @Override
-    public Integer getMaxOccurs() {
+    public String getMaxOccurs() {
         return maxOccurs;
+    }
+
+    @Override
+    public void setMaxOccurs(String maxOccurs) {
+        this.maxOccurs = maxOccurs;
     }
 
     @Override
     public Integer getMinOccurs() {
         return minOccurs;
+    }
+
+    @Override
+    public void setMinOccurs(Integer minOccurs) {
+        this.minOccurs = minOccurs;
     }
 
     @Override

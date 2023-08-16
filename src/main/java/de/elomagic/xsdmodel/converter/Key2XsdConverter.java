@@ -17,6 +17,10 @@
  */
 package de.elomagic.xsdmodel.converter;
 
+import de.elomagic.xsdmodel.elements.AttributeMinMaxOccurs;
+import de.elomagic.xsdmodel.elements.ElementGroup;
+import de.elomagic.xsdmodel.elements.XsdAttribute;
+import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.elements.impl.XsdSchemaImpl;
@@ -25,17 +29,22 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * <b>Experimental</b> tooling class to convert kay value map into a simple XSD.
+ * <p>
+ */
 public class Key2XsdConverter {
 
     private String keyDelimiter = ".";
     private Pattern keyPattern = Pattern.compile("^(?<name>[^#\\[\\]]+)(\\[(?<index>\\d+)])?(#(?<attr>.+))?$");
-    private int repetitionStart = 1;
     private boolean setDefaultValue;
     private String rootName = "root";
     private BiConsumer<String, XsdElement> keyConsumer;
@@ -86,21 +95,6 @@ public class Key2XsdConverter {
         return this;
     }
 
-    public int getRepetitionStart() {
-        return repetitionStart;
-    }
-
-    /**
-     * Set value, where repetition index will start.
-     *
-     * @param repetitionStart Start from index
-     * @return This instance
-     */
-    public Key2XsdConverter setRepetitionStart(int repetitionStart) {
-        this.repetitionStart = repetitionStart;
-        return this;
-    }
-
     public boolean isSetDefaultValue() {
         return setDefaultValue;
     }
@@ -148,7 +142,26 @@ public class Key2XsdConverter {
 
         keys.stream()
                 .sorted()
-                .forEach(k -> mapKey(k.toString(), schema));
+                .forEach(k -> mapKey(k.toString(), null, schema));
+
+        return Optional.of(schema);
+
+    }
+
+    @NotNull
+    public Optional<XsdSchema> convert(@NotNull Map<Object, Object> keyValues) throws XsdConverterException{
+
+        if (keyValues.isEmpty()) {
+            return Optional.empty();
+        }
+
+        // TODO Use factory class
+        XsdSchema schema = new XsdSchemaImpl();
+
+        keyValues.entrySet()
+                .stream()
+                .sorted(Comparator.comparing(o -> o.getKey().toString()))
+                .forEach(e -> mapKey(e.getKey().toString(), e.getValue().toString(), schema));
 
         return Optional.of(schema);
 
@@ -166,19 +179,19 @@ public class Key2XsdConverter {
                 .map(e -> (XsdElement)e)
                 .findFirst()
                 .orElseGet(() -> {
-                        XsdElement element = parentElement.createComplexType().createAll().createElement();
+                        XsdElement element = parentElement
+                                .getOptionalComplexType()
+                                .map(XsdComplexType::getAll)
+                                .map(ElementGroup::createElement)
+                                .orElseThrow();
                         element.setName(name);
                         return element;
                 });
     }
 
-    void mapKey(@NotNull String key, @NotNull XsdSchema schema) throws XsdConverterException{
+    void mapKey(@NotNull String key, @Nullable String value, @NotNull XsdSchema schema) throws XsdConverterException{
 
         String[] keyChain = key.split("\\.");
-
-        //document.getDocumentElement().
-
-        boolean isAttr = false;
 
         XsdElement parentNode = schema.getOptionalElement().orElseGet(() -> {
             XsdElement n = schema.createElement();
@@ -186,14 +199,17 @@ public class Key2XsdConverter {
             return n;
         });
 
+        String name;
+        String attr = null;
+        Integer index = null;
+
         for (String item : Arrays.copyOfRange(keyChain, 1, keyChain.length)) {
             Matcher matcher = keyPattern.matcher(item);
 
             if (matcher.find()) {
-                String name = matcher.group("name");
-                Integer index = Optional.ofNullable(matcher.group("index")).map(Integer::parseInt).orElse(null);
-                // TODO Check. Attr can only be set on latest item
-                String attr = matcher.group("attr");
+                name = matcher.group("name");
+                index = Optional.ofNullable(matcher.group("index")).map(Integer::parseInt).orElse(null);
+                attr = matcher.group("attr");
 
                 parentNode = findOrCreateElement(parentNode, name);
             } else {
@@ -201,8 +217,17 @@ public class Key2XsdConverter {
             }
         }
 
-        // TODO parentNode now leaf node. Set datatype, default value etc.
+        parentNode.setMaxOccurs(index == null ? "1" : AttributeMinMaxOccurs.UNBOUNDED);
         parentNode.setType("xs:string");
+
+        if (attr == null) {
+            parentNode.setDefault(value);
+        } else {
+            XsdAttribute attribute = parentNode.getOptionalSimpleType().orElseGet(parentNode::createSimpleType).createAttribute();
+            attribute.setName(attr);
+            attribute.setType("xs:string");
+            attribute.setDefault(value);
+        }
 
         if (keyConsumer != null) {
             keyConsumer.accept(key, parentNode);

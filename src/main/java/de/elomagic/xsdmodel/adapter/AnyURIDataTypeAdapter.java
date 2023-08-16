@@ -29,7 +29,7 @@ public class AnyURIDataTypeAdapter extends XmlAdapter<String, URI> {
 
     @Override
     public URI unmarshal(String v) {
-        return v == null || v.length() == 0 ? null : URI.create(v);
+        return v == null || v.isEmpty() ? null : URI.create(v);
     }
 
     @Override

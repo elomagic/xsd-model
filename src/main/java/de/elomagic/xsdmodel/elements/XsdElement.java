@@ -91,6 +91,15 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     String getDefault();
 
+    /**
+     * Specifies a default value for the element (can only be used if the element's content is a simple type or text only).
+     * <p>
+     * Optional.
+     *
+     * @param defaultValue String value of attribute <code>default</code>.
+     */
+    void setDefault(@Nullable String defaultValue);
+
     @NotNull
     default Optional<String> getOptionalDefault() {
         return Optional.ofNullable(getDefault());

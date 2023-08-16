@@ -71,5 +71,4 @@ class Xsd2KeyValueConverterTest {
         assertEquals(4, map.get("Service/FaxManager/faxClass").getConstraints().getEnumeration().size());
     }
 
-
 }

@@ -29,7 +29,7 @@ public class BlockValueAdapter extends XmlAdapter<String, Block> {
 
     @Override
     public Block unmarshal(String v) {
-        if(v == null || v.length() == 0) {
+        if(v == null || v.isEmpty()) {
             return null;
         }
 

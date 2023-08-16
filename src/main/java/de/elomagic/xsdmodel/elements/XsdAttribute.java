@@ -42,6 +42,15 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
     @Nullable
     String getDefault();
 
+    /**
+     * Specifies a default value for the attribute.
+     * <p>
+     * Optional. Default and fixed attributes cannot both be present
+     *
+     * @param value String value of attribute <code>default</code>.
+     */
+    void setDefault(@Nullable String value);
+
     @NotNull
     default Optional<String> getOptionalDefault() {
         return Optional.ofNullable(getDefault());
@@ -93,6 +102,15 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      */
     @Nullable
     String getType();
+
+    /**
+     * Specifies a built-in data type or a simple type.
+     * <p>
+     * Optional. The type attribute can only be present when the content does not contain a simpleType element
+     *
+     * @param type String value of attribute <code>type</code>.
+     */
+    void setType(@Nullable String type);
 
     @NotNull
     default Optional<String> getOptionalType() {
