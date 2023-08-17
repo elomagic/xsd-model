@@ -48,15 +48,6 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
         return getEnumerations() == null ? Stream.empty() : getEnumerations().stream();
     }
 
-    /**
-     * @deprecated Use {@link XsdRestriction#streamEnumeration()} instead
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdEnumeration>> getOptionalEnumerations() {
-        return Optional.ofNullable(getEnumerations());
-    }
-
     @Nullable
     XsdFractionDigits getFractionDigits();
 

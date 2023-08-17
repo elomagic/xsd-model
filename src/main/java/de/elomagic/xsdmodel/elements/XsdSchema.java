@@ -180,17 +180,6 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     }
 
     /**
-     *
-     * @return Optional list
-     * @deprecated Use {@link XsdSchema#streamIncludes()} instead.
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdInclude>> getOptionalIncludes() {
-        return Optional.ofNullable(getIncludes());
-    }
-
-    /**
      * Returns a {@link List} of {@link XsdImport} represented in the XSD by the element <code>import</code>.
      *
      * @return List of elements <code>import</code>.
@@ -204,17 +193,6 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     }
 
     /**
-     *
-     * @return Optional list
-     * @deprecated Use {@link XsdSchema#streamImports()} instead.
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdImport>> getOptionalImports() {
-        return Optional.ofNullable(getImports());
-    }
-
-    /**
      * Returns a {@link List} of {@link XsdRedefine} represented in the XSD by the element <code>redefine</code>.
      *
      * @return List of elements <code>redefine</code>.
@@ -225,17 +203,6 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     @NotNull
     default Stream<? extends XsdRedefine> streamRedefines() {
         return getRedefines() == null ? Stream.empty() : getRedefines().stream();
-    }
-
-    /**
-     *
-     * @return Optional list
-     * @deprecated Use {@link XsdSchema#streamRedefines()} instead.
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdRedefine>> getOptionalRedefines() {
-        return Optional.ofNullable(getRedefines());
     }
 
     /**
@@ -277,18 +244,6 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     }
 
     /**
-     * Returns an {@link Optional} of a {@link List} of {@link XsdSimpleType} represented in the XSD by the element <code>simpleType</code>.
-     *
-     * @return {@link Optional} of a list of elements <code>simpleType</code>.
-     * @deprecated Use {@link XsdSchema#streamSimpleTypes()} instead
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdSimpleType>> getOptionalSimpleTypes() {
-        return Optional.ofNullable(getSimpleTypes());
-    }
-
-    /**
      * Returns an {@link Optional} of a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
      *
      * @return List of elements <code>complexType</code>.
@@ -304,18 +259,5 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     default Stream<? extends XsdComplexType> streamComplexTypes() {
         return getComplexTypes() == null ? Stream.empty() : getComplexTypes().stream();
     }
-
-    /**
-     * Returns a {@link List} of {@link XsdComplexType} represented in the XSD by the element <code>complexType</code>.
-     *
-     * @return List of elements <code>complexType</code>.
-     * @deprecated Use {@link XsdSchema#streamComplexTypes()} instead
-     */
-    @Deprecated(since = "3.1.0")
-    @NotNull
-    default Optional<List<? extends XsdComplexType>> getOptionalComplexTypes() {
-        return Optional.ofNullable(getComplexTypes());
-    }
-
 
 }

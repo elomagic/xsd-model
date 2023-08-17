@@ -15,6 +15,7 @@ to [Semantic Versioning](https://semver.org/).
 ### Changed
 
 * API minimal changed
+* Deprecated "Optional<List>" methods removed
 
 ## [3.2.0]
 
