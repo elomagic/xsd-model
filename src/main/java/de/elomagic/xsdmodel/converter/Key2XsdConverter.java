@@ -221,12 +221,17 @@ public class Key2XsdConverter {
         parentNode.setType("xs:string");
 
         if (attr == null) {
-            parentNode.setDefault(value);
+            if (setDefaultValue) {
+                parentNode.setDefault(value);
+            }
         } else {
             XsdAttribute attribute = parentNode.getOptionalSimpleType().orElseGet(parentNode::createSimpleType).createAttribute();
             attribute.setName(attr);
             attribute.setType("xs:string");
-            attribute.setDefault(value);
+
+            if (setDefaultValue) {
+                attribute.setDefault(value);
+            }
         }
 
         if (keyConsumer != null) {
