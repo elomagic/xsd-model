@@ -44,8 +44,8 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     List<? extends XsdEnumeration> getEnumerations();
 
     @NotNull
-    default Stream<? extends XsdEnumeration> streamEnumeration() {
-        return getEnumerations() == null ? Stream.empty() : getEnumerations().stream();
+    default Stream<XsdEnumeration> streamEnumeration() {
+        return getEnumerations() == null ? Stream.empty() : getEnumerations().stream().map(i -> (XsdEnumeration) i);
     }
 
     @Nullable

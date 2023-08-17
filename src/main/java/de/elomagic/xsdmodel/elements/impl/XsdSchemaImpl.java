@@ -30,7 +30,6 @@ import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.NMTokenValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdAttribute;
-import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
@@ -147,7 +146,7 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
-    public List<? extends XsdIncludeImpl> getIncludes() {
+    public List<XsdIncludeImpl> getIncludes() {
         setParentInList(includes);
         return includes;
     }
@@ -159,7 +158,7 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
-    public List<? extends XsdRedefineImpl> getRedefines() {
+    public List<XsdRedefineImpl> getRedefines() {
         setParentInList(redefines);
         return redefines;
     }
@@ -186,13 +185,13 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     }
 
     @Override
-    public List<? extends XsdSimpleTypeImpl> getSimpleTypes() {
+    public List<XsdSimpleTypeImpl> getSimpleTypes() {
         setParentInList(simpleTypes);
         return simpleTypes;
     }
 
     @Override
-    public List<? extends XsdComplexTypeImpl> getComplexTypes() {
+    public List<XsdComplexTypeImpl> getComplexTypes() {
         setParentInList(complexTypes);
         return complexTypes;
     }

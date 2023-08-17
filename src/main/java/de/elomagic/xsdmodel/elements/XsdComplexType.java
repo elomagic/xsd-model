@@ -231,7 +231,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     }
 
     @NotNull
-    default Stream<? extends XsdElement> streamElementGroup() {
+    default Stream<XsdElement> streamElementGroup() {
         return getOptionalElementGroup()
                 .map(ElementGroup::streamElements)
                 .orElse(Stream.empty());

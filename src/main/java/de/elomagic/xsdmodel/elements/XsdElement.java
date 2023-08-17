@@ -247,22 +247,22 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     List<? extends XsdUnique> getUniques();
 
     @NotNull
-    default Stream<? extends XsdUnique> streamUnique() {
-        return getUniques() == null ? Stream.empty() : getUniques().stream();
+    default Stream<XsdUnique> streamUnique() {
+        return getUniques() == null ? Stream.empty() : getUniques().stream().map(i -> (XsdUnique) i);
     }
 
     List<? extends XsdKey> getKeys();
 
     @NotNull
-    default Stream<? extends XsdKey> streamKeys() {
-        return getKeys() == null ? Stream.empty() : getKeys().stream();
+    default Stream<XsdKey> streamKeys() {
+        return getKeys() == null ? Stream.empty() : getKeys().stream().map(i -> (XsdKey) i);
     }
 
     List<? extends XsdKeyref> getKeyrefs();
 
     @NotNull
-    default Stream<? extends XsdKeyref> streamKeyrefs() {
-        return getKeyrefs() == null ? Stream.empty() : getKeyrefs().stream();
+    default Stream<XsdKeyref> streamKeyrefs() {
+        return getKeyrefs() == null ? Stream.empty() : getKeyrefs().stream().map(i -> (XsdKeyref) i);
     }
 
     default String toLogString() {

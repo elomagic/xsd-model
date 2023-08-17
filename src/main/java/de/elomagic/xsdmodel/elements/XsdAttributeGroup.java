@@ -32,15 +32,17 @@ public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeN
     List<? extends XsdAttributeGroup> getAttributeGroups();
 
     @NotNull
-    default Stream<? extends XsdAttributeGroup> streamAttributeGroup() {
-        return getAttributeGroups() == null ? Stream.empty() : getAttributeGroups().stream();
+    default Stream<XsdAttributeGroup> streamAttributeGroup() {
+        return getAttributeGroups() == null ? Stream.empty() : getAttributeGroups().stream().map(i -> (XsdAttributeGroup) i);
     }
 
+    @Deprecated
     List<? extends XsdAttribute> getAttributes();
 
+    @Deprecated
     @NotNull
-    default Stream<? extends XsdAttribute> streamAttributes() {
-        return getAttributes() == null ? Stream.empty() : getAttributes().stream();
+    default Stream<XsdAttribute> streamAttributes() {
+        return getAttributes() == null ? Stream.empty() : getAttributes().stream().map(i -> (XsdAttribute) i);
     }
 
 }

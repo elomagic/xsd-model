@@ -28,10 +28,7 @@ import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
-import de.elomagic.xsdmodel.elements.XsdKey;
-import de.elomagic.xsdmodel.elements.XsdKeyref;
 import de.elomagic.xsdmodel.elements.XsdSimpleType;
-import de.elomagic.xsdmodel.elements.XsdUnique;
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.Form;
@@ -235,19 +232,19 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public List<? extends XsdUnique> getUniques() {
+    public List<XsdUniqueImpl> getUniques() {
         setParentInList(uniques);
         return uniques;
     }
 
     @Override
-    public List<? extends XsdKey> getKeys() {
+    public List<XsdKeyImpl> getKeys() {
         setParentInList(keys);
         return keys;
     }
 
     @Override
-    public List<? extends XsdKeyref> getKeyrefs() {
+    public List<XsdKeyrefImpl> getKeyrefs() {
         setParentInList(keyrefs);
         return keyrefs;
     }

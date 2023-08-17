@@ -17,18 +17,18 @@
  */
 package de.elomagic.xsdmodel.elements;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-import java.util.stream.Stream;
-
 import de.elomagic.xsdmodel.enumerations.Block;
 import de.elomagic.xsdmodel.enumerations.Final;
 import de.elomagic.xsdmodel.enumerations.NMToken;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Stream;
 
 /**
  * The <code>schema</code> element defines the root element of a schema.
@@ -175,8 +175,8 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     List<? extends XsdInclude> getIncludes();
 
     @NotNull
-    default Stream<? extends XsdInclude> streamIncludes() {
-        return getIncludes() == null ? Stream.empty() : getIncludes().stream();
+    default Stream<XsdInclude> streamIncludes() {
+        return getIncludes() == null ? Stream.empty() : getIncludes().stream().map(i -> (XsdInclude) i);
     }
 
     /**
@@ -188,8 +188,8 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     List<? extends XsdImport> getImports();
 
     @NotNull
-    default Stream<? extends XsdImport> streamImports() {
-        return getImports() == null ? Stream.empty() : getImports().stream();
+    default Stream<XsdImport> streamImports() {
+        return getImports() == null ? Stream.empty() : getImports().stream().map(i -> (XsdImport) i);
     }
 
     /**
@@ -201,8 +201,8 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
     List<? extends XsdRedefine> getRedefines();
 
     @NotNull
-    default Stream<? extends XsdRedefine> streamRedefines() {
-        return getRedefines() == null ? Stream.empty() : getRedefines().stream();
+    default Stream<XsdRedefine> streamRedefines() {
+        return getRedefines() == null ? Stream.empty() : getRedefines().stream().map(i -> (XsdRedefine) i);
     }
 
     /**
@@ -239,8 +239,8 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
      * @return {@link Stream} of elements <code>simpleType</code>.
      */
     @NotNull
-    default Stream<? extends XsdSimpleType> streamSimpleTypes() {
-        return getSimpleTypes() == null ? Stream.empty() : getSimpleTypes().stream();
+    default Stream<XsdSimpleType> streamSimpleTypes() {
+        return getSimpleTypes() == null ? Stream.empty() : getSimpleTypes().stream().map(i -> (XsdSimpleType) i);
     }
 
     /**
@@ -256,8 +256,8 @@ public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny,
      *
      * @return Stream of elements <code>complexType</code>.
      */    @NotNull
-    default Stream<? extends XsdComplexType> streamComplexTypes() {
-        return getComplexTypes() == null ? Stream.empty() : getComplexTypes().stream();
+    default Stream<XsdComplexType> streamComplexTypes() {
+        return getComplexTypes() == null ? Stream.empty() : getComplexTypes().stream().map(i -> (XsdComplexType) i);
     }
 
 }

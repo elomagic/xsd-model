@@ -31,8 +31,8 @@ public interface ElementGroup extends ElementChild, AttributeId, AttributeMinMax
     List<? extends XsdElement> getElements();
 
     @NotNull
-    default Stream<? extends XsdElement> streamElements() {
-        return getElements() == null ? Stream.empty() : getElements().stream();
+    default Stream<XsdElement> streamElements() {
+        return getElements() == null ? Stream.empty() : getElements().stream().map(i -> (XsdElement) i);
     }
 
     /**
