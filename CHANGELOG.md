@@ -11,6 +11,7 @@ to [Semantic Versioning](https://semver.org/).
 
 * Key required constraints added
 * Experimental key value to XSD converter added
+* Fluent API to setter methods added
 
 ### Changed
 
