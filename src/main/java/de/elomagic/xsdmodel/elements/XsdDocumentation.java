@@ -37,10 +37,21 @@ public interface XsdDocumentation extends ElementChild {
      * <p>
      * Optional.
      *
-     * @return String value of attribute <code>source</code>.
+     * @return URI value of attribute <code>source</code>.
      */
     @Nullable
     URI getSource();
+
+    /**
+     * Specifies the source of the application information.
+     * <p>
+     * Optional.
+     *
+     * @param uri URI value of attribute <code>source</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdDocumentation setSource(@Nullable URI uri);
 
     @NotNull
     default Optional<URI> getOptionalSource() {
@@ -57,6 +68,17 @@ public interface XsdDocumentation extends ElementChild {
     @Nullable
     String getLanguage();
 
+    /**
+     * Specifies the language used in the contents.
+     * <p>
+     * Optional.
+     *
+     * @param language String value of attribute <code>xml:lang</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdDocumentation setLanguage(@Nullable String language);
+
     @NotNull
     default Optional<String> getOptionalLanguage() {
         return Optional.ofNullable(getLanguage());
@@ -68,5 +90,14 @@ public interface XsdDocumentation extends ElementChild {
      * @return String value of element <code>value</code>.
      */
     String getValue();
+
+    /**
+     * Set element value.
+     *
+     * @param value String value of element <code>value</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdDocumentation setValue(String value);
 
 }

@@ -48,6 +48,12 @@ public class XsdTotalDigitsImpl extends AbstractElement implements XsdTotalDigit
     }
 
     @Override
+    public XsdTotalDigits setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public Integer getValue() {
         return value;
     }

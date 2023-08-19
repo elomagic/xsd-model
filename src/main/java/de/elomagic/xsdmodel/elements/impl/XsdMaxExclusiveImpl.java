@@ -44,6 +44,12 @@ public class XsdMaxExclusiveImpl extends AbstractValueElement implements XsdMaxE
     }
 
     @Override
+    public XsdMaxExclusive setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }

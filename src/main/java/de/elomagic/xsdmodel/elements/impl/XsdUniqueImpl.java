@@ -59,4 +59,9 @@ public class XsdUniqueImpl extends AbstractElement implements XsdUnique {
         return selector;
     }
 
+    public XsdUnique setSelector(XsdSelector selector) {
+        this.selector = (XsdSelectorImpl) selector;
+        return this;
+    }
+
 }

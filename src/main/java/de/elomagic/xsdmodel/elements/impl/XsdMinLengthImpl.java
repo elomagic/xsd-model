@@ -24,6 +24,7 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
+import de.elomagic.xsdmodel.elements.XsdMinInclusive;
 import de.elomagic.xsdmodel.elements.XsdMinLength;
 
 /**
@@ -50,6 +51,12 @@ public class XsdMinLengthImpl extends AbstractElement implements XsdMinLength {
     @Override
     public Boolean getFixed() {
         return fixed;
+    }
+
+    @Override
+    public XsdMinLength setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
     }
 
     @Override

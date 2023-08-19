@@ -28,6 +28,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdDocumentation;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -51,14 +53,35 @@ public final class XsdDocumentationImpl implements XsdDocumentation, ElementSetP
         return source;
     }
 
+    @NotNull
+    @Override
+    public XsdDocumentation setSource(URI source) {
+        this.source = source;
+        return this;
+    }
+
     @Override
     public String getLanguage() {
         return language;
     }
 
     @Override
+    @NotNull
+    public XsdDocumentation setLanguage(String language) {
+        this.language = language;
+        return this;
+    }
+
+    @Override
     public String getValue() {
         return value;
+    }
+
+    @Override
+    @NotNull
+    public XsdDocumentation setValue(String value) {
+        this.value = value;
+        return this;
     }
 
     @Override

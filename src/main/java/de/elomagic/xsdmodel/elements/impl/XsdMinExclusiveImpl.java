@@ -42,7 +42,13 @@ public class XsdMinExclusiveImpl extends AbstractValueElement implements XsdMinE
     public Boolean getFixed() {
         return fixed;
     }
-    
+
+    @Override
+    public XsdMinExclusive setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;

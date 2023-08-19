@@ -55,6 +55,12 @@ public class XsdMaxLengthImpl extends AbstractElement implements XsdMaxLength {
     }
 
     @Override
+    public XsdMaxLength setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public Integer getValue() {
         return value;
     }

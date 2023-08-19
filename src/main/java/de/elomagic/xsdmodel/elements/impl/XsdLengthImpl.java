@@ -48,6 +48,12 @@ public class XsdLengthImpl extends AbstractElement implements XsdLength {
     }
 
     @Override
+    public XsdLength setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public Integer getValue() {
         return value;
     }

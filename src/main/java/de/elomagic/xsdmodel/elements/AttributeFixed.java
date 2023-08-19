@@ -25,4 +25,6 @@ public interface AttributeFixed {
 
     Boolean getFixed();
 
+    AttributeFixed setFixed(Boolean fixed);
+
 }

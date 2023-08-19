@@ -48,4 +48,9 @@ public class XsdWhiteSpaceImpl extends AbstractElement implements XsdWhiteSpace 
         return fixed;
     }
 
+    @Override
+    public XsdWhiteSpace setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
 }

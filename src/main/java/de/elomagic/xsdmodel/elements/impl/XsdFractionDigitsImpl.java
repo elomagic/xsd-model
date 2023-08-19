@@ -53,6 +53,12 @@ public class XsdFractionDigitsImpl extends AbstractElement implements XsdFractio
     }
 
     @Override
+    public XsdFractionDigitsImpl setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }

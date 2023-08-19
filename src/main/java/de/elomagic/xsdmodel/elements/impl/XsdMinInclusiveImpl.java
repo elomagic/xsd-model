@@ -44,6 +44,12 @@ public class XsdMinInclusiveImpl extends AbstractValueElement implements XsdMinI
     }
 
     @Override
+    public XsdMinInclusive setFixed(Boolean fixed) {
+        this.fixed = fixed;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }
