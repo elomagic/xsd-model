@@ -46,6 +46,18 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     Boolean getAbstract();
 
     /**
+     * Specifies whether the complex type can be used in an instance document.
+     * <p>
+     * Optional. True indicates that an element cannot use this complex type directly
+     * but must use a complex type derived from this complex type. Default is false
+     *
+     * @param abstractValue String value of attribute <code>abstract</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdComplexType setAbstract(@Nullable Boolean abstractValue);
+
+    /**
      * Specifies whether character data is allowed to appear between the child elements of this complexType element.
      * <p>
      * Optional. Default is false. If a simpleContent element is a child element, the mixed attribute is not allowed!
@@ -53,6 +65,17 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * @return String value of attribute <code>mixed</code>.
      */
     Boolean getMixed();
+
+    /**
+     * Specifies whether character data is allowed to appear between the child elements of this complexType element.
+     * <p>
+     * Optional. Default is false. If a simpleContent element is a child element, the mixed attribute is not allowed!
+     *
+     * @param mixed String value of attribute <code>mixed</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdComplexType setMixed(@Nullable Boolean mixed);
 
     /**
      * Prevents a complex type that has a specified type of derivation from being used in place of this complex type.

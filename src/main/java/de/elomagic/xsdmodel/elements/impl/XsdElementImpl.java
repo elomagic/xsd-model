@@ -169,8 +169,22 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
+    @NotNull
+    public XsdElementImpl setSubstitutionGroup(@Nullable String substitutionGroup) {
+        this.substitutionGroup = substitutionGroup;
+        return this;
+    }
+
+    @Override
     public String getFixed() {
         return fixed;
+    }
+
+    @Override
+    @NotNull
+    public XsdElementImpl setFixed(@Nullable String fixed) {
+        this.fixed = fixed;
+        return this;
     }
 
     @Override
@@ -184,8 +198,22 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
+    @NotNull
+    public XsdElementImpl setNillable(@Nullable Boolean nillable) {
+        this.nillable = nillable;
+        return this;
+    }
+
+    @Override
     public Boolean getAbstract() {
         return abstractValue;
+    }
+
+    @Override
+    @NotNull
+    public XsdElementImpl setAbstract(@Nullable Boolean abstractValue) {
+        this.abstractValue = abstractValue;
+        return this;
     }
 
     @Override

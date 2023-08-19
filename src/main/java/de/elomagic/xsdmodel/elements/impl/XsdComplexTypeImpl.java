@@ -101,8 +101,22 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
+    @NotNull
+    public XsdComplexTypeImpl setAbstract(@Nullable Boolean abstractValue) {
+        this.abstractValue = abstractValue;
+        return this;
+    }
+
+    @Override
     public Boolean getMixed() {
         return mixed;
+    }
+
+    @Override
+    @NotNull
+    public XsdComplexTypeImpl setMixed(@Nullable Boolean mixed) {
+        this.mixed = mixed;
+        return this;
     }
 
     @Override

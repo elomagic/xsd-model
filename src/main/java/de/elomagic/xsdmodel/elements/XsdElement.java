@@ -77,6 +77,17 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     String getSubstitutionGroup();
 
+    /**
+     * Specifies the name of an element that can be substituted with this element. This attribute cannot be used if the parent element is not the schema element
+     * <p>
+     * Optional.
+     *
+     * @param substitutionGroup The substitution group
+     * @return This instance
+     */
+    @NotNull
+    XsdElement setSubstitutionGroup(@Nullable String substitutionGroup);
+
     @NotNull
     default Optional<String> getOptionalSubstitutionGroup() {
         return Optional.ofNullable(getSubstitutionGroup());
@@ -118,6 +129,18 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     String getFixed();
 
+    /**
+     * Specifies a fixed value for the element (can only be used if the element's content is a simple type or text only).
+     * <p>
+     * Optional.
+     *
+     * @param fixed The fixed value
+     * @return This instance
+     */
+    @NotNull
+    XsdElement setFixed(@Nullable String fixed);
+
+
     @NotNull
     default Optional<String> getOptionalFixed() {
         return Optional.ofNullable(getFixed());
@@ -153,6 +176,19 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
     @Nullable
     Boolean getNillable();
 
+    /**
+     * Specifies whether an explicit null value can be assigned to the element. True enables an instance of the element
+     * to have the null attribute set to true. The null attribute is defined as part of the XML Schema namespace for
+     * instances. Default is false.
+     * <p>
+     * Optional
+     *
+     * @param nillable The nillable value
+     * @return This instance
+     */
+    @NotNull
+    XsdElement setNillable(@Nullable Boolean nillable);
+
     @NotNull
     default Optional<Boolean> getOptionalNillable() {
         return Optional.ofNullable(getNillable());
@@ -169,6 +205,19 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      */
     @Nullable
     Boolean getAbstract();
+
+    /**
+     * Specifies whether the element can be used in an instance document. True indicates that the element cannot appear
+     * in the instance document. Instead, another element whose substitutionGroup attribute contains the qualified
+     * name (QName) of this element must appear in this element's place. Default is false.
+     * <p>
+     * Optional
+     *
+     * @param abstractValue The abstract value.
+     * @return This instance
+     */
+    @NotNull
+    XsdElement setAbstract(@Nullable Boolean abstractValue);
 
     @NotNull
     default Optional<Boolean> getOptionalAbstract() {
