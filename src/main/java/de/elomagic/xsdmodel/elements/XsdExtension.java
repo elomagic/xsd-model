@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -31,5 +33,16 @@ public interface XsdExtension extends ElementChild, AttributeId {
      * @return String value of attribute <code>base</code>.
      */
     String getBase();
+
+    /**
+     * Specifies the name of a built-in data type, a simpleType element, or a complexType element.
+     * <p>
+     * Required.
+     *
+     * @param base String value of attribute <code>base</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdExtension setBase(@NotNull String base);
 
 }

@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The <code>selector</code> element specifies an XPath expression that selects a set
  * of elements for an identity constraint (unique, key, and keyref elements).
@@ -33,6 +35,10 @@ public interface XsdSelector extends ElementChild, AttributeId {
      *
      * @return String value of attribute <code>xpath</code>.
      */
+    @NotNull
     String getXpath();
+
+    @NotNull
+    public XsdSelector setXpath(@NotNull String xpath);
 
 }

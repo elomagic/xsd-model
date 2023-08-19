@@ -146,8 +146,10 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public void setDefault(@Nullable String defaultValue) {
+    @NotNull
+    public XsdElement setDefault(@Nullable String defaultValue) {
         this.defaultValue = defaultValue;
+        return this;
     }
 
     @Override

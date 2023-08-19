@@ -21,6 +21,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdSelector;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -33,8 +35,16 @@ public class XsdSelectorImpl extends AbstractElement implements XsdSelector {
     private String xpath;
 
     @Override
+    @NotNull
     public String getXpath() {
         return xpath;
+    }
+
+    @Override
+    @NotNull
+    public XsdSelector setXpath(@NotNull String xpath) {
+        this.xpath = xpath;
+        return this;
     }
 
     @Override

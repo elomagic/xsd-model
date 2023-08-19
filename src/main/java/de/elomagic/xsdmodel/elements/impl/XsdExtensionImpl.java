@@ -21,6 +21,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdExtension;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -40,6 +42,13 @@ public class XsdExtensionImpl extends AbstractElement implements XsdExtension {
     @Override
     public String getBase() {
         return base;
+    }
+
+    @Override
+    @NotNull
+    public XsdExtension setBase(@NotNull String base) {
+        this.base = base;
+        return this;
     }
 
 }
