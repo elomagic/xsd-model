@@ -24,6 +24,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdAttribute;
 import de.elomagic.xsdmodel.elements.XsdList;
+import de.elomagic.xsdmodel.elements.XsdRestriction;
 import de.elomagic.xsdmodel.elements.XsdSimpleType;
 import de.elomagic.xsdmodel.elements.XsdUnion;
 
@@ -68,6 +69,13 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     }
 
     @Override
+    @NotNull
+    public XsdSimpleTypeImpl setFinal(@NotNull String finalValue) {
+        this.finalValue = finalValue;
+        return this;
+    }
+
+    @Override
     public String getId() {
         return id;
     }
@@ -90,6 +98,14 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     }
 
     @Override
+    @NotNull
+    public XsdRestriction createRestriction() {
+        restriction = new XsdRestrictionImpl();
+        restriction.setParent(this);
+        return restriction;
+    }
+
+    @Override
     public XsdList getList() {
         setParentInProperty(list);
         return list;
@@ -108,9 +124,10 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
 
     @Override
     @NotNull
-    public XsdSimpleType setAnnotation(@Nullable XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
     @Override

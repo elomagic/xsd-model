@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdPattern extends ElementAnnotation<XsdPattern>, AttributeValue<String, XsdPattern> {
+public interface XsdPattern extends ElementAnnotation, AttributeValue<String, XsdPattern> {
 
 }

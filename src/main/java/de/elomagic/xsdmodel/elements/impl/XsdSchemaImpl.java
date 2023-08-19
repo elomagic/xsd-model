@@ -172,9 +172,10 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
 
     @Override
     @NotNull
-    public XsdSchema setAnnotation(XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
     @Override

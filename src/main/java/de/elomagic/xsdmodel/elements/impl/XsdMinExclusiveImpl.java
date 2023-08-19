@@ -59,8 +59,10 @@ public class XsdMinExclusiveImpl extends AbstractValueElement<XsdMinExclusive> i
 
     @Override
     @NotNull
-    public XsdMinExclusive setAnnotation(@Nullable XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
+
 }

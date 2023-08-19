@@ -28,17 +28,28 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdSimpleType extends ElementAnnotation<XsdSimpleType>, AttributeId, AttributeName<XsdSimpleType>, AttributeAny, Attributes {
+public interface XsdSimpleType extends ElementAnnotation, AttributeId, AttributeName<XsdSimpleType>, AttributeAny, Attributes {
 
     String getFinal();
+
+    @NotNull
+    XsdSimpleType setFinal(String finalValue);
 
     /**
      * Return restriction of a range of values for the simple type to a subset of those for inherited simple type.
      *
-     * @return Returns the restriction of null.
+     * @return Returns the restriction or null.
      */
     @Nullable
     XsdRestriction getRestriction();
+
+    /**
+     * Creates the element {@link XsdRestriction}.
+     *
+     * @return The create {@link XsdRestriction}
+     */
+    @NotNull
+    XsdRestriction createRestriction();
 
     @NotNull
     default Optional<XsdRestriction> getOptionalRestriction() {

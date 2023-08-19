@@ -21,6 +21,7 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
+import de.elomagic.xsdmodel.elements.XsdLength;
 import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
 import de.elomagic.xsdmodel.elements.XsdRestriction;
 
@@ -72,6 +73,13 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdRestrictionImpl setBase(@NotNull String base) {
+        this.base = base;
+        return this;
+    }
+
+    @Override
     public String getId() {
         return id;
     }
@@ -91,6 +99,14 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     @Override
     public XsdLengthImpl getLength() {
         setParentInProperty(length);
+        return length;
+    }
+
+    @Override
+    @NotNull
+    public XsdLength createLength() {
+        length = new XsdLengthImpl();
+        length.setParent(this);
         return length;
     }
 
@@ -155,9 +171,10 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
 
     @Override
     @NotNull
-    public XsdRestriction setAnnotation(XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
 }

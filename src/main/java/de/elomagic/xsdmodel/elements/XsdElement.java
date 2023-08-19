@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Carsten Rambow
  */
-public interface XsdElement extends ElementAnnotation<XsdElement>, AttributeId, AttributeName<XsdElement>, AttributeMinMaxOccurs, AttributeRef {
+public interface XsdElement extends ElementAnnotation, AttributeId, AttributeName<XsdElement>, AttributeMinMaxOccurs, AttributeRef {
 
     /**
      * Specifies either the name of a built-in data type, or the name of a simpleType or complexType element.

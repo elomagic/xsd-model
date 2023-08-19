@@ -200,9 +200,10 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
 
     @Override
     @NotNull
-    public XsdElement setAnnotation(@Nullable XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
     @Override

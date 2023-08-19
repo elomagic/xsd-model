@@ -74,9 +74,10 @@ public class XsdMinLengthImpl extends AbstractElement implements XsdMinLength {
 
     @Override
     @NotNull
-    public XsdMinLength setAnnotation(XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
 }

@@ -29,16 +29,27 @@ import java.util.stream.Stream;
  *
  * @author Carsten Rambow
  */
-public interface XsdRestriction extends ElementAnnotation<XsdRestriction>, AttributeId {
+public interface XsdRestriction extends ElementAnnotation, AttributeId {
 
     /**
-     * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema
+     * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema.
      * <p>
      * Required.
      *
      * @return String value of attribute <code>base</code>.
      */
     String getBase();
+
+    /**
+     * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema.
+     * <p>
+     * Required.
+     *
+     * @param base String value of attribute <code>base</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdRestriction setBase(@NotNull String base);
 
     @Nullable
     List<? extends XsdEnumeration> getEnumerations();
@@ -65,6 +76,14 @@ public interface XsdRestriction extends ElementAnnotation<XsdRestriction>, Attri
      */
     @Nullable
     XsdLength getLength();
+
+    /**
+     * Creates the element {@link XsdLength}.
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdLength createLength();
 
     @NotNull
     default Optional<XsdLength> getOptionalLength() {

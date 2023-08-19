@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdEnumeration extends ElementAnnotation<XsdEnumeration>, AttributeValue<String, XsdEnumeration> {
+public interface XsdEnumeration extends ElementAnnotation, AttributeValue<String, XsdEnumeration> {
 
 }

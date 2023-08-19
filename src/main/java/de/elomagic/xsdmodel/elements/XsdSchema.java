@@ -35,7 +35,7 @@ import java.util.stream.Stream;
  *
  * @author Carsten Rambow
  */
-public interface XsdSchema extends ElementAnnotation<XsdSchema>, AttributeId, AttributeAny, Attributes {
+public interface XsdSchema extends ElementAnnotation, AttributeId, AttributeAny, Attributes {
 
     /**
      * The form for attributes declared in the target namespace of this schema.

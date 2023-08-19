@@ -74,9 +74,10 @@ public class XsdTotalDigitsImpl extends AbstractElement implements XsdTotalDigit
 
     @Override
     @NotNull
-    public XsdTotalDigits setAnnotation(XsdAnnotation annotation) {
-        this.annotation = (XsdAnnotationImpl) annotation;
-        return this;
+    public XsdAnnotation createAnnotation() {
+        annotation = new XsdAnnotationImpl();
+        annotation.setParent(this);
+        return annotation;
     }
 
 }

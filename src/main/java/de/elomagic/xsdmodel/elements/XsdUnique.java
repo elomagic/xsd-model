@@ -34,6 +34,6 @@ public interface XsdUnique extends ElementChild, AttributeId, AttributeName<XsdU
 
     XsdSelector getSelector();
 
-    XsdUnique setSelector(XsdSelector selector);
+    XsdSelector createSelector();
 
 }

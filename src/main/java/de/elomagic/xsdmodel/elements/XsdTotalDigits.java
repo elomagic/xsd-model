@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdTotalDigits extends ElementAnnotation<XsdTotalDigits>, AttributeValue<Integer, XsdTotalDigits>, AttributeFixed<XsdTotalDigits> {
+public interface XsdTotalDigits extends ElementAnnotation, AttributeValue<Integer, XsdTotalDigits>, AttributeFixed<XsdTotalDigits> {
 
 }
