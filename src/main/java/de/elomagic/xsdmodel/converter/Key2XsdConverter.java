@@ -176,7 +176,6 @@ public class Key2XsdConverter {
                 .orElseGet(() -> parentElement.getOptionalComplexType().orElseThrow().createAll())
                 .streamElements()
                 .filter(e -> name.equals(e.getName()))
-                .map(e -> (XsdElement)e)
                 .findFirst()
                 .orElseGet(() -> {
                         XsdElement element = parentElement
