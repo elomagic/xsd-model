@@ -92,6 +92,37 @@ class Sample {
 }
 ```
 
+### Convert Key-value map to XSD
+
+Very experimental implementation of mapping a key-value map to a XSD.
+
+```java
+import java.util.Properties;
+
+import de.elomagic.xmltools.XmlWriter;
+
+import de.elomagic.xsdmodel.converter.Key2XsdConverter;
+
+import java.nio.file.Paths;
+
+class Sample {
+
+    void example() {
+        Properties p = new Properties();
+        p.put("a.b.c", "value1");
+        p.put("a.b.d", "value2");
+  
+        XsdSchema schema = new Key2XsdConverter()
+                .setRootName(null)
+                .setSetDefaultValue(true)
+                .convert(p).orElseThrow();
+  
+        XmlWriter.write(System.out, schema);
+    }
+    
+}
+```
+
 #### Limitations
 
 * No repetition support
