@@ -26,6 +26,8 @@ import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdFractionDigits;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -61,6 +63,13 @@ public class XsdFractionDigitsImpl extends AbstractElement implements XsdFractio
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdFractionDigits setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
 }

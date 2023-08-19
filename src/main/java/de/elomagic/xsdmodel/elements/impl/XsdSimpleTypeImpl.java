@@ -107,6 +107,13 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     }
 
     @Override
+    @NotNull
+    public XsdSimpleType setAnnotation(@Nullable XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
+    }
+
+    @Override
     public @Nullable Map<QName, String> getAnyAttributes() {
         return anyAttributes;
     }

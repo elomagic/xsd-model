@@ -25,6 +25,8 @@ import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -53,4 +55,12 @@ public class XsdMaxExclusiveImpl extends AbstractValueElement implements XsdMaxE
     public XsdAnnotation getAnnotation() {
         return annotation;
     }
+
+    @Override
+    @NotNull
+    public XsdMaxExclusive setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
+    }
+
 }

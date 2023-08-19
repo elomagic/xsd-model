@@ -30,7 +30,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeName<XsdAttribute>, AttributeRef {
+public interface XsdAttribute extends ElementAnnotation<XsdAttribute>, AttributeId, AttributeName<XsdAttribute>, AttributeRef {
 
     /**
      * Specifies a default value for the attribute.

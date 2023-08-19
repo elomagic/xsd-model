@@ -29,6 +29,7 @@ import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.NMTokenValueAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdAttribute;
 import de.elomagic.xsdmodel.elements.XsdSchema;
 import de.elomagic.xsdmodel.enumerations.Block;
@@ -167,6 +168,13 @@ public class XsdSchemaImpl extends AbstractElement implements XsdSchema {
     public XsdAnnotationImpl getAnnotation() {
         setParentInProperty(annotation);
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdSchema setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
     @Override

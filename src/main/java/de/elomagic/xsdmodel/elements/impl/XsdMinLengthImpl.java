@@ -24,8 +24,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
-import de.elomagic.xsdmodel.elements.XsdMinInclusive;
 import de.elomagic.xsdmodel.elements.XsdMinLength;
+
+import org.jetbrains.annotations.NotNull;
 
 /**
  *
@@ -62,6 +63,13 @@ public class XsdMinLengthImpl extends AbstractElement implements XsdMinLength {
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdMinLength setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
 }

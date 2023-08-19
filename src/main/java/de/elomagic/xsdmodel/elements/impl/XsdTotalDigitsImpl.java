@@ -26,6 +26,8 @@ import de.elomagic.xsdmodel.adapter.PositiveIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdTotalDigits;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -61,6 +63,13 @@ public class XsdTotalDigitsImpl extends AbstractElement implements XsdTotalDigit
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdTotalDigits setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
 }

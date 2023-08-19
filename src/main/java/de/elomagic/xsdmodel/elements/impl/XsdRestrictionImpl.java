@@ -17,14 +17,16 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-import java.util.List;
-
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.XmlElement;
 
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdMaxExclusive;
 import de.elomagic.xsdmodel.elements.XsdRestriction;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 /**
  *
@@ -150,4 +152,12 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     public XsdAnnotation getAnnotation() {
         return annotation;
     }
+
+    @Override
+    @NotNull
+    public XsdRestriction setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
+    }
+
 }

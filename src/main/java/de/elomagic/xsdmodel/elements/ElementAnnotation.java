@@ -26,7 +26,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface ElementAnnotation extends ElementChild {
+public interface ElementAnnotation<O> extends ElementChild {
 
     /**
      * Returns root {@link XsdAnnotation} represented in the XSD by the element <code>annotation</code>.
@@ -35,6 +35,15 @@ public interface ElementAnnotation extends ElementChild {
      */
     @Nullable
     XsdAnnotation getAnnotation();
+
+    /**
+     * Set root {@link XsdAnnotation} represented in the XSD by the element <code>annotation</code>.
+     *
+     * @param annotation Element <code>annotation</code>.
+     * @return This instance
+     */
+    @NotNull
+    O setAnnotation(@Nullable XsdAnnotation annotation);
 
     /**
      * Returns {@link Optional} of root {@link XsdAnnotation} represented in the XSD by the element <code>annotation</code>.

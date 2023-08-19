@@ -29,7 +29,7 @@ import java.util.stream.Stream;
  *
  * @author Carsten Rambow
  */
-public interface XsdRestriction extends ElementAnnotation, AttributeId {
+public interface XsdRestriction extends ElementAnnotation<XsdRestriction>, AttributeId {
 
     /**
      * Specifies the name of a built-in data type, simpleType element, or complexType element defined in this schema or another schema

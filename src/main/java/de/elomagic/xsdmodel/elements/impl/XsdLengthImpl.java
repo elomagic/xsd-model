@@ -26,6 +26,8 @@ import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdLength;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -61,6 +63,13 @@ public class XsdLengthImpl extends AbstractElement implements XsdLength {
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdLength setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
 }

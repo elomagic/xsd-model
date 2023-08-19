@@ -26,6 +26,8 @@ import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdMaxLength;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -69,4 +71,12 @@ public class XsdMaxLengthImpl extends AbstractElement implements XsdMaxLength {
     public XsdAnnotation getAnnotation() {
         return annotation;
     }
+
+    @Override
+    @NotNull
+    public XsdMaxLength setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
+    }
+
 }

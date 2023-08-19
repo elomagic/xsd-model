@@ -22,6 +22,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdPattern;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -34,6 +36,13 @@ public class XsdPatternImpl extends AbstractValueElement implements XsdPattern {
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdPattern setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
 }

@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdFractionDigits extends ElementAnnotation, AttributeValue<Integer>, AttributeFixed<XsdFractionDigits> {
+public interface XsdFractionDigits extends ElementAnnotation<XsdFractionDigits>, AttributeValue<Integer>, AttributeFixed<XsdFractionDigits> {
 
 }

@@ -26,6 +26,7 @@ import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
 import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdElement;
 import de.elomagic.xsdmodel.elements.XsdSimpleType;
@@ -193,6 +194,13 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     public XsdAnnotationImpl getAnnotation() {
         setParentInProperty(annotation);
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdElement setAnnotation(@Nullable XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
     @Override

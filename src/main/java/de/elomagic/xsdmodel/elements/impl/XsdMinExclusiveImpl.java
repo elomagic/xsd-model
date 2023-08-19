@@ -25,6 +25,9 @@ import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdMinExclusive;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -52,5 +55,12 @@ public class XsdMinExclusiveImpl extends AbstractValueElement implements XsdMinE
     @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdMinExclusive setAnnotation(@Nullable XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 }

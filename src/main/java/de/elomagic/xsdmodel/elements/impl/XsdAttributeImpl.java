@@ -23,10 +23,12 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.elomagic.xsdmodel.adapter.FormAttributeAdapter;
 import de.elomagic.xsdmodel.adapter.UseValueAdapter;
+import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdAttribute;
 import de.elomagic.xsdmodel.enumerations.Form;
 import de.elomagic.xsdmodel.enumerations.Use;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 /**
@@ -109,6 +111,13 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     public XsdAnnotationImpl getAnnotation() {
         setParentInProperty(annotation);
         return annotation;
+    }
+
+    @Override
+    @NotNull
+    public XsdAttribute setAnnotation(XsdAnnotation annotation) {
+        this.annotation = (XsdAnnotationImpl) annotation;
+        return this;
     }
 
     @Override
