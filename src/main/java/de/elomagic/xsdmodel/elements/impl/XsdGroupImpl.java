@@ -23,6 +23,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.NonNegativeIntegerAdapter;
 import de.elomagic.xsdmodel.elements.XsdGroup;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -80,6 +82,11 @@ public class XsdGroupImpl extends AbstractElement implements XsdGroup {
     @Override
     public String getRef() {
         return ref;
+    }
+
+    @Override
+    public void setRef(@Nullable String ref) {
+        this.ref = ref;
     }
 
 }

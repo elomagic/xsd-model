@@ -26,6 +26,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdAppInfo;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -41,6 +44,13 @@ public class XsdAppInfoImpl extends AbstractElement implements XsdAppInfo {
     @Override
     public URI getSource() {
         return source;
+    }
+
+    @Override
+    @NotNull
+    public XsdAppInfoImpl setSource(@Nullable URI source) {
+        this.source = source;
+        return this;
     }
 
     @Override

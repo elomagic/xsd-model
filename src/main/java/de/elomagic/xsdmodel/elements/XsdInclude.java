@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.URI;
 
 /**
@@ -34,5 +36,16 @@ public interface XsdInclude extends ElementChild, AttributeId {
      * @return String value of attribute <code>schemaLocation</code>.
      */
     URI getSchemaLocation();
+
+    /**
+     * Specifies the URI to the schema to include in the target namespace of the containing schema.
+     * <p>
+     * Required.
+     *
+     * @param schemaLocation String value of attribute <code>schemaLocation</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdInclude setSchemaLocation(@NotNull URI schemaLocation);
 
 }

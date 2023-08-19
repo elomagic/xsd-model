@@ -25,6 +25,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdImport;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -50,8 +53,22 @@ public class XsdImportImpl extends AbstractElement implements XsdImport {
     }
 
     @Override
+    @NotNull
+    public XsdImportImpl setNamespace(@Nullable String namespace) {
+        this.namespace = namespace;
+        return this;
+    }
+
+    @Override
     public URI getSchemaLocation() {
         return schemaLocation;
+    }
+
+    @Override
+    @NotNull
+    public XsdImportImpl setSchemaLocation(@NotNull URI schemaLocation) {
+        this.schemaLocation = schemaLocation;
+        return this;
     }
 
 }

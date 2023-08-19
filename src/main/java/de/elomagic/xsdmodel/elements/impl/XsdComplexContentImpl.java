@@ -23,6 +23,9 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -43,6 +46,13 @@ public class XsdComplexContentImpl extends AbstractElement implements XsdComplex
     @Override
     public Boolean getMixed() {
         return mixed;
+    }
+
+    @Override
+    @NotNull
+    public XsdComplexContentImpl setMixed(@Nullable Boolean mixed) {
+        this.mixed = mixed;
+        return this;
     }
 
 }

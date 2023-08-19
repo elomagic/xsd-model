@@ -38,6 +38,15 @@ public interface AttributeRef {
     @Nullable
     String getRef();
 
+    /**
+     * Specifies a reference to a named attribute group.
+     * <p>
+     * Optional.
+     *
+     * @param ref String value of attribute <code>ref</code>.
+     */
+    void setRef(@Nullable String ref);
+
     @NotNull
     default Optional<String> getOptionalRef() {
         return Optional.ofNullable(getRef());

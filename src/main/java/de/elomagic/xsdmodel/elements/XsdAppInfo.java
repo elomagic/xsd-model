@@ -44,6 +44,17 @@ public interface XsdAppInfo extends ElementChild {
     @Nullable
     URI getSource();
 
+    /**
+     * A URI reference that specifies the source of the application information.
+     * <p>
+     * Optional.
+     *
+     * @param source String value of attribute <code>source</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdAppInfo setSource(@Nullable URI source);
+
     @NotNull
     default Optional<URI> getOptionalSource() {
         return Optional.ofNullable(getSource());

@@ -52,6 +52,7 @@ public interface XsdElement extends ElementAnnotation, AttributeId, AttributeNam
      *
      * @param type String value of attribute <code>type</code>.
      */
+    @NotNull
     XsdElement setType(@Nullable String type);
 
     /**

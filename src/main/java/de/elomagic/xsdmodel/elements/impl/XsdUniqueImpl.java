@@ -23,6 +23,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdSelector;
 import de.elomagic.xsdmodel.elements.XsdUnique;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -59,6 +61,7 @@ public class XsdUniqueImpl extends AbstractElement implements XsdUnique {
         return selector;
     }
 
+    @NotNull
     public XsdSelector createSelector() {
         selector = new XsdSelectorImpl();
         selector.setParent(this);

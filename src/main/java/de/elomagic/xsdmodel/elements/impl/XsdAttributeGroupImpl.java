@@ -24,6 +24,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 
 import de.elomagic.xsdmodel.elements.XsdAttributeGroup;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -61,6 +63,11 @@ public class XsdAttributeGroupImpl extends AbstractElement implements XsdAttribu
     @Override
     public String getRef() {
         return ref;
+    }
+
+    @Override
+    public void setRef(@Nullable String ref) {
+        this.ref = ref;
     }
 
     @Override

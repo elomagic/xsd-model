@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The <code>unique</code> element defines that an element or an attribute value must be unique within the scope.
  * <p>
@@ -34,6 +36,7 @@ public interface XsdUnique extends ElementChild, AttributeId, AttributeName<XsdU
 
     XsdSelector getSelector();
 
+    @NotNull
     XsdSelector createSelector();
 
 }

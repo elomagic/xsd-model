@@ -21,6 +21,8 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdField;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -40,6 +42,13 @@ public class XsdFieldImpl extends AbstractElement implements XsdField {
     @Override
     public String getXPath() {
         return xpath;
+    }
+
+    @Override
+    @NotNull
+    public XsdFieldImpl setXPath(@NotNull String xpath) {
+        this.xpath = xpath;
+        return this;
     }
 
 }

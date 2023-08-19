@@ -23,6 +23,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdKeyref;
 import de.elomagic.xsdmodel.elements.XsdSelector;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -58,6 +60,13 @@ public class XsdKeyrefImpl extends AbstractElement implements XsdKeyref {
     @Override
     public String getRefer() {
         return refer;
+    }
+
+    @Override
+    @NotNull
+    public XsdKeyrefImpl setRefer(@NotNull String refer) {
+        this.refer = refer;
+        return this;
     }
 
     @Override

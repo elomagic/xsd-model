@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The keyref element specifies that an attribute or element value correspond to those of the specified key or unique element.
  * <p>
@@ -43,6 +45,17 @@ public interface XsdKeyref extends ElementChild, AttributeId, AttributeName<XsdK
      * @return String value of attribute <code>refer</code>.
      */
     String getRefer();
+
+    /**
+     * Specifies the name of a key or unique element defined in this or another schema.
+     * <p>
+     * Required.
+     *
+     * @param refer String value of attribute <code>refer</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdKeyref setRefer(@NotNull String refer);
 
     XsdSelector getSelector();
 

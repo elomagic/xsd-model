@@ -17,6 +17,9 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  * The <code>list</code> element defines a simple type element as a list of values of a specified data type.
  *
@@ -32,5 +35,16 @@ public interface XsdList extends ElementChild, AttributeId {
      * @return String value of attribute <code>itemType</code>.
      */
     String getItemType();
+
+    /**
+     * Specifies the name of a built-in data type or simpleType element defined in this or another schema.
+     * <p>
+     * This attribute is not allowed if the content contains a simpleType element, otherwise it is required.
+     *
+     * @param itemType String value of attribute <code>itemType</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdList setItemType(@Nullable String itemType);
 
 }

@@ -17,6 +17,9 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -32,4 +35,14 @@ public interface XsdComplexContent extends ElementChild, AttributeId {
      */
     Boolean getMixed();
 
+    /**
+     * Specifies whether character data is allowed to appear between the child elements of this complexType element.
+     * <p>
+     * Optional. Default is false. If a simpleContent element is a child element, the mixed attribute is not allowed!
+     *
+     * @param mixed String value of attribute <code>mixed</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdComplexContent setMixed(@Nullable Boolean mixed);
 }

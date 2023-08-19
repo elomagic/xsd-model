@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -31,5 +33,16 @@ public interface XsdField extends ElementChild, AttributeId {
      * @return String value of attribute <code>xpath</code>.
      */
     String getXPath();
+
+    /**
+     * Identifies a single element or attribute whose content or value is used for the constraint.
+     * <p>
+     * Required.
+     *
+     * @param xpath String value of attribute <code>xpath</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdField setXPath(@NotNull String xpath);
 
 }

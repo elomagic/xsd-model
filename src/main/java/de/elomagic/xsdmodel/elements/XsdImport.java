@@ -40,6 +40,17 @@ public interface XsdImport extends ElementChild, AttributeId {
     @Nullable
     String getNamespace();
 
+    /**
+     * Specifies the URI of the namespace to import.
+     * <p>
+     * Optional.
+     *
+     * @param namespace String value of attribute <code>namespace</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdImport setNamespace(@Nullable String namespace);
+
     @NotNull
     default Optional<String> getOptionalNamespace() {
         return Optional.ofNullable(getNamespace());
@@ -53,5 +64,16 @@ public interface XsdImport extends ElementChild, AttributeId {
      * @return String value of attribute <code>schemaLocation</code>.
      */
     URI getSchemaLocation();
+
+    /**
+     * Specifies the URI to the schema to include in the target namespace of the containing schema.
+     * <p>
+     * Required.
+     *
+     * @param schemaLocation String value of attribute <code>schemaLocation</code>.
+     * @return THis instance
+     */
+    @NotNull
+    XsdImport setSchemaLocation(@NotNull URI schemaLocation);
 
 }

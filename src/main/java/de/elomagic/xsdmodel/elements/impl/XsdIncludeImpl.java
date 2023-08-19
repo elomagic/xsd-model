@@ -25,6 +25,8 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdInclude;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -45,6 +47,13 @@ public class XsdIncludeImpl extends AbstractElement implements XsdInclude {
     @Override
     public URI getSchemaLocation() {
         return schemaLocation;
+    }
+
+    @Override
+    @NotNull
+    public XsdIncludeImpl setSchemaLocation(@NotNull URI schemaLocation) {
+        this.schemaLocation = schemaLocation;
+        return this;
     }
 
 }

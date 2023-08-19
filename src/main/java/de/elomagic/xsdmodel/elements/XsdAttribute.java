@@ -49,6 +49,7 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @param value String value of attribute <code>default</code>.
      */
+    @NotNull
     XsdAttribute setDefault(@Nullable String value);
 
     @NotNull
@@ -65,6 +66,17 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      */
     @Nullable
     String getFixed();
+
+    /**
+     * Specifies a fixed value for the attribute.
+     * <p>
+     * Optional. Default and fixed attributes cannot both be present.
+     *
+     * @param fixed String value of attribute <code>fixed</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdAttribute setFixed(@Nullable String fixed);
 
     @NotNull
     default Optional<String> getOptionalFixed() {
@@ -110,6 +122,7 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @param type String value of attribute <code>type</code>.
      */
+    @NotNull
     XsdAttribute setType(@Nullable String type);
 
     @NotNull

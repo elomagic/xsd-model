@@ -115,6 +115,7 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
+    @NotNull
     public XsdElementImpl setType(String type) {
         this.type = type;
         return this;
@@ -155,6 +156,11 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     @Override
     public String getRef() {
         return ref;
+    }
+
+    @Override
+    public void setRef(@Nullable String ref) {
+        this.ref = ref;
     }
 
     @Override

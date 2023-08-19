@@ -21,6 +21,9 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.XsdList;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 /**
  *
  * @author Carsten Rambow
@@ -40,6 +43,13 @@ public class XsdListImpl extends AbstractElement implements XsdList {
     @Override
     public String getItemType() {
         return itemType;
+    }
+
+    @Override
+    @NotNull
+    public XsdListImpl setItemType(@Nullable String itemType) {
+        this.itemType = itemType;
+        return this;
     }
 
 }
