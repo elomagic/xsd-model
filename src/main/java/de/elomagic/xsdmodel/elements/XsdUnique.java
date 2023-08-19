@@ -30,7 +30,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdUnique extends ElementChild, AttributeId, AttributeName {
+public interface XsdUnique extends ElementChild, AttributeId, AttributeName<XsdUnique> {
 
     XsdSelector getSelector();
 

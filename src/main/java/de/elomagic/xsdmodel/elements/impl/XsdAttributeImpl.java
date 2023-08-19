@@ -68,8 +68,9 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
-    public void setName(String name) {
+    public XsdAttributeImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override
@@ -78,8 +79,9 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
-    public void setType(String type) {
+    public XsdAttributeImpl setType(String type) {
         this.type = type;
+        return this;
     }
 
     @Override
@@ -93,8 +95,9 @@ public class XsdAttributeImpl extends AbstractElement implements XsdAttribute {
     }
 
     @Override
-    public void setDefault(@Nullable String value) {
+    public XsdAttributeImpl setDefault(@Nullable String value) {
         this.defaultValue = value;
+        return this;
     }
 
     @Override

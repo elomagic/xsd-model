@@ -216,17 +216,21 @@ public class Key2XsdConverter {
             }
         }
 
-        parentNode.setMaxOccurs(index == null ? "1" : AttributeMinMaxOccurs.UNBOUNDED);
-        parentNode.setType("xs:string");
+        parentNode
+                .setType("xs:string")
+                .setMaxOccurs(index == null ? "1" : AttributeMinMaxOccurs.UNBOUNDED);
 
         if (attr == null) {
             if (setDefaultValue) {
                 parentNode.setDefault(value);
             }
         } else {
-            XsdAttribute attribute = parentNode.getOptionalSimpleType().orElseGet(parentNode::createSimpleType).createAttribute();
-            attribute.setName(attr);
-            attribute.setType("xs:string");
+            XsdAttribute attribute = parentNode
+                    .getOptionalSimpleType()
+                    .orElseGet(parentNode::createSimpleType)
+                    .createAttribute()
+                    .setName(attr)
+                    .setType("xs:string");
 
             if (setDefaultValue) {
                 attribute.setDefault(value);

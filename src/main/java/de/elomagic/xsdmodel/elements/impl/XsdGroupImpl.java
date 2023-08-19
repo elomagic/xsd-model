@@ -52,8 +52,9 @@ public class XsdGroupImpl extends AbstractElement implements XsdGroup {
     }
 
     @Override
-    public void setName(String name) {
+    public XsdGroupImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

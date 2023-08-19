@@ -48,8 +48,9 @@ public class XsdUniqueImpl extends AbstractElement implements XsdUnique {
     }
 
     @Override
-    public void setName(String name) {
+    public XsdUniqueImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

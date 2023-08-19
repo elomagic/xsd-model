@@ -78,8 +78,9 @@ public class XsdSimpleTypeImpl extends AbstractElement implements XsdSimpleType 
     }
 
     @Override
-    public void setName(String name) {
+    public XsdSimpleTypeImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

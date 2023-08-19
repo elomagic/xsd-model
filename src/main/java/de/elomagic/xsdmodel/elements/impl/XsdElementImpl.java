@@ -103,8 +103,9 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public void setName(String name) {
+    public XsdElementImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override
@@ -113,8 +114,9 @@ public class XsdElementImpl extends AbstractElement implements XsdElement {
     }
 
     @Override
-    public void setType(String type) {
+    public XsdElementImpl setType(String type) {
         this.type = type;
+        return this;
     }
 
     @Override

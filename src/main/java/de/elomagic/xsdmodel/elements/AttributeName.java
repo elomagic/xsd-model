@@ -21,7 +21,7 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface AttributeName {
+public interface AttributeName<O> {
 
     /**
      * Specifies a name for the element.
@@ -35,5 +35,5 @@ public interface AttributeName {
      *
      * @param name String value of attribute <code>name</code>.
      */
-    void setName(String name);
+    O setName(String name);
 }

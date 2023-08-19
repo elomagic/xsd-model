@@ -53,8 +53,9 @@ public class XsdAttributeGroupImpl extends AbstractElement implements XsdAttribu
     }
 
     @Override
-    public void setName(String name) {
+    public XsdAttributeGroupImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override

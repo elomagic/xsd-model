@@ -30,7 +30,7 @@ import java.util.Optional;
  *
  * @author Carsten Rambow
  */
-public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeName, AttributeRef {
+public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeName<XsdAttribute>, AttributeRef {
 
     /**
      * Specifies a default value for the attribute.
@@ -49,7 +49,7 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @param value String value of attribute <code>default</code>.
      */
-    void setDefault(@Nullable String value);
+    XsdAttribute setDefault(@Nullable String value);
 
     @NotNull
     default Optional<String> getOptionalDefault() {
@@ -110,7 +110,7 @@ public interface XsdAttribute extends ElementAnnotation, AttributeId, AttributeN
      *
      * @param type String value of attribute <code>type</code>.
      */
-    void setType(@Nullable String type);
+    XsdAttribute setType(@Nullable String type);
 
     @NotNull
     default Optional<String> getOptionalType() {

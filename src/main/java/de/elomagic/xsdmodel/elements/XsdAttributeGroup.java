@@ -27,7 +27,7 @@ import java.util.stream.Stream;
  *
  * @author Carsten Rambow
  */
-public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeName, AttributeRef {
+public interface XsdAttributeGroup extends ElementChild, AttributeId, AttributeName<XsdAttributeGroup>, AttributeRef {
 
     List<? extends XsdAttributeGroup> getAttributeGroups();
 

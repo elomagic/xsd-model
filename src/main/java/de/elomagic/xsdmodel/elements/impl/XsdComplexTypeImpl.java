@@ -90,8 +90,9 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
-    public void setName(String name) {
+    public XsdComplexTypeImpl setName(String name) {
         this.name = name;
+        return this;
     }
 
     @Override
