@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdMaxLength extends ElementAnnotation, AttributeValue<Integer>, AttributeFixed, AttributeId {
+public interface XsdMaxLength extends ElementAnnotation, AttributeValue<Integer>, AttributeFixed<XsdMaxLength>, AttributeId {
 
 }

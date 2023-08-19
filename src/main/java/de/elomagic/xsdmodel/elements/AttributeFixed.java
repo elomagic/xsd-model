@@ -21,10 +21,10 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface AttributeFixed {
+public interface AttributeFixed<O> {
 
     Boolean getFixed();
 
-    AttributeFixed setFixed(Boolean fixed);
+    O setFixed(Boolean fixed);
 
 }

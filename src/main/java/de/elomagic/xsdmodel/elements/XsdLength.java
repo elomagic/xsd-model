@@ -24,6 +24,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdLength extends ElementAnnotation, AttributeValue<Integer>, AttributeFixed {
+public interface XsdLength extends ElementAnnotation, AttributeValue<Integer>, AttributeFixed<XsdLength> {
 
 }

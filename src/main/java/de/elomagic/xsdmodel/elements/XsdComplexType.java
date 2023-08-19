@@ -33,7 +33,7 @@ import java.util.stream.Stream;
  *
  * @author Carsten Rambow
  */
-public interface XsdComplexType extends ElementChild, AttributeId, AttributeName, AttributeAny, Attributes {
+public interface XsdComplexType extends ElementChild, AttributeId, AttributeName<XsdComplexType>, AttributeAny, Attributes {
 
     /**
      * Specifies whether the complex type can be used in an instance document.
