@@ -21,11 +21,13 @@ import jakarta.xml.bind.annotation.XmlAttribute;
 
 import de.elomagic.xsdmodel.elements.AttributeValue;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
  */
-public abstract class AbstractValueElement extends AbstractElement implements AttributeValue<String> {
+public abstract class AbstractValueElement<O> extends AbstractElement implements AttributeValue<String, O> {
 
     @XmlAttribute
     private String value;
@@ -33,6 +35,13 @@ public abstract class AbstractValueElement extends AbstractElement implements At
     @Override
     public String getValue() {
         return value;
+    }
+
+    @Override
+    @NotNull
+    public O setValue(String value) {
+        this.value = value;
+        return (O)this;
     }
 
 }

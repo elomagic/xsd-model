@@ -68,6 +68,13 @@ public class XsdMaxLengthImpl extends AbstractElement implements XsdMaxLength {
     }
 
     @Override
+    @NotNull
+    public XsdMaxLength setValue(Integer value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }

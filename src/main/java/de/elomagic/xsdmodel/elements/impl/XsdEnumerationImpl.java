@@ -44,6 +44,13 @@ public class XsdEnumerationImpl extends AbstractElement implements XsdEnumeratio
     }
 
     @Override
+    @NotNull
+    public XsdEnumeration setValue(String value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }

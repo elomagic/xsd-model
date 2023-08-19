@@ -32,7 +32,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Carsten Rambow
  */
-public class XsdMinExclusiveImpl extends AbstractValueElement implements XsdMinExclusive {
+public class XsdMinExclusiveImpl extends AbstractValueElement<XsdMinExclusive> implements XsdMinExclusive {
 
     @XmlAttribute
     @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)

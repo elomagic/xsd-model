@@ -25,6 +25,8 @@ import de.elomagic.xsdmodel.adapter.WhiteSpaceValueAdapter;
 import de.elomagic.xsdmodel.elements.XsdWhiteSpace;
 import de.elomagic.xsdmodel.enumerations.WhiteSpace;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -41,6 +43,13 @@ public class XsdWhiteSpaceImpl extends AbstractElement implements XsdWhiteSpace 
     @Override
     public WhiteSpace getValue() {
         return value;
+    }
+
+    @Override
+    @NotNull
+    public XsdWhiteSpace setValue(WhiteSpace value) {
+        this.value = value;
+        return this;
     }
 
     @Override

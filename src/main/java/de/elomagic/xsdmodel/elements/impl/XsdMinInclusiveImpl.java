@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Carsten Rambow
  */
-public class XsdMinInclusiveImpl extends AbstractValueElement implements XsdMinInclusive {
+public class XsdMinInclusiveImpl extends AbstractValueElement<XsdMinInclusive> implements XsdMinInclusive {
 
     @XmlAttribute
     @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)

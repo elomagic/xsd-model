@@ -50,6 +50,13 @@ public class XsdFractionDigitsImpl extends AbstractElement implements XsdFractio
     }
 
     @Override
+    @NotNull
+    public XsdFractionDigits setValue(Integer value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
     public Boolean getFixed() {
         return fixed;
     }

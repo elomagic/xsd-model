@@ -61,6 +61,13 @@ public class XsdTotalDigitsImpl extends AbstractElement implements XsdTotalDigit
     }
 
     @Override
+    @NotNull
+    public XsdTotalDigits setValue(Integer value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
     public XsdAnnotation getAnnotation() {
         return annotation;
     }

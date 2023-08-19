@@ -28,7 +28,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Carsten Rambow
  */
-public class XsdPatternImpl extends AbstractValueElement implements XsdPattern {
+public class XsdPatternImpl extends AbstractValueElement<XsdPattern> implements XsdPattern {
 
     @XmlElement
     private XsdAnnotationImpl annotation;

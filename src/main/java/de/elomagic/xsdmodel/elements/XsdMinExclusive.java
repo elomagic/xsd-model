@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdMinExclusive extends ElementAnnotation<XsdMinExclusive>, AttributeValue<String>, AttributeFixed<XsdMinExclusive> {
+public interface XsdMinExclusive extends ElementAnnotation<XsdMinExclusive>, AttributeValue<String, XsdMinExclusive>, AttributeFixed<XsdMinExclusive> {
 
 }

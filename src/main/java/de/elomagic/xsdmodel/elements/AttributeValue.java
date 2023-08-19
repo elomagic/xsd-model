@@ -17,12 +17,17 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
  */
-public interface AttributeValue<T> {
+public interface AttributeValue<T, O> {
 
     T getValue();
+
+    @NotNull
+    O setValue(T value);
 
 }

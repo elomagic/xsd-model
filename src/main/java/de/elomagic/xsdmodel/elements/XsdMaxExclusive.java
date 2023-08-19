@@ -22,6 +22,6 @@ package de.elomagic.xsdmodel.elements;
  *
  * @author Carsten Rambow
  */
-public interface XsdMaxExclusive extends ElementAnnotation<XsdMaxExclusive>, AttributeValue<String>, AttributeFixed<XsdMaxExclusive> {
+public interface XsdMaxExclusive extends ElementAnnotation<XsdMaxExclusive>, AttributeValue<String, XsdMaxExclusive>, AttributeFixed<XsdMaxExclusive> {
 
 }

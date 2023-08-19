@@ -50,6 +50,13 @@ public class XsdMinLengthImpl extends AbstractElement implements XsdMinLength {
     }
 
     @Override
+    @NotNull
+    public XsdMinLength setValue(Integer value) {
+        this.value = value;
+        return this;
+    }
+
+    @Override
     public Boolean getFixed() {
         return fixed;
     }

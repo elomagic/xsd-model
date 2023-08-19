@@ -31,7 +31,7 @@ import org.jetbrains.annotations.NotNull;
  *
  * @author Carsten Rambow
  */
-public class XsdMaxInclusiveImpl extends AbstractValueElement implements XsdMaxInclusive {
+public class XsdMaxInclusiveImpl extends AbstractValueElement<XsdMaxInclusive> implements XsdMaxInclusive {
 
     @XmlAttribute
     @XmlJavaTypeAdapter(BooleanDataTypeAdapter.class)

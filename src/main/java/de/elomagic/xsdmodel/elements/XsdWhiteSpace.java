@@ -24,6 +24,6 @@ import de.elomagic.xsdmodel.enumerations.WhiteSpace;
  *
  * @author Carsten Rambow
  */
-public interface XsdWhiteSpace extends AttributeValue<WhiteSpace>, AttributeFixed<XsdWhiteSpace> {
+public interface XsdWhiteSpace extends AttributeValue<WhiteSpace, XsdWhiteSpace>, AttributeFixed<XsdWhiteSpace> {
 
 }
