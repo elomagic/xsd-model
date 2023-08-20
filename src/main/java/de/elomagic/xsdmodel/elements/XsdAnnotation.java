@@ -40,6 +40,14 @@ public interface XsdAnnotation extends ElementChild, AttributeId {
     XsdDocumentation getDocumentation();
 
     /**
+     * Returns the documentation element, which is used to enter text comments in a schema.
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdDocumentation createDocumentation();
+
+    /**
      * Returns {@link Optional} of the documentation element, which is used to enter text comments in a schema.
      *
      * @return  Optional of element <code>documentation</code>.
@@ -50,14 +58,24 @@ public interface XsdAnnotation extends ElementChild, AttributeId {
     }
 
     /**
-     * Returns element <code>appInfo</code>.
+     * Creates element <code>appInfo</code>.
      * <p>
-     * This is a non standard XSD element.
+     * This is a non-standard XSD element.
      *
      * @return Element <code>appinfo</code>.
      */
     @Nullable
     XsdAppInfo getAppInfo();
+
+    /**
+     * Creates element <code>appInfo</code>.
+     * <p>
+     * This is a non-standard XSD element.
+     *
+     * @return Created element <code>appinfo</code>.
+     */
+    @NotNull
+    XsdAppInfo createAppInfo();
 
     /**
      * Returns {@link java.util.Optional} element <code>appInfo</code>.

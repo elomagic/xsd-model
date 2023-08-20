@@ -17,13 +17,15 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-import java.net.URI;
-
 import jakarta.xml.bind.annotation.XmlAttribute;
 import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import de.elomagic.xsdmodel.adapter.AnyURIDataTypeAdapter;
 import de.elomagic.xsdmodel.elements.XsdRedefine;
+
+import org.jetbrains.annotations.NotNull;
+
+import java.net.URI;
 
 /**
  *
@@ -45,6 +47,13 @@ public class XsdRedefineImpl extends AbstractElement implements XsdRedefine {
     @Override
     public URI getSchemaLocation() {
         return schemaLocation;
+    }
+
+    @Override
+    @NotNull
+    public XsdRedefineImpl setSchemaLocation(@NotNull URI schemaLocation) {
+        this.schemaLocation = schemaLocation;
+        return this;
     }
 
 }

@@ -63,6 +63,9 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     XsdFractionDigits getFractionDigits();
 
     @NotNull
+    XsdFractionDigits createFractionDigits();
+
+    @NotNull
     default Optional<XsdFractionDigits> getOptionalFractionDigits() {
         return Optional.ofNullable(getFractionDigits());
     }
@@ -94,12 +97,18 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     XsdMaxExclusive getMaxExclusive();
 
     @NotNull
+    XsdMaxExclusive createMaxExclusive();
+
+    @NotNull
     default Optional<XsdMaxExclusive> getOptionalMaxExclusive() {
         return Optional.ofNullable(getMaxExclusive());
     }
 
     @Nullable
     XsdMinLength getMinLength();
+
+    @NotNull
+    XsdMinLength createMinLength();
 
     @NotNull
     default Optional<XsdMinLength> getOptionalMinLength() {
@@ -110,12 +119,18 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     XsdMinInclusive getMinInclusive();
 
     @NotNull
+    XsdMinInclusive createMinInclusive();
+
+    @NotNull
     default Optional<XsdMinInclusive> getOptionalMinInclusive() {
         return Optional.ofNullable(getMinInclusive());
     }
 
     @Nullable
     XsdMinExclusive getMinExclusive();
+
+    @NotNull
+    XsdMinExclusive createMinExclusive();
 
     @NotNull
     default Optional<XsdMinExclusive> getOptionalMinExclusive() {
@@ -132,6 +147,16 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     @Nullable
     XsdMaxLength getMaxLength();
 
+    /**
+     * Specifies the maximum number of characters or list items allowed.
+     * <p>
+     * Must be equal to or greater than zero
+     *
+     * @return Created element.
+     */
+    @NotNull
+    XsdMaxLength createMaxLength();
+
     @NotNull
     default Optional<XsdMaxLength> getOptionalMaxLength() {
         return Optional.ofNullable(getMaxLength());
@@ -139,6 +164,9 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
 
     @Nullable
     XsdMaxInclusive getMaxInclusive();
+
+    @NotNull
+    XsdMaxInclusive createMaxInclusive();
 
     @NotNull
     default Optional<XsdMaxInclusive> getOptionalMaxInclusive() {
@@ -149,6 +177,9 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     XsdPattern getPattern();
 
     @NotNull
+    XsdPattern createPattern();
+
+    @NotNull
     default Optional<XsdPattern> getOptionalPattern() {
         return Optional.ofNullable(getPattern());
     }
@@ -157,12 +188,18 @@ public interface XsdRestriction extends ElementAnnotation, AttributeId {
     XsdTotalDigits getTotalDigits();
 
     @NotNull
+    XsdTotalDigits createTotalDigits();
+
+    @NotNull
     default Optional<XsdTotalDigits> getOptionalTotalDigits() {
         return Optional.ofNullable(getTotalDigits());
     }
 
     @Nullable
     XsdWhiteSpace getWhiteSpace();
+
+    @NotNull
+    XsdWhiteSpace createWhiteSpace();
 
     @NotNull
     default Optional<XsdWhiteSpace> getOptionalWhiteSpace() {

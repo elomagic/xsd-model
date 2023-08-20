@@ -59,4 +59,7 @@ public interface XsdKeyref extends ElementChild, AttributeId, AttributeName<XsdK
 
     XsdSelector getSelector();
 
+    @NotNull
+    XsdSelector createSelector();
+
 }

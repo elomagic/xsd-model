@@ -97,6 +97,14 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdFractionDigitsImpl createFractionDigits() {
+        fractionDigits = new XsdFractionDigitsImpl();
+        fractionDigits.setParent(this);
+        return fractionDigits;
+    }
+
+    @Override
     public XsdLengthImpl getLength() {
         setParentInProperty(length);
         return length;
@@ -117,14 +125,39 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdMaxExclusiveImpl createMaxExclusive() {
+        maxExclusive = new XsdMaxExclusiveImpl();
+        maxExclusive.setParent(this);
+        return maxExclusive;
+    }
+
+    @Override
     public XsdMinLengthImpl getMinLength() {
         setParentInProperty(minLength);
         return minLength;
     }
 
     @Override
+    @NotNull
+    public XsdMinLengthImpl createMinLength() {
+        minLength = new XsdMinLengthImpl();
+        minLength.setParent(this);
+        return minLength;
+    }
+
+
+    @Override
     public XsdMinInclusiveImpl getMinInclusive() {
         setParentInProperty(minInclusive);
+        return minInclusive;
+    }
+
+    @Override
+    @NotNull
+    public XsdMinInclusiveImpl createMinInclusive() {
+        minInclusive = new XsdMinInclusiveImpl();
+        minInclusive.setParent(this);
         return minInclusive;
     }
 
@@ -135,8 +168,24 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdMinExclusiveImpl createMinExclusive() {
+        minExclusive = new XsdMinExclusiveImpl();
+        minExclusive.setParent(this);
+        return minExclusive;
+    }
+
+    @Override
     public XsdMaxLengthImpl getMaxLength() {
         setParentInProperty(maxLength);
+        return maxLength;
+    }
+
+    @Override
+    @NotNull
+    public XsdMaxLengthImpl createMaxLength() {
+        maxLength = new XsdMaxLengthImpl();
+        maxLength.setParent(this);
         return maxLength;
     }
 
@@ -147,8 +196,24 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdMaxInclusiveImpl createMaxInclusive() {
+        maxInclusive = new XsdMaxInclusiveImpl();
+        maxInclusive.setParent(this);
+        return maxInclusive;
+    }
+
+    @Override
     public XsdPatternImpl getPattern() {
         setParentInProperty(pattern);
+        return pattern;
+    }
+
+    @Override
+    @NotNull
+    public XsdPatternImpl createPattern() {
+        pattern = new XsdPatternImpl();
+        pattern.setParent(this);
         return pattern;
     }
 
@@ -159,8 +224,24 @@ public class XsdRestrictionImpl extends AbstractElement implements XsdRestrictio
     }
 
     @Override
+    @NotNull
+    public XsdTotalDigitsImpl createTotalDigits() {
+        totalDigits = new XsdTotalDigitsImpl();
+        totalDigits.setParent(this);
+        return totalDigits;
+    }
+
+    @Override
     public XsdWhiteSpaceImpl getWhiteSpace() {
         setParentInProperty(whiteSpace);
+        return whiteSpace;
+    }
+
+    @Override
+    @NotNull
+    public XsdWhiteSpaceImpl createWhiteSpace() {
+        whiteSpace = new XsdWhiteSpaceImpl();
+        whiteSpace.setParent(this);
         return whiteSpace;
     }
 

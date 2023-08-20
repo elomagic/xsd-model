@@ -23,6 +23,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdKey;
 import de.elomagic.xsdmodel.elements.XsdSelector;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -56,6 +58,14 @@ public class XsdKeyImpl extends AbstractElement implements XsdKey {
     @Override
     public XsdSelector getSelector() {
         setParentInProperty(selector);
+        return selector;
+    }
+
+    @Override
+    @NotNull
+    public XsdSelectorImpl createSelector() {
+        selector = new XsdSelectorImpl();
+        selector.setParent(this);
         return selector;
     }
 

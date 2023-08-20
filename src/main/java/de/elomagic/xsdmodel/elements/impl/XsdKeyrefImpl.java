@@ -75,4 +75,12 @@ public class XsdKeyrefImpl extends AbstractElement implements XsdKeyref {
         return selector;
     }
 
+    @Override
+    @NotNull
+    public XsdSelectorImpl createSelector() {
+        selector = new XsdSelectorImpl();
+        selector.setParent(this);
+        return selector;
+    }
+
 }

@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  * The key element specifies an attribute or element value as a key (unique, non-nullable, and always present) within the containing element in an instance
  * document.
@@ -35,5 +37,8 @@ package de.elomagic.xsdmodel.elements;
 public interface XsdKey extends ElementChild, AttributeId, AttributeName<XsdKey> {
 
     XsdSelector getSelector();
+
+    @NotNull
+    XsdSelector createSelector();
 
 }

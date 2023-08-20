@@ -39,6 +39,6 @@ public interface XsdSelector extends ElementChild, AttributeId {
     String getXpath();
 
     @NotNull
-    public XsdSelector setXpath(@NotNull String xpath);
+    XsdSelector setXpath(@NotNull String xpath);
 
 }

@@ -120,7 +120,7 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     /**
      * Creates a {@link XsdAll} and set them to this instance.
      *
-     * @return The {@link XsdAll}
+     * @return The created {@link XsdAll}
      */
     @NotNull
     XsdAll createAll();
@@ -151,6 +151,18 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     @Nullable
     XsdSimpleContent getSimpleContent();
 
+    /**
+     * Creates the <code>simpleContent</code> element if exists.
+     * <p>
+     * The <code>simpleContent</code> element contains extensions or restrictions on a text-only complex type or on a simple type as content and contains no elements.
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_simpleContent.asp">W3Schools</a>
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdSimpleContent createSimpleContent();
+
     @NotNull
     default Optional<XsdSimpleContent> getOptionalSimpleContent() {
         return Optional.ofNullable(getSimpleContent());
@@ -168,6 +180,18 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
     @Nullable
     XsdComplexContent getComplexContent();
 
+    /**
+     * Creates the <code>complexContent</code> element if exists.
+     * <p>
+     * The <code>complexContent</code> element defines extensions or restrictions on a complex type that contains mixed content or elements only.
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_complexcontent.asp">W3Schools</a>
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdComplexContent createComplexContent();
+
     @NotNull
     default Optional<XsdComplexContent> getOptionalComplexContent() {
         return Optional.ofNullable(getComplexContent());
@@ -184,6 +208,18 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      */
     @Nullable
     XsdSequence getSequence();
+
+    /**
+     * Creates the <code>sequence</code> element if exists.
+     * <p>
+     * The <code>sequence</code> element specifies that the child elements must appear in a sequence. Each child element can occur from 0 to any number of times (Default is one time).
+     * <p>
+     * See also <a href="https://www.w3schools.com/xml/el_sequence.asp">W3Schools</a>
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdSequence createSequence();
 
     /**
      * Returns the {@link Optional} of {@link #getSequence()}.
@@ -204,10 +240,20 @@ public interface XsdComplexType extends ElementChild, AttributeId, AttributeName
      * <p>
      * XML Schema <code>choice</code> element allows only one of the elements contained in the &lt;choice&gt; declaration to be present within the containing element (Default is one time).
      *
-     * @return Returns the element of null
+     * @return Returns the element or null
      */
     @Nullable
     XsdChoice getChoice();
+
+    /**
+     * Creates the <code>choice</code> element if exists.
+     * <p>
+     * XML Schema <code>choice</code> element allows only one of the elements contained in the &lt;choice&gt; declaration to be present within the containing element (Default is one time).
+     *
+     * @return The created element
+     */
+    @NotNull
+    XsdChoice createChoice();
 
     /**
      * Returns the {@link Optional} of {@link #getChoice()}.

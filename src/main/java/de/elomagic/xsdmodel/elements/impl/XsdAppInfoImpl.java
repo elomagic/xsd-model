@@ -59,4 +59,12 @@ public class XsdAppInfoImpl extends AbstractElement implements XsdAppInfo {
         return nodeInfo;
     }
 
+    @Override
+    @NotNull
+    public XsdNodeInfoImpl createNodeInfo() {
+        nodeInfo = new XsdNodeInfoImpl();
+        nodeInfo.setParent(this);
+        return nodeInfo;
+    }
+
 }

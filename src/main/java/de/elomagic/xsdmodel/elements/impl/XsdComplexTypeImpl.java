@@ -135,7 +135,23 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
+    @NotNull
+    public XsdSimpleContent createSimpleContent() {
+        simpleContent = new XsdSimpleContentImpl();
+        simpleContent.setParent(this);
+        return simpleContent;
+    }
+
+    @Override
     public XsdComplexContent getComplexContent() {
+        return complexContent;
+    }
+
+    @Override
+    @NotNull
+    public XsdComplexContent createComplexContent() {
+        complexContent = new XsdComplexContentImpl();
+        complexContent.setParent(this);
         return complexContent;
     }
 
@@ -161,8 +177,24 @@ public class XsdComplexTypeImpl extends AbstractElement implements XsdComplexTyp
     }
 
     @Override
+    @NotNull
+    public XsdSequenceImpl createSequence() {
+        sequence = new XsdSequenceImpl();
+        sequence.setParent(this);
+        return sequence;
+    }
+
+    @Override
     public XsdChoiceImpl getChoice() {
         setParentInProperty(choice);
+        return choice;
+    }
+
+    @Override
+    @NotNull
+    public XsdChoiceImpl createChoice() {
+        choice = new XsdChoiceImpl();
+        choice.setParent(this);
         return choice;
     }
 

@@ -17,6 +17,8 @@
  */
 package de.elomagic.xsdmodel.elements;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.net.URI;
 
 /**
@@ -35,4 +37,14 @@ public interface XsdRedefine extends ElementChild, AttributeId {
      */
     URI getSchemaLocation();
 
+    /**
+     * A URI to the location of a schema document.
+     * <p>
+     * Required.
+     *
+     * @param schemaLocation String value of attribute <code>schemaLocation</code>.
+     * @return This instance
+     */
+    @NotNull
+    XsdRedefine setSchemaLocation(@NotNull URI schemaLocation);
 }

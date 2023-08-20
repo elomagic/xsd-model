@@ -64,6 +64,9 @@ public interface XsdAppInfo extends ElementChild {
     XsdNodeInfo getNodeInfo();
 
     @NotNull
+    XsdNodeInfo createNodeInfo();
+
+    @NotNull
     default Optional<XsdNodeInfo> getOptionalNodeInfo() {
         return Optional.ofNullable(getNodeInfo());
     }

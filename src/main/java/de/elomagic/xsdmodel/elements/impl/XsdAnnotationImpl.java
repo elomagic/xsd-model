@@ -23,6 +23,8 @@ import jakarta.xml.bind.annotation.XmlElement;
 import de.elomagic.xsdmodel.elements.XsdAnnotation;
 import de.elomagic.xsdmodel.elements.XsdAppInfo;
 
+import org.jetbrains.annotations.NotNull;
+
 /**
  *
  * @author Carsten Rambow
@@ -49,7 +51,23 @@ public class XsdAnnotationImpl extends AbstractElement implements XsdAnnotation 
     }
 
     @Override
+    @NotNull
+    public XsdDocumentationImpl createDocumentation() {
+        documentation = new XsdDocumentationImpl();
+        documentation.setParent(this);
+        return documentation;
+    }
+
+    @Override
     public XsdAppInfo getAppInfo() {
+        return appInfo;
+    }
+
+    @Override
+    @NotNull
+    public XsdAppInfo createAppInfo() {
+        appInfo = new XsdAppInfoImpl();
+        appInfo.setParent(this);
         return appInfo;
     }
 
