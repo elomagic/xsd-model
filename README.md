@@ -124,20 +124,7 @@ Execute following steps:
 * Are the [CHANGELOG.md](https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md) up to date?
 * Check the version in the ```pom.xml``` and [CHANGELOG.md](https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md)
 * Set release date in the [CHANGELOG.md](https://github.com/elomagic/xsd-model/blob/main/CHANGELOG.md)
-* Credentials (Nexus, GitHub) up to date?
-* Execute Maven release process
-  ```bash
-  mvn clean install release:prepare -P release
-  mvn release:perform -P release
-  ```
-
-#### Releasing snapshot package on GitHub
-
-Execute Maven deploy process
-
-```bash
-mvn clean install deploy
-```
+* Execute GitHub action "release"
 
 ## Who do I talk to? ###
 
