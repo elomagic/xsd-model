@@ -54,4 +54,4 @@ jobs:
           draft: true
           prerelease: false
           files: |
-            target/xml*.*
+            target/xsd*.*
