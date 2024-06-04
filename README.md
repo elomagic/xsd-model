@@ -2,6 +2,8 @@
 
 ---
 
+[![Apache License, Version 2.0, January 2004](https://img.shields.io/github/license/apache/maven.svg?label=License)][license]
+[![Maven Central](https://img.shields.io/maven-central/v/de.elomagic/xsd-model.svg?label=Maven%20Central)](https://mvnrepository.com/artifact/de.elomagic/xsd-model)
 [![build workflow](https://github.com/elomagic/xsd-model/actions/workflows/maven.yml/badge.svg)](https://github.com/elomagic/xsd-model/actions)
 [![GitHub issues](https://img.shields.io/github/issues-raw/elomagic/xsd-model)](https://github.com/elomagic/xsd-model/issues)
 [![GitHub tag](https://img.shields.io/github/tag/elomagic/xsd-model.svg)](https://GitHub.com/elomagic/xsd-model/tags/)
@@ -144,3 +146,5 @@ mvn clean install deploy
 ## License
 
 The xsd-model is distributed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
+
+[license]: https://www.apache.org/licenses/LICENSE-2.0
