@@ -44,7 +44,6 @@ import java.util.stream.Stream;
 
 /**
  * Very <b>experimental</b> small tooling class to map a simple XSD into a key properties map.
- * <p>
  */
 public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
@@ -96,10 +95,8 @@ public class Xsd2KeyValueConverter<T extends KeyProperties> {
 
     /**
      * Returns delimiters string
-     * <p>
-     * Default "." (Dot)
      *
-     * @return Returns a string.
+     * @return Returns a string. Default "." (Dot)
      */
     @NotNull
     public String getKeyDelimiter() {

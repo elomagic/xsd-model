@@ -17,10 +17,6 @@
  */
 package de.elomagic.xsdmodel.elements.impl;
 
-/**
- *
- * @author Carsten Rambow
- */
 public interface ElementSetParent {
 
     void setParent(AbstractElement parent);

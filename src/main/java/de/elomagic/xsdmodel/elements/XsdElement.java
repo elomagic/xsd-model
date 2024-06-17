@@ -30,8 +30,6 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * The <code>element</code> element defines an element.
- * <p>
- * What else?
  *
  * @author Carsten Rambow
  */
