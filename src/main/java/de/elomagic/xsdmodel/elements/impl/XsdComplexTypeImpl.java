@@ -25,7 +25,6 @@ import jakarta.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import de.elomagic.xsdmodel.adapter.BlockValueAdapter;
 import de.elomagic.xsdmodel.adapter.BooleanDataTypeAdapter;
 import de.elomagic.xsdmodel.adapter.FinalValueAdapter;
-import de.elomagic.xsdmodel.elements.AttributeAny;
 import de.elomagic.xsdmodel.elements.XsdComplexContent;
 import de.elomagic.xsdmodel.elements.XsdComplexType;
 import de.elomagic.xsdmodel.elements.XsdSimpleContent;
